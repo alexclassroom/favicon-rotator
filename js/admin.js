@@ -2,6 +2,19 @@
  * Admin JS
  * @package Favicon Rotator
  */
+
+/* Prototypes */
+
+if ( !Array.indexOf ) {
+	Array.prototype.indexOf = function(val) {
+		for ( var x = 0; x < this.length; x++ ) {
+			if ( this[x] == val )
+				return x;
+		}
+		return -1;
+	}
+}
+
 if ( typeof(fvrt) == 'undefined' || typeof(fvrt) != 'object' )
 	fvrt = {};
 (function($) {

@@ -21,6 +21,7 @@
 	margin: 0 1em 1em 0;
 	padding: 1em 2em 1em 1em;
 	position: relative;
+	-moz-border-radius: 5px;
 }
 
 .fv_item .icon {
