@@ -386,7 +386,7 @@ class FaviconRotator extends FVRT_Base {
 			//Select random icon
 			$idx = ( count($icons) > 1 ) ? array_rand($icons) : 0;
 			$icon_id = $icons[$idx];
-			$icon = array_shift($this->media->get_icon_src($icon_id));
+			$icon = array_shift($this->media->get_icon_src($icon_id, $type));
 			//Validate icon
 			if ( !is_string($icon) || empty($icon) ) {
 				//Reset variable to NULL (will loop to next icon)

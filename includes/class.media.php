@@ -206,10 +206,13 @@ class FVRT_Media extends FVRT_Base {
 	 * @param int $icon_id Attachment ID
 	 * @return array Image data (src, width, height)
 	 */
-	function get_icon_src($icon_id) {
-		$this->update_attachment_metadata($icon_id);
-		$p = $this->get_request_props();
-		$icon = ( wp_attachment_is_image($icon_id) && !!$p ) ? wp_get_attachment_image_src($icon_id, $p->media) : wp_get_attachment_url($icon_id);
+	function get_icon_src($icon_id, $type = null) {
+		$this->update_attachment_metadata($icon_id, $type);
+		if ( is_null($type) ) {
+			$p = $this->get_request_props();
+			$type = $p->media;
+		}
+		$icon = ( wp_attachment_is_image($icon_id) && !is_null($type) ) ? wp_get_attachment_image_src($icon_id, $type) : wp_get_attachment_url($icon_id);
 		if ( !is_array($icon) )
 			$icon = array($icon, 0, 0);
 		return $icon;
@@ -219,12 +222,15 @@ class FVRT_Media extends FVRT_Base {
 	 * Updates image intermediate size if necessary
 	 * @param int $id Attachment ID
 	 */
-	function update_attachment_metadata($id) {
-		$p = $this->get_request_props();
-		if ( !$p )
-			return false;
+	function update_attachment_metadata($id, $type = null) {
+		if ( is_null($type) ) {
+			$p = $this->get_request_props();
+			if ( !$p )
+				return false;
+			$type = $p->media;
+		}
 		//Generate intermediate size (if necessary)
-		if ( ( $meta = wp_get_attachment_metadata($id) ) && !isset($meta['sizes'][$p->media]) && wp_attachment_is_image($id) ) {
+		if ( ( $meta = wp_get_attachment_metadata($id) ) && !isset($meta['sizes'][$type]) && wp_attachment_is_image($id) ) {
 			//Full metadata update
 			if ( function_exists('wp_generate_attachment_metadata') ) {
 				$data = wp_generate_attachment_metadata($id, get_attached_file($id));
