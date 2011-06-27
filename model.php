@@ -40,7 +40,7 @@ class FaviconRotator extends FVRT_Base {
 	var $icon_types = array(
 		'favicon'	=> array(
 			'lbl_title'		=> 'Browser Icon',
-			'lbl_set'		=> 'Set Browser Icon'
+			'lbl_set'		=> 'Add Browser Icon'
 		),
 		'touch'		=> array(
 			'limit'			=> 1,
