@@ -398,7 +398,7 @@ class FVRT_Media extends FVRT_Base {
 				}
 				
 				//Add "Set as Image" button (if valid attachment type)
-				$set_as = __( ( isset($q->set) ) ? $q->set : 'Set Media' );
+				$set_as = __( ( isset($q->lbl_set) ) ? $q->lbl_set : 'Set Media' );
 				$field_name = sprintf('%1$s[%2$s]', $this->var_setmedia, $post->ID);
 				$field_html = $this->util->build_input_element('submit', $field_name, $set_as, array('class' => 'button'));
 				$field = array(
