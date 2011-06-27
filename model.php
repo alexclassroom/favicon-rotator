@@ -456,7 +456,7 @@ class FaviconRotator extends FVRT_Base {
 		//Get saved icons
 		if ( isset($_POST['fv_submit']) )
 			$this->save_icons();
-		$class = "button add-new-h2 thickbox fv_btn";
+		$class = "button thickbox fv_btn";
 		//Setup query arguments
 		$filter = array('limit', 'lbl_title', 'lbl_add', 'lbl_empty', 'display');
 		$upload_args_base = array_diff(array_keys($this->icon_type_default_properties), $filter);
