@@ -47,7 +47,7 @@ No upgrade notices
 
 == Frequently Asked Questions ==
 
-Go to http://archetyped.com/tools/favicon-rotator/ for any questions or comments
+[Please post questions/feedback on the beta release page](http://archetyped.com/lab/fir-1-2-beta/)
 
 == Screenshots ==
 
