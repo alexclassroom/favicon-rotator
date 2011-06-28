@@ -203,8 +203,8 @@ if ( typeof(fvrt) != 'object' )
 	fvrt.addItem = function(img) {
 		if ( typeof img != 'object' )
 			return false;
-		if ( img.media )
-			img.type = img.media;
+		if ( img.type_name )
+			img.type = img.type_name;
 		if ( img.id && img.name && img.url && img.type && !this.hasId(img)) {
 			//Build new item
 			var	id_base = img.type + '_' + img.id,

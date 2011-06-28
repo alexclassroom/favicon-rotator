@@ -54,6 +54,18 @@ class FVRT_Media extends FVRT_Base {
 	var $upload_url_args;
 	
 	/**
+	 * Intermediate media types
+	 * @var array
+	 */
+	var $types = array();
+	
+	/**
+	 * Name of type for current request
+	 * @var string
+	 */
+	var $type_current = null;
+	
+	/**
 	 * Legacy Constructor
 	 */
 	function FVRT_Media() {
@@ -110,8 +122,8 @@ class FVRT_Media extends FVRT_Base {
 		$p = $this->get_request_props();
 		if ( !!$p && $p->width && $p->height ) {
 			$crop = true;
-			add_image_size($p->media, $p->width, $p->height, $crop);
-			$sizes[] = $p->media;
+			add_image_size($p->type_name, $p->width, $p->height, $crop);
+			$sizes[] = $p->type_name;
 		}
 		return $sizes;
 	}
@@ -207,14 +219,19 @@ class FVRT_Media extends FVRT_Base {
 	 * @return array Image data (src, width, height)
 	 */
 	function get_icon_src($icon_id, $type = null) {
+		//Add intermediate size (if necessary)
+		$type = $this->set_type_current($type);
 		$this->update_attachment_metadata($icon_id, $type);
-		if ( is_null($type) ) {
+		if ( !$type ) {
 			$p = $this->get_request_props();
-			$type = $p->media;
+			$type = $p->type_name;
+		} else {
+			$type = $type->type_name;
 		}
-		$icon = ( wp_attachment_is_image($icon_id) && !is_null($type) ) ? wp_get_attachment_image_src($icon_id, $type) : wp_get_attachment_url($icon_id);
+		$icon = ( wp_attachment_is_image($icon_id) && is_string($type) ) ? wp_get_attachment_image_src($icon_id, $type) : wp_get_attachment_url($icon_id);
 		if ( !is_array($icon) )
 			$icon = array($icon, 0, 0);
+		$this->clear_type_current();
 		return $icon;
 	}
 	
@@ -223,14 +240,17 @@ class FVRT_Media extends FVRT_Base {
 	 * @param int $id Attachment ID
 	 */
 	function update_attachment_metadata($id, $type = null) {
-		if ( is_null($type) ) {
+		$type = $this->get_type($type);
+		if ( !$type ) {
 			$p = $this->get_request_props();
 			if ( !$p )
 				return false;
-			$type = $p->media;
+			$type = $p->type_name;
+		} else {
+			$type = $type->type_name;
 		}
 		//Generate intermediate size (if necessary)
-		if ( ( $meta = wp_get_attachment_metadata($id) ) && !isset($meta['sizes'][$type]) && wp_attachment_is_image($id) ) {
+		if ( wp_attachment_is_image($id) && ( $meta = wp_get_attachment_metadata($id) ) && !isset($meta['sizes'][$type]) ) {
 			//Full metadata update
 			if ( function_exists('wp_generate_attachment_metadata') ) {
 				$data = wp_generate_attachment_metadata($id, get_attached_file($id));
@@ -254,17 +274,19 @@ class FVRT_Media extends FVRT_Base {
 			//Make sure post is valid
 			if ( wp_attachment_is_image($args->id) ) {
 				$p = $this->get_request_props();
+				
 				//Build object of properties to send to parent page
 				$icon = $this->get_icon_src($args->id);
 				if ( !empty($icon) ) {
 					$args->url = $icon[0];
 					$meta = wp_get_attachment_metadata($args->id); 
 					$args->name = basename( ( isset($meta['file']) && !empty($meta['file']) ) ? $meta['file'] : wp_get_attachment_url($args->id) );
-					if ( isset($p->media) ) {
-						$args->media = $p->media;
+					if ( isset($p->type_name) ) {
+						$args->type_name = $p->type_name;
 					}
 				}
 			}
+			
 			//Build JS Arguments string
 			$arg_string = array();
 			foreach ( (array)$args as $key => $val ) {
@@ -453,6 +475,7 @@ class FVRT_Media extends FVRT_Base {
 	
 	/**
 	 * Retrieve properties of current media request
+	 * Retrieves current type as fallback
 	 * @param string (optional) $url URL to parse
 	 * @return object|bool Properties object (FALSE if no properties exist)
 	 */
@@ -481,13 +504,32 @@ class FVRT_Media extends FVRT_Base {
 		//Add form data
 		if ( !empty($c) )
 			$p = array_merge($p, $c);
+		
+		//Retrieve curren type as callback
+		if ( empty($p) ) {
+			$p = $this->get_type_current();
+			if ( !!$p )
+				$p = get_object_vars($p);
+		}
+			
 		//Finalize
 		if ( !empty($p) ) {
+			//Remap properties
+			$remap = array(
+				'media'		=> 'type_name'
+			);
+			foreach ( $remap as $from => $to ) {
+				if ( !isset($p[$from]) )
+					continue;
+				$p[$to] = $p[$from];
+				unset($p[$from]);
+			}
+			
 			//Add default properties
 			$p = (object) wp_parse_args($p, array(
-				'media'		=> 'media',
-				'width'		=> 0,
-				'height'	=> 0
+				'type_name'		=> 'media',
+				'width'			=> 0,
+				'height'		=> 0
 			));
 		} else {
 			$p = false;
@@ -772,5 +814,92 @@ class FVRT_Media extends FVRT_Base {
 		}
 		return $ret;
 	}
+	
+	/* Media Types */
+	
+	/**
+	 * Add media type to collection
+	 * Saves properties as object
+	 * @param string $name Type Name
+	 * @param array|object $props Type Properties
+	 * @return object Type properties
+	 */
+	function register_type($name, $props = null) {
+		$defaults = array(
+			'lbl_title' 	=> '',
+			'lbl_set'		=> 'Set Media',
+			'file_mime'		=> array('image/png', 'image/gif', 'image/jpeg'),
+			'file_type'		=> array('png', 'gif', 'jpg'),
+			'file_desc'		=> 'Icon Files',
+			'width'			=> 0,
+			'height'		=> 0
+		);
+		
+		$props = wp_parse_args($props, $defaults);
+		$props['type_name'] = $name;
+		$this->types[$name] = (object) $props;
+		return $this->types[$name];
+	}
+	
+	/**
+	 * Retrieve all registered media types
+	 * @return array Media types (as a reference)
+	 */
+	function &get_types() {
+		return $this->types;
+	}
+	
+	/**
+	 * Retrieve media type
+	 * @param object|bool $type Type properties (FALSE if type not registered)
+	 */
+	function get_type($type) {
+		//Normalize
+		if ( is_object($type) ) 
+			$type = get_object_vars($type);
+		if ( is_array($type) && isset($type['name']) )
+			$type = $type['name'];
+		if ( !is_string($type) )
+			$type = strval($type);
+			
+		$types =& $this->get_types();
+		//Fetch type
+		if ( isset($types[$type]) )
+			return $types[$type];
+		//Return FALSE if type does not exist
+		return false;
+	}
+
+	/**
+	 * Set type for current request
+	 * @param mixed $type Type to set
+	 * @return object Current type (normalized)
+	 */
+	function set_type_current($type) {
+		$type = $this->get_type($type);
+		if ( !$type )
+			$this->clear_type_current();
+		else {
+			$this->type_current = $type->type_name;	
+		}
+		return $type;
+	}
+	
+	/**
+	 * Retrieve current type
+	 * @return object|bool Current type (FALSE if no type set)
+	 */
+	function get_type_current() {
+		return $this->get_type($this->type_current);
+	}
+	
+	/**
+	 * Clear type from current request
+	 */
+	function clear_type_current() {
+		$this->type_current = null;
+	}
+		
+		
 }
 ?>

@@ -116,6 +116,10 @@ class FaviconRotator extends FVRT_Base {
 	}
 	
 	function register_hooks() {
+		/*-** General **-*/
+		
+		add_action('init', $this->m('register_icon_types'));
+		
 		/*-** Admin **-*/
 		
 		add_action('admin_print_scripts-media-upload-popup', $this->m('admin_scripts'));
@@ -166,6 +170,20 @@ class FaviconRotator extends FVRT_Base {
 	}
 	
 	/*-** Media **-*/
+
+	/**
+	 * Register icon types with Media instance
+	 * @see register_hooks() Hook to method added
+	 * @return array Registered types
+	 */
+	function register_icon_types() {
+		$types = $this->icon_types;
+		//Register types
+		foreach ( $types as $type => $props ) {
+			$types[$type] = $this->media->register_type($type, array_merge($this->icon_type_default_properties, $props));
+		}
+		return $types;
+	}
 	
 	/**
 	 * Retrieve icon types
@@ -174,12 +192,7 @@ class FaviconRotator extends FVRT_Base {
 	function get_icon_types() {
 		static $types = null;
 		if ( is_null($types) ) {
-			$types = $this->icon_types;
-			//Normalize types
-			foreach ( $types as $type => $props ) {
-				$props['name'] = $type;
-				$types[$type] = (object) array_merge($this->icon_type_default_properties, $props);
-			}
+			$types = $this->register_icon_types();
 		}
 		return $types;
 	}
@@ -198,16 +211,16 @@ class FaviconRotator extends FVRT_Base {
 	/**
 	 * Retrieve icon type properties
 	 * @param string $type Icon type
-	 * @return object Type properties
+	 * @return object|bool Type properties (FALSE if type not registered)
 	 */
 	function get_icon_type($type) {
-		$types = $this->get_icon_types();
 		$ret = null;
+		$types = $this->get_icon_types();
 		if ( isset($types[$type]) ) {
 			$ret = $types[$type];
 		} else {
 			$ret = (object) $this->icon_type_default_properties;
-			$ret->name = $type;
+			$ret->type_name = $type;
 		}
 		return $ret;
 	}
@@ -460,11 +473,11 @@ class FaviconRotator extends FVRT_Base {
 		//Setup query arguments
 		$filter = array('limit', 'lbl_title', 'lbl_add', 'lbl_empty', 'display');
 		$upload_args_base = array_diff(array_keys($this->icon_type_default_properties), $filter);
+		$upload_args_base[] = 'type_name';
 		$upload_args_map = array();
 		foreach ( $upload_args_base as $key ) {
 			$upload_args_map[$this->add_prefix($key)] = $key;
 		}
-		$upload_args_map[$this->add_prefix('media')] = 'name';
 		
 		?>
 	<div class="wrap">
@@ -472,7 +485,7 @@ class FaviconRotator extends FVRT_Base {
 		<h2><?php _e('Favicon Rotator'); ?></h2>
 		<form method="post" action="<?php echo esc_attr($_SERVER['REQUEST_URI']); ?>">
 		<?php foreach ( $this->get_icon_types() as $tname => $t ) : /* Output UI for icon types */ 
-			$icons = $this->get_icons($t->name);
+			$icons = $this->get_icons($t->type_name);
 			$upload_args = array();
 			foreach ( $upload_args_map as $param => $prop ) {
 				if ( isset($t->$prop) )
@@ -481,10 +494,10 @@ class FaviconRotator extends FVRT_Base {
 		?>
 			<h3><?php _e($t->lbl_title); ?> <a href="<?php echo $this->media->get_upload_iframe_src('image', $upload_args); ?>" class="<?php echo esc_attr($class); ?>" title="<?php esc_attr_e($t->lbl_add); ?>"><?php echo esc_html_x($t->lbl_add, 'file')?></a></h3>
 			<div class="fv_container">
-				<p id="fv_msg_empty_<?php echo $t->name; ?>"<?php if ( $icons ) echo ' style="display: none;"'?>><?php _e($t->lbl_empty); ?></p>
-				<ul id="fv_item_wrap_<?php echo $t->name; ?>" class="fv_item_wrap <?php echo ( is_null($t->limit) ) ? 'multi' : 'single'; ?>">
+				<p id="fv_msg_empty_<?php echo $t->type_name; ?>"<?php if ( $icons ) echo ' style="display: none;"'?>><?php _e($t->lbl_empty); ?></p>
+				<ul id="fv_item_wrap_<?php echo $t->type_name; ?>" class="fv_item_wrap <?php echo ( is_null($t->limit) ) ? 'multi' : 'single'; ?>">
 				<?php foreach ( $icons as $icon ) : //List icons
-					$icon_src = array_shift(wp_get_attachment_image_src($icon->ID, $t->name));
+					$icon_src = array_shift($this->media->get_icon_src($icon->ID, $t->type_name));
 					$src = array_shift(wp_get_attachment_image_src($icon->ID, 'full'));
 				?>
 					<li class="fv_item">
@@ -493,7 +506,7 @@ class FaviconRotator extends FVRT_Base {
 							<div class="details">
 								<div class="name"><?php echo basename($src); ?></div>
 								<div class="options">
-									<a href="#" id="<?php echo esc_attr('fv_id_' . $t->name . '_' . $icon->ID); ?>" class="remove">Remove</a>
+									<a href="#" id="<?php echo esc_attr('fv_id_' . $t->type_name . '_' . $icon->ID); ?>" class="remove">Remove</a>
 								</div>
 							</div>
 						</div>
@@ -501,7 +514,7 @@ class FaviconRotator extends FVRT_Base {
 				<?php endforeach; //End icon listing ?>
 				</ul>
 				<div style="display: none">
-					<li id="fv_item_temp_<?php echo $t->name; ?>" class="fv_item">
+					<li id="fv_item_temp_<?php echo $t->type_name; ?>" class="fv_item">
 						<div>
 							<img class="icon" src="" />
 							<div class="details">
@@ -514,7 +527,7 @@ class FaviconRotator extends FVRT_Base {
 					</li>
 				</div>
 			</div>
-			<input type="hidden" id="fv_id_<?php echo $t->name; ?>" name="fv_id_<?php echo $t->name; ?>" value="<?php echo esc_attr($this->get_icon_ids_list($t->name)); ?>" />
+			<input type="hidden" id="fv_id_<?php echo $t->type_name; ?>" name="fv_id_<?php echo $t->type_name; ?>" value="<?php echo esc_attr($this->get_icon_ids_list($t->type_name)); ?>" />
 		<?php endforeach; /* END UI for icon types */ ?>
 			<?php wp_nonce_field($this->action_save); ?>
 			<p class="submit"><input type="submit" class="button-primary" name="fv_submit" value="<?php esc_attr_e( 'Save Changes' ); ?>" /></p>
