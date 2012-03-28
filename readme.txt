@@ -49,6 +49,9 @@ No upgrade notices
 
 == Changelog ==
 
+= 1.2.2 =
+* Optimize: Improved PHP 5+ compatibility
+
 = 1.2.1 =
 * Add: WP 3.3 Support
 * Update: Remove references to deprecated functions
