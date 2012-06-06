@@ -2,8 +2,8 @@
 Contributors: Archetyped
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=AF29GFAFMT83N
 Tags: favicon,icon,template,theme,customization,simple,media,touch,ios,android
-Requires at least: 3.1.3
-Tested up to: 3.3
+Requires at least: 3.3.2
+Tested up to: 3.3.2
 Stable tag: trunk
 
 Easily set site favicon and even rotate through multiple icons
@@ -48,6 +48,9 @@ No upgrade notices
 1. Favicon submenu in Appearance menu
 
 == Changelog ==
+
+= 1.2.3 =
+* Optimize: Improved compatibility with WP media library
 
 = 1.2.2 =
 * Optimize: Improved PHP 5+ compatibility
