@@ -1,9 +1,9 @@
 === Favicon Rotator ===
 Contributors: Archetyped
-Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=AF29GFAFMT83N
+Donate link: http://mycharitywater.org/archetyped-2012-fall
 Tags: favicon,icon,template,theme,customization,simple,media,touch,ios,android
-Requires at least: 3.3.2
-Tested up to: 3.3.2
+Requires at least: 3.4.2
+Tested up to: 3.5
 Stable tag: trunk
 
 Easily set site favicon and even rotate through multiple icons
