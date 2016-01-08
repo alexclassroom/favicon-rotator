@@ -392,7 +392,7 @@ class FVRT_Media extends FVRT_Base {
 	 */
 	function attachment_fields_to_edit($form_fields, $attachment) {
 		if ( $this->is_custom_media() ) {
-			$post =& get_post($attachment);
+			$post = get_post($attachment);
 			//Clear all form fields
 			$form_fields = array();
 			if ( isset($post->post_mime_type) && 0 === strpos($post->post_mime_type, 'image/') && ( $q = $this->get_request_props() ) && false !== $q ) {
@@ -849,12 +849,15 @@ class FVRT_Media extends FVRT_Base {
 	 */
 	function get_type($type) {
 		//Normalize
-		if ( is_object($type) ) 
+		if ( is_object($type) ) {
 			$type = get_object_vars($type);
-		if ( is_array($type) && isset($type['name']) )
-			$type = $type['name'];
-		if ( !is_string($type) )
+		}
+		if ( is_array($type) && isset($type['type_name']) ) {
+			$type = $type['type_name'];
+		}
+		if ( !is_string($type) ) {
 			$type = strval($type);
+		}
 			
 		$types =& $this->get_types();
 		//Fetch type
