@@ -48,6 +48,11 @@ No upgrade notices
 1. Favicon submenu in Appearance menu
 
 == Changelog ==
+
+= 1.2.6 =
+* Update: WordPress compatibility (4.4)
+* Optimize: PHP standards
+
 = 1.2.5 =
 * Update: WordPress 3.8 support
 
