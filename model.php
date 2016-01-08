@@ -103,10 +103,6 @@ class FaviconRotator extends FVRT_Base {
 	
 	/*-** Initialization **-*/
 
-	function FaviconRotator() {
-		$this->__construct();
-	}
-
 	function __construct() {
 		parent::__construct();
 		$this->opt_key = $this->add_prefix($this->opt_key);

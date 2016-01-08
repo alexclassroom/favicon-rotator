@@ -66,13 +66,6 @@ class FVRT_Media extends FVRT_Base {
 	var $type_current = null;
 	
 	/**
-	 * Legacy Constructor
-	 */
-	function FVRT_Media() {
-		$this->__construct();
-	}
-	
-	/**
 	 * Constructor
 	 */
 	function __construct() {
