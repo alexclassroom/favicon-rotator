@@ -10,10 +10,6 @@
  */
 class FVRT_Utilities {
 	
-	function FVRT_Utilities() {
-		$this->__construct();
-	}
-	
 	function __construct() {
 		
 	}
