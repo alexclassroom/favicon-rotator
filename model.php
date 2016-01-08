@@ -103,10 +103,6 @@ class FaviconRotator extends FVRT_Base {
 	
 	/*-** Initialization **-*/
 
-	function FaviconRotator() {
-		$this->__construct();
-	}
-
 	function __construct() {
 		parent::__construct();
 		$this->opt_key = $this->add_prefix($this->opt_key);
@@ -399,7 +395,8 @@ class FaviconRotator extends FVRT_Base {
 			//Select random icon
 			$idx = ( count($icons) > 1 ) ? array_rand($icons) : 0;
 			$icon_id = $icons[$idx];
-			$icon = array_shift($this->media->get_icon_src($icon_id, $type));
+			$icon_src = $this->media->get_icon_src($icon_id, $type);
+			$icon = array_shift($icon_src);
 			//Validate icon
 			if ( !is_string($icon) || empty($icon) ) {
 				//Reset variable to NULL (will loop to next icon)
@@ -497,8 +494,10 @@ class FaviconRotator extends FVRT_Base {
 				<p id="fv_msg_empty_<?php echo $t->type_name; ?>"<?php if ( $icons ) echo ' style="display: none;"'?>><?php _e($t->lbl_empty); ?></p>
 				<ul id="fv_item_wrap_<?php echo $t->type_name; ?>" class="fv_item_wrap <?php echo ( is_null($t->limit) ) ? 'multi' : 'single'; ?>">
 				<?php foreach ( $icons as $icon ) : //List icons
-					$icon_src = array_shift($this->media->get_icon_src($icon->ID, $t->type_name));
-					$src = array_shift(wp_get_attachment_image_src($icon->ID, 'full'));
+					$icon_srcs = $this->media->get_icon_src($icon->ID, $t->type_name);
+					$icon_src = array_shift($icon_srcs);
+					$icon_media = wp_get_attachment_image_src($icon->ID, 'full');
+					$src = array_shift($icon_media);
 				?>
 					<li class="fv_item">
 						<div>
@@ -511,7 +510,9 @@ class FaviconRotator extends FVRT_Base {
 							</div>
 						</div>
 					</li>
-				<?php endforeach; //End icon listing ?>
+				<?php endforeach; //End icon listing
+					unset($icon_srcs, $icon_src, $icon_media, $src);
+				?>
 				</ul>
 				<div style="display: none">
 					<li id="fv_item_temp_<?php echo $t->type_name; ?>" class="fv_item">

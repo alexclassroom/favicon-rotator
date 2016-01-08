@@ -28,13 +28,6 @@ class FVRT_Base {
 	var $debug;
 	
 	/**
-	 * Legacy constructor
-	 */
-	function FVRT_Base() {
-		$this->__construct();
-	}
-	
-	/**
 	 * Constructor
 	 */
 	function __construct() {
