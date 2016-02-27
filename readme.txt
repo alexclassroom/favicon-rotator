@@ -49,6 +49,10 @@ No upgrade notices
 
 == Changelog ==
 
+= 1.2.7 =
+* Add: Text Domain plugin header (for translations)
+* Update: Use plugin-specific text domain for localized strings
+
 = 1.2.6 =
 * Update: WordPress compatibility (4.4)
 * Optimize: PHP standards
