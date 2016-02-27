@@ -6,6 +6,7 @@ Description: Easily set site favicon and even rotate through multiple icons
 Version: 0.0.0-dev
 Author: Archetyped
 Author URI: http://archetyped.com
+Text Domain: favicon-rotator
 */
 
 require_once 'model.php';
