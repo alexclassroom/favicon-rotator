@@ -341,10 +341,10 @@ class FVRT_Media extends FVRT_Base {
 			$mime_types = $post_mime_types;
 			//Add additional mime types
 			$mime_types_extra = array(
-				'image/png'		=> array(__('PNG Images'), __('Manage PNG Images'), _n_noop('PNG Image <span class="count">(%s)</span>', 'PNG Images <span class="count">(%s)</span>')),
-				'image/gif'		=> array(__('GIF Images'), __('Manage GIF Images'), _n_noop('GIF Image <span class="count">(%s)</span>', 'GIF Images <span class="count">(%s)</span>')),
-				'image/jpeg'	=> array(__('JPG Images'), __('Manage JPG Images'), _n_noop('JPG Image <span class="count">(%s)</span>', 'JPG Images <span class="count">(%s)</span>')),
-				'image/x-icon'	=> array(__('ICO Images'), __('Manage ICO Images'), _n_noop('ICO Image <span class="count">(%s)</span>', 'ICO Images <span class="count">(%s)</span>'))
+				'image/png'		=> array(__('PNG Images', 'favicon-rotator'), __('Manage PNG Images', 'favicon-rotator'), _n_noop('PNG Image <span class="count">(%s)</span>', 'PNG Images <span class="count">(%s)</span>')),
+				'image/gif'		=> array(__('GIF Images', 'favicon-rotator'), __('Manage GIF Images', 'favicon-rotator'), _n_noop('GIF Image <span class="count">(%s)</span>', 'GIF Images <span class="count">(%s)</span>')),
+				'image/jpeg'	=> array(__('JPG Images', 'favicon-rotator'), __('Manage JPG Images', 'favicon-rotator'), _n_noop('JPG Image <span class="count">(%s)</span>', 'JPG Images <span class="count">(%s)</span>')),
+				'image/x-icon'	=> array(__('ICO Images', 'favicon-rotator'), __('Manage ICO Images', 'favicon-rotator'), _n_noop('ICO Image <span class="count">(%s)</span>', 'ICO Images <span class="count">(%s)</span>'))
 			);
 			$mime_types = wp_parse_args($mime_types_extra, $mime_types);
 			//Clear mime types array

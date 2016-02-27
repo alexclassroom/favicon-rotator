@@ -430,7 +430,7 @@ class FaviconRotator extends FVRT_Base {
 	function admin_plugin_action_links($actions, $plugin_file, $plugin_data, $context) {
 		//Add link to settings (only if active)
 		if ( is_plugin_active($this->util->get_plugin_base_name()) ) {
-			$settings = __('Settings');
+			$settings = __('Settings', 'favicon-rotator');
 			$settings_url = add_query_arg('page', dirname($this->util->get_plugin_base_name()), admin_url('themes.php'));
 			array_unshift($actions, '<a href="' . $settings_url . '" title="' . $settings . '">' . $settings . '</a>');
 		}
@@ -449,7 +449,7 @@ class FaviconRotator extends FVRT_Base {
 	 * Adds admin submenu item to Appearance menu 
 	 */
 	function admin_menu() {
-		$this->page = $p = add_theme_page(__('Favicon'), __('Favicon'), 'edit_theme_options', $this->util->get_plugin_base(), $this->m('admin_page'));
+		$this->page = $p = add_theme_page(__('Favicon', 'favicon-rotator'), __('Favicon', 'favicon-rotator'), 'edit_theme_options', $this->util->get_plugin_base(), $this->m('admin_page'));
 		//Head
 		add_action("admin_print_scripts-$p", $this->m('admin_scripts'));
 		add_action("admin_print_styles-$p", $this->m('admin_styles'));
@@ -461,7 +461,7 @@ class FaviconRotator extends FVRT_Base {
 	 */
 	function admin_page() {
 		if ( ! current_user_can('edit_theme_options') )
-			wp_die(__('You do not have permission to customize favicons.'));
+			wp_die(__('You do not have permission to customize favicons.', 'favicon-rotator'));
 			
 		//Get saved icons
 		if ( isset($_POST['fv_submit']) )
@@ -479,7 +479,7 @@ class FaviconRotator extends FVRT_Base {
 		?>
 	<div class="wrap">
 		<?php screen_icon(); ?>
-		<h2><?php _e('Favicon Rotator'); ?></h2>
+		<h2><?php _e('Favicon Rotator', 'favicon-rotator'); ?></h2>
 		<form method="post" action="<?php echo esc_attr($_SERVER['REQUEST_URI']); ?>">
 		<?php foreach ( $this->get_icon_types() as $tname => $t ) : /* Output UI for icon types */ 
 			$icons = $this->get_icons($t->type_name);
@@ -531,7 +531,7 @@ class FaviconRotator extends FVRT_Base {
 			<input type="hidden" id="fv_id_<?php echo $t->type_name; ?>" name="fv_id_<?php echo $t->type_name; ?>" value="<?php echo esc_attr($this->get_icon_ids_list($t->type_name)); ?>" />
 		<?php endforeach; /* END UI for icon types */ ?>
 			<?php wp_nonce_field($this->action_save); ?>
-			<p class="submit"><input type="submit" class="button-primary" name="fv_submit" value="<?php esc_attr_e( 'Save Changes' ); ?>" /></p>
+			<p class="submit"><input type="submit" class="button-primary" name="fv_submit" value="<?php esc_attr_e('Save Changes', 'favicon-rotator'); ?>" /></p>
 		</form>
 	</div>
 	<?php 
@@ -565,7 +565,7 @@ class FaviconRotator extends FVRT_Base {
 			$help = file_get_contents(dirname(__FILE__) . '/resources/admin_help.html');
 			$screen->add_help_tab(array(
 				'id'	=> $this->add_prefix('help'),
-				'title'	=> __('Overview'),
+				'title'	=> __('Overview', 'favicon-rotator'),
 				'content'	=> $help,
 			));
 		}
