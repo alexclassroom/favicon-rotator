@@ -328,36 +328,68 @@ class FVRT_Media extends FVRT_Base {
 	
 	/**
 	 * Filter mime types for custom requests
+	 * 
 	 * @see `post_mime_types` hook to filter mime types
 	 * @see get_post_mime_types()
 	 * @uses $_GET to set post_mime_type variable (if necessary)
+	 * 
 	 * @param array $post_mime_types Default post mime types
 	 * @return array Filtered mime types
 	 */
-	function post_mime_types($post_mime_types) {
+	function post_mime_types( $post_mime_types ) {
 		global $wp_query;
-		if ( $this->is_custom_media() && ( $p = $this->get_request_props() ) && isset($p->file_mime) ) {
-			//Save original mime types
-			$mime_types = $post_mime_types;
-			//Add additional mime types
-			$mime_types_extra = array(
-				'image/png'		=> array(__('PNG Images', 'favicon-rotator'), __('Manage PNG Images', 'favicon-rotator'), _n_noop('PNG Image <span class="count">(%s)</span>', 'PNG Images <span class="count">(%s)</span>')),
-				'image/gif'		=> array(__('GIF Images', 'favicon-rotator'), __('Manage GIF Images', 'favicon-rotator'), _n_noop('GIF Image <span class="count">(%s)</span>', 'GIF Images <span class="count">(%s)</span>')),
-				'image/jpeg'	=> array(__('JPG Images', 'favicon-rotator'), __('Manage JPG Images', 'favicon-rotator'), _n_noop('JPG Image <span class="count">(%s)</span>', 'JPG Images <span class="count">(%s)</span>')),
-				'image/x-icon'	=> array(__('ICO Images', 'favicon-rotator'), __('Manage ICO Images', 'favicon-rotator'), _n_noop('ICO Image <span class="count">(%s)</span>', 'ICO Images <span class="count">(%s)</span>'))
-			);
-			$mime_types = wp_parse_args($mime_types_extra, $mime_types);
-			//Clear mime types array
-			$post_mime_types = array();
-			foreach ( $p->file_mime as $mime ) {
-				if ( isset($mime_types[$mime]) )
-					$post_mime_types[$mime] = $mime_types[$mime];
+		if ( $this->is_custom_media() ) {
+			$p = $this->get_request_props();
+			if ( isset( $p->file_mime ) ) {
+				// Save original mime types.
+				$mime_types = $post_mime_types;
+				// Add additional mime types.
+				$mime_types_extra = array(
+					'image/png'    => array(
+						__( 'PNG Images', 'favicon-rotator' ),
+						__( 'Manage PNG Images', 'favicon-rotator' ),
+						_n_noop(
+							'PNG Image <span class="count">(%s)</span>',
+							'PNG Images <span class="count">(%s)</span>'
+						),
+					),
+					'image/gif'    => array(
+						__( 'GIF Images', 'favicon-rotator' ),
+						__( 'Manage GIF Images', 'favicon-rotator' ),
+						_n_noop(
+							'GIF Image <span class="count">(%s)</span>',
+							'GIF Images <span class="count">(%s)</span>'
+						),
+					),
+					'image/jpeg'   => array(
+						__( 'JPG Images', 'favicon-rotator' ),
+						__( 'Manage JPG Images', 'favicon-rotator' ),
+						_n_noop(
+							'JPG Image <span class="count">(%s)</span>',
+							'JPG Images <span class="count">(%s)</span>'
+						),
+					),
+					'image/x-icon' => array(
+						__( 'ICO Images', 'favicon-rotator' ),
+						__( 'Manage ICO Images', 'favicon-rotator' ),
+						_n_noop(
+							'ICO Image <span class="count">(%s)</span>',
+							'ICO Images <span class="count">(%s)</span>'
+						),
+					),
+				);
+				// Combine new types and original types.
+				$mime_types = wp_parse_args( $mime_types_extra, $mime_types );
+				// Format request data.
+				$p->file_mime = (array) $p->file_mime;
+				// Only include mime types allowed for current request.
+				$post_mime_types = array();
+				foreach ( $p->file_mime as $mime ) {
+					if ( isset( $mime_types[ $mime ] ) ) {
+						$post_mime_types[ $mime ] = $mime_types[ $mime ];
+					}
+				}
 			}
-			//Set GET variable when single mime type specified (for future queries)
-			$var = 'post_mime_type';
-			if ( empty($_GET[$var]) && !!$p && isset($p->file_mime) && is_array($p->file_mime) && count($p->file_mime) == 1 )
-				$_GET[$var] = $p->file_mime;
-		
 		}
 		return $post_mime_types;
 	}
