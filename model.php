@@ -478,7 +478,6 @@ class FaviconRotator extends FVRT_Base {
 		
 		?>
 	<div class="wrap">
-		<?php screen_icon(); ?>
 		<h2><?php _e('Favicon Rotator', 'favicon-rotator'); ?></h2>
 		<form method="post" action="<?php echo esc_attr($_SERVER['REQUEST_URI']); ?>">
 		<?php foreach ( $this->get_icon_types() as $tname => $t ) : /* Output UI for icon types */ 
