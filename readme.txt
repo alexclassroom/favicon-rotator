@@ -49,6 +49,9 @@ No upgrade notices
 
 == Changelog ==
 
+= 1.2.8 =
+* Optimize: WordPress 5.4 Compatibility
+
 = 1.2.7 =
 * Add: Text Domain plugin header (for translations)
 * Update: Use plugin-specific text domain for localized strings
