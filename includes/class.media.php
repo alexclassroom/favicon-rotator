@@ -263,7 +263,7 @@ class FVRT_Media extends FVRT_Base {
 			/* Send image data to main post edit form and close popup */
 			//Get Attachment ID
 			$args = new stdClass();
-			$args->id = array_shift( array_keys($_POST[$this->var_setmedia]) );
+			$args->id = $this->util->array_key_first( $_POST[ $this->var_setmedia ] );
 			//Make sure post is valid
 			if ( wp_attachment_is_image($args->id) ) {
 				$p = $this->get_request_props();
@@ -511,7 +511,7 @@ class FVRT_Media extends FVRT_Base {
 		$c = array();
 		//Get form post data (if set)
 		if ( isset($q[$this->var_setmedia]) && isset($q[$this->var_query_data]) ) {
-			$id = array_shift(array_keys($q[$this->var_setmedia]));
+			$id = $this->util->array_key_first( $q[ $this->var_setmedia ] );
 			//Save form data
 			if ( isset($q[$this->var_query_data][$id]) ) {
 				$c = $q[$this->var_query_data][$id];
