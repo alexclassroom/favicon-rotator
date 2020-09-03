@@ -13,12 +13,14 @@ Easily set site favicon and even rotate through multiple icons
 Favicon Rotator makes it easy to customize the favicon for your site.  Just add a favicon via the administration page and it will be displayed whenever someone visits your site.
 
 #### Highlights
+
 * **New: Set icon for Touch devices (Android, iPhone, iPad, iPod Touch, etc.)**
 * Simply point and click to add a favicon to your site
 * Supports adding **multiple icons**, from which a **randomly selected** favicon will be displayed.
 * Automatic icon conversion for large images (smaller files and faster loading)
 
 #### Usage
+
 1. Go to **Theme > Favicon** admin page to add/upload image(s) to use for the favicon
 
 **That's it! The favicon will be displayed in visitors' browsers when they visit your site**
