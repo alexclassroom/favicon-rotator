@@ -3,7 +3,7 @@ Contributors: Archetyped
 Donate link: http://mycharitywater.org/archetyped-2012-fall
 Tags: favicon,icon,template,theme,customization,simple,media,touch,ios,android
 Requires at least: 5.4
-Tested up to: 5.5
+Tested up to: 5.6
 Stable tag: trunk
 
 Easily set site favicon and even rotate through multiple icons
@@ -50,6 +50,9 @@ No upgrade notices
 1. Favicon submenu in Appearance menu
 
 == Changelog ==
+
+= 1.2.10 =
+* Optimize: WordPress 5.6 Compatibility
 
 = 1.2.9 =
 * Optimize: WordPress 5.5 Compatibility
