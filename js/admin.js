@@ -43,7 +43,7 @@ if ( typeof(fvrt) != 'object' )
 	fvrt.setupActions = function() {
 		//Get remove links on page
 		var t = this;
-		$(this.buildSelector('item', 'remove')).live('click', function() {
+		$(this.buildSelector('item', 'remove')).on('click', function() {
 			t.removeItem(this);
 			return false;
 		});
