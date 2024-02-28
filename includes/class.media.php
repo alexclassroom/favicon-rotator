@@ -202,7 +202,7 @@ class FVRT_Media extends FVRT_Base {
 			if ( count($tb) )
 				$url = add_query_arg($tb, $url);
 		}
-		return $url;
+		return sanitize_url( $url );
 	}
 	
 	/**
@@ -263,7 +263,7 @@ class FVRT_Media extends FVRT_Base {
 			/* Send image data to main post edit form and close popup */
 			//Get Attachment ID
 			$args = new stdClass();
-			$args->id = $this->util->array_key_first( $_POST[ $this->var_setmedia ] );
+			$args->id = esc_attr( $this->util->array_key_first( $_POST[ $this->var_setmedia ] ) );
 			//Make sure post is valid
 			if ( wp_attachment_is_image($args->id) ) {
 				$p = $this->get_request_props();
@@ -311,7 +311,7 @@ class FVRT_Media extends FVRT_Base {
 		//Display default UI
 					
 		//Determine media type
-		$type = ( isset($_REQUEST['type']) ) ? $_REQUEST['type'] : $this->var_type;
+		$type = ( isset($_REQUEST['type']) ) ? esc_attr( $_REQUEST['type'] ) : $this->var_type;
 		//Determine UI to use (disk or URL upload)
 		$upload_form = ( isset($_GET['tab']) && 'type_url' == $_GET['tab'] ) ? 'media_upload_type_url_form' : 'media_upload_type_form';
 		//Load UI
