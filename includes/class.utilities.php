@@ -75,7 +75,7 @@ class FVRT_Utilities {
 				 && ( $this->is_file('edit.php')
 				 	|| ( $this->is_file('admin.php')
 				 		&& isset($_GET['page'])
-				 		&& strpos($_GET['page'], 'cnr') === 0 )
+				 		&& strpos($_GET['page'], 'fvrt') === 0 )
 				 	)
 				 );
 	}
@@ -683,7 +683,7 @@ class FVRT_Debug {
 	
 	/* Constructor */
 	
-	function CNR_Debug() {
+	function FVRT_Debug() {
 		$this->__construct();
 	}
 	
@@ -766,7 +766,7 @@ class FVRT_Debug {
 	 * Retrieve current function name
 	 * @param string|array $properties (optional) Properties to retrieve for current function
 	 * @return string|array Current function properties. Default: function name.  Will return array if multiple properties are requested
-	 * @see CNR_Debug::backtrace 
+	 * @see FVRT_Debug::backtrace 
 	 */
 	function get_current($properties = 'function') {
 		return $this->backtrace($properties, 1, 2);
@@ -776,7 +776,7 @@ class FVRT_Debug {
 	 * Retrieves calling function name
 	 * @param string|array $properties (optional) Properties to retrieve for caller
 	 * @return string|array Calling function properties. Default: function name.  Will return array if multiple properties are requested
-	 * @see CNR_Debug::backtrace 
+	 * @see FVRT_Debug::backtrace 
 	 */
 	function get_caller($properties = 'function') {
 		return $this->backtrace($properties, 1, 3);
