@@ -75,7 +75,7 @@ class FVRT_Utilities {
 				 && ( $this->is_file('edit.php')
 				 	|| ( $this->is_file('admin.php')
 				 		&& isset($_GET['page'])
-				 		&& strpos($_GET['page'], 'cnr') === 0 )
+				 		&& strpos($_GET['page'], 'fvrt') === 0 )
 				 	)
 				 );
 	}
@@ -213,11 +213,12 @@ class FVRT_Utilities {
 		$action = '';
 		
 		//Check if action is set in URL
-		if ( isset($_GET['action']) )
-			$action = $_GET['action'];
+		if ( isset($_GET['action']) ) {
+			$action = esc_attr( $_GET['action'] );
+		}
 		//Otherwise, Determine action based on plugin plugin admin page suffix
 		elseif ( isset($_GET['page']) && ($pos = strrpos($_GET['page'], '-')) && $pos !== false && ( $pos != count($_GET['page']) - 1 ) )
-			$action = trim(substr($_GET['page'], $pos + 1), '-_');
+			$action = trim( esc_attr( substr( $_GET['page'], $pos + 1 ) ), '-_');
 
 		//Determine action for core admin pages
 		if ( ! isset($_GET['page']) || empty($action) ) {
@@ -682,7 +683,7 @@ class FVRT_Debug {
 	
 	/* Constructor */
 	
-	function CNR_Debug() {
+	function FVRT_Debug() {
 		$this->__construct();
 	}
 	
@@ -765,7 +766,7 @@ class FVRT_Debug {
 	 * Retrieve current function name
 	 * @param string|array $properties (optional) Properties to retrieve for current function
 	 * @return string|array Current function properties. Default: function name.  Will return array if multiple properties are requested
-	 * @see CNR_Debug::backtrace 
+	 * @see FVRT_Debug::backtrace 
 	 */
 	function get_current($properties = 'function') {
 		return $this->backtrace($properties, 1, 2);
@@ -775,7 +776,7 @@ class FVRT_Debug {
 	 * Retrieves calling function name
 	 * @param string|array $properties (optional) Properties to retrieve for caller
 	 * @return string|array Calling function properties. Default: function name.  Will return array if multiple properties are requested
-	 * @see CNR_Debug::backtrace 
+	 * @see FVRT_Debug::backtrace 
 	 */
 	function get_caller($properties = 'function') {
 		return $this->backtrace($properties, 1, 3);
