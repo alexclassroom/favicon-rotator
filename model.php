@@ -339,7 +339,7 @@ class FaviconRotator extends FVRT_Base {
 			foreach ( $this->get_icon_type_names() as $itype ) {
 				$field = $field_base . $itype;
 				if ( isset($_POST[$field]) ) { 
-					$icons[$itype] = explode(',', $_POST[$field]);
+					$icons[$itype] = explode( ',', esc_attr( $_POST[$field] ) );
 				}
 			}
 		}

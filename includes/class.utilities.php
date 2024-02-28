@@ -213,11 +213,12 @@ class FVRT_Utilities {
 		$action = '';
 		
 		//Check if action is set in URL
-		if ( isset($_GET['action']) )
-			$action = $_GET['action'];
+		if ( isset($_GET['action']) ) {
+			$action = esc_attr( $_GET['action'] );
+		}
 		//Otherwise, Determine action based on plugin plugin admin page suffix
 		elseif ( isset($_GET['page']) && ($pos = strrpos($_GET['page'], '-')) && $pos !== false && ( $pos != count($_GET['page']) - 1 ) )
-			$action = trim(substr($_GET['page'], $pos + 1), '-_');
+			$action = trim( esc_attr( substr( $_GET['page'], $pos + 1 ) ), '-_');
 
 		//Determine action for core admin pages
 		if ( ! isset($_GET['page']) || empty($action) ) {
