@@ -51,6 +51,11 @@ No upgrade notices
 
 == Changelog ==
 
+= 1.2.11 =
+* Optimize: WordPress 6.4 Compatibility
+* Optimize: Data validation/formatting
+* Optimize: Internal code cleanup
+
 = 1.2.10 =
 * Optimize: WordPress 5.6 Compatibility
 
