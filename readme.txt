@@ -4,7 +4,7 @@ Donate link: http://mycharitywater.org/archetyped-2012-fall
 Tags: favicon, icon, image, mobile, customization
 Requires at least: 5.4
 Tested up to: 6.5
-Stable tag: trunk
+Stable tag: 1.2.11
 
 Easily set site favicon and even rotate through multiple icons
 
