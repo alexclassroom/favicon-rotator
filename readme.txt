@@ -1,7 +1,7 @@
 === Favicon Rotator ===
 Contributors: Archetyped
 Donate link: http://mycharitywater.org/archetyped-2012-fall
-Tags: favicon,icon,template,theme,customization,simple,media,touch,ios,android
+Tags: favicon, icon, image, mobile, customization
 Requires at least: 5.4
 Tested up to: 6.5
 Stable tag: trunk
