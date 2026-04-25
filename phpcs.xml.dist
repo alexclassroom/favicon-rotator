@@ -41,13 +41,6 @@
         <exclude name="WordPress.WP.GlobalVariablesOverride.Prohibited"/>
         <!-- Temporarily exclude rules -->
         <!-- ** WordPress-Specific ** -->
-        <exclude name="WordPress.Arrays.CommaAfterArrayItem.NoComma"/>
-        <exclude name="WordPress.CodeAnalysis.AssignmentInCondition.Found"/>
-        <exclude name="WordPress.CodeAnalysis.AssignmentInCondition.FoundInTernaryCondition"/>
-        <exclude name="WordPress.CodeAnalysis.AssignmentInCondition.FoundInWhileCondition"/>
-        <exclude name="WordPress.PHP.NoSilencedErrors.Discouraged"/>
-        <exclude name="WordPress.PHP.PregQuoteDelimiter.Missing"/>
-        <exclude name="WordPress.PHP.StrictComparisons.LooseComparison"/>
         <exclude name="WordPress.PHP.StrictInArray.MissingTrueStrict"/>
         <exclude name="WordPress.WP.I18n.MissingTranslatorsComment"/>
         <exclude name="WordPress.WP.I18n.NonSingularStringLiteralText"/>
@@ -60,23 +53,15 @@
         <exclude name="PEAR.Functions.FunctionCallSignature.MultipleArguments"/>
         <exclude name="PSR2.Classes.PropertyDeclaration.ScopeMissing"/>
         <exclude name="PSR2.Classes.PropertyDeclaration.VarUsed"/>
-        <exclude name="PSR2.ControlStructures.SwitchDeclaration.TerminatingComment"/>
-        <exclude name="Squiz.Operators.IncrementDecrementUsage.NoBrackets"/>
         <exclude name="Squiz.PHP.CommentedOutCode.Found"/>
         <exclude name="Squiz.PHP.DisallowMultipleAssignments.Found"/>
         <exclude name="Squiz.PHP.DisallowMultipleAssignments.FoundInControlStructure"/>
         <exclude name="Squiz.PHP.DisallowSizeFunctionsInLoops.Found"/>
-        <exclude name="Squiz.PHP.NonExecutableCode.Unreachable"/>
         <exclude name="Squiz.Strings.DoubleQuoteUsage.NotRequired"/>
-        <!-- ** Spacing-Related ** -->
         <!-- ** Alignment-Related ** -->
         <exclude name="Generic.Formatting.MultipleStatementAlignment.NotSameWarning"/>
         <!-- ** Audit-usage ** -->
-        <exclude name="Squiz.PHP.Eval.Discouraged"/>
         <exclude name="Squiz.Scope.MethodScope.Missing"/>
-        <exclude name="PSR2.Classes.PropertyDeclaration.Underscore"/>
-        <exclude name="PSR2.Methods.MethodDeclaration.Underscore"/>
-        <exclude name="PHPCompatibility.FunctionUse.ArgumentFunctionsReportCurrentValue.Changed"/>
         <exclude name="PHPCompatibility.FunctionUse.ArgumentFunctionsReportCurrentValue.NeedsInspection"/>
         <exclude name="Generic.CodeAnalysis.AssignmentInCondition.Found"/>
         <exclude name="Generic.CodeAnalysis.UnusedFunctionParameter.Found"/>
