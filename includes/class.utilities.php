@@ -15,7 +15,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 class FVRT_Utilities {
 
 	function __construct() {
-
 	}
 
 	/**
@@ -244,9 +243,12 @@ class FVRT_Utilities {
 				'edit-item' => array( 'page', 'post' ),
 				'edit'      => array( 'edit', 'edit-pages' ),
 			);
-			$action = array_find_key( $actions, function ( $pages ) use ( $page ) {
-				return in_array( $page, $pages );
-			});
+			$action = array_find_key(
+				$actions,
+				function ( $pages ) use ( $page ) {
+					return in_array( $page, $pages );
+				}
+			);
 		}
 		// Fallback: Default action.
 		if ( empty( $action ) ) {
@@ -401,7 +403,7 @@ class FVRT_Utilities {
 			return false;
 		}
 		// Validate path keys.
-		if ( ! array_all( $path, fn( $val, $key) => ( is_string( $val ) || is_int( $val ) ) ) ) {
+		if ( ! array_all( $path, fn( $val, $key ) => ( is_string( $val ) || is_int( $val ) ) ) ) {
 			return false;
 		}
 		// Check if path keys exist in array.
@@ -497,11 +499,13 @@ class FVRT_Utilities {
 			'type' => 'text/css',
 			'rel'  => 'stylesheet',
 		);
-		return $this->build_html_element( array(
-			'tag'        => 'link',
-			'wrap'       => false,
-			'attributes' => $attributes,
-		) );
+		return $this->build_html_element(
+			array(
+				'tag'        => 'link',
+				'wrap'       => false,
+				'attributes' => $attributes,
+			)
+		);
 	}
 
 	/**
@@ -514,10 +518,12 @@ class FVRT_Utilities {
 			'src'  => $url,
 			'type' => 'text/javascript',
 		);
-		return $this->build_html_element( array(
-			'tag'        => 'script',
-			'attributes' => $attributes,
-		) );
+		return $this->build_html_element(
+			array(
+				'tag'        => 'script',
+				'attributes' => $attributes,
+			)
+		);
 	}
 
 	/**
@@ -529,11 +535,14 @@ class FVRT_Utilities {
 	 */
 	function build_input_element( $type = 'text', $name = '', $value = '', $attributes = array() ) {
 		//Build attributes
-		$attributes = wp_parse_args( $attributes, array(
-			'type'  => $type,
-			'name'  => $name,
-			'value' => $value,
-		) );
+		$attributes = wp_parse_args(
+			$attributes,
+			array(
+				'type'  => $type,
+				'name'  => $name,
+				'value' => $value,
+			)
+		);
 		//Build element
 		$el = array(
 			'tag'        => 'input',
@@ -725,7 +734,6 @@ class FVRT_Debug {
 	}
 
 	function __construct() {
-
 	}
 
 	/**

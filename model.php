@@ -308,10 +308,12 @@ class FaviconRotator extends FVRT_Base {
 				$type_valid = true;
 			}
 			foreach ( $ids as $type_key => $type_ids ) {
-				$icons[ $type_key ] = ( ! empty( $type_ids ) ) ? get_posts( array(
-					'post_type' => 'attachment',
-					'include'   => $type_ids,
-				) ) : array();
+				$icons[ $type_key ] = ( ! empty( $type_ids ) ) ? get_posts(
+					array(
+						'post_type' => 'attachment',
+						'include'   => $type_ids,
+					)
+				) : array();
 				//Fix icon option if invalid icons were passed
 				if ( count( $icons[ $type_key ] ) !== count( $type_ids ) ) {
 					$ids_temp = array();
@@ -596,11 +598,13 @@ class FaviconRotator extends FVRT_Base {
 		$screen = get_current_screen();
 		if ( $screen->id === $this->page ) {
 			$help = file_get_contents( dirname( __FILE__ ) . '/resources/admin_help.html' );
-			$screen->add_help_tab(array(
-				'id'      => $this->add_prefix( 'help' ),
-				'title'   => __( 'Overview', 'favicon-rotator' ),
-				'content' => $help,
-			));
+			$screen->add_help_tab(
+				array(
+					'id'      => $this->add_prefix( 'help' ),
+					'title'   => __( 'Overview', 'favicon-rotator' ),
+					'content' => $help,
+				)
+			);
 		}
 	}
 }

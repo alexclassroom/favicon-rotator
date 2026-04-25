@@ -47,9 +47,6 @@
         <!-- ** Standard ** -->
         <exclude name="Generic.CodeAnalysis.ForLoopWithTestFunctionCall.NotAllowed"/>
         <exclude name="Generic.Files.LineEndings.InvalidEOLChar"/>
-        <exclude name="PEAR.Functions.FunctionCallSignature.CloseBracketLine"/>
-        <exclude name="PEAR.Functions.FunctionCallSignature.ContentAfterOpenBracket"/>
-        <exclude name="PEAR.Functions.FunctionCallSignature.MultipleArguments"/>
         <exclude name="PSR2.Classes.PropertyDeclaration.ScopeMissing"/>
         <exclude name="PSR2.Classes.PropertyDeclaration.VarUsed"/>
         <exclude name="Squiz.PHP.CommentedOutCode.Found"/>
@@ -66,8 +63,6 @@
         <exclude name="Generic.CodeAnalysis.UnusedFunctionParameter.Found"/>
         <exclude name="Generic.Files.OneObjectStructurePerFile.MultipleFound"/>
         <exclude name="Modernize.FunctionCalls.Dirname.FileConstant"/>
-        <exclude name="PSR2.Methods.FunctionClosingBrace.SpacingBeforeClose"/>
-        <exclude name="Squiz.Functions.FunctionDeclarationArgumentSpacing.SpacingBeforeClose"/>
         <exclude name="Universal.NamingConventions.NoReservedKeywordParameterNames.classFound"/>
         <exclude name="Universal.NamingConventions.NoReservedKeywordParameterNames.defaultFound"/>
         <exclude name="Universal.NamingConventions.NoReservedKeywordParameterNames.functionFound"/>

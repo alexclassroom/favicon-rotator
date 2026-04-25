@@ -576,11 +576,14 @@ class FVRT_Media extends FVRT_Base {
 			}
 
 			//Add default properties
-			$p = (object) wp_parse_args($p, array(
-				'type_name' => 'media',
-				'width'     => 0,
-				'height'    => 0,
-			));
+			$p = (object) wp_parse_args(
+				$p,
+				array(
+					'type_name' => 'media',
+					'width'     => 0,
+					'height'    => 0,
+				)
+			);
 		} else {
 			$p = false;
 		}
