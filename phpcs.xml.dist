@@ -41,7 +41,6 @@
         <exclude name="WordPress.WP.GlobalVariablesOverride.Prohibited"/>
         <!-- Temporarily exclude rules -->
         <!-- ** WordPress-Specific ** -->
-        <exclude name="WordPress.PHP.StrictInArray.MissingTrueStrict"/>
         <exclude name="WordPress.WP.I18n.MissingTranslatorsComment"/>
         <exclude name="WordPress.WP.I18n.NonSingularStringLiteralText"/>
         <!-- ** Standard ** -->

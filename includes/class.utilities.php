@@ -246,7 +246,7 @@ class FVRT_Utilities {
 			$action = array_find_key(
 				$actions,
 				function ( $pages ) use ( $page ) {
-					return in_array( $page, $pages );
+					return in_array( $page, $pages, true );
 				}
 			);
 		}
