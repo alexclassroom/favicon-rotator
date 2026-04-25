@@ -456,10 +456,10 @@ class FVRT_Media extends FVRT_Base {
 				//Add custom fields
 				if ( ! empty( $html ) ) {
 					$form_fields[ $this->var_query_data ] = array(
-							'input' => 'html',
-							'html' => implode( '', $html ),
-							'label' => ''
-						);
+						'input' => 'html',
+						'html'  => implode( '', $html ),
+						'label' => ''
+					);
 				}
 
 				//Add "Set as Image" button (if valid attachment type)

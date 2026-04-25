@@ -237,9 +237,9 @@ class FVRT_Utilities {
 		if ( empty( $action ) && isset( $_SERVER['SCRIPT_NAME'] ) ) {
 			$page = basename( sanitize_text_field( $_SERVER['SCRIPT_NAME'] ), '.php' );
 			$actions = array(
-				'add'           => array( 'page-new', 'post-new' ),
-				'edit-item'     => array( 'page', 'post' ),
-				'edit'          => array( 'edit', 'edit-pages' )
+				'add'       => array( 'page-new', 'post-new' ),
+				'edit-item' => array( 'page', 'post' ),
+				'edit'      => array( 'edit', 'edit-pages' )
 			);
 			$action = array_find_key( $actions, function ( $pages ) use ( $page ) {
 				return in_array( $page, $pages );
