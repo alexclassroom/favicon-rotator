@@ -506,7 +506,8 @@ class FaviconRotator extends FVRT_Base {
 	<div class="wrap">
 		<h2><?php esc_html_e( 'Favicon Rotator', 'favicon-rotator' ); ?></h2>
 		<form method="post" action="<?php echo esc_url( $form_action ); ?>">
-		<?php foreach ( $this->get_icon_types() as $tname => $t ) : /* Output UI for icon types */
+		<?php
+		foreach ( $this->get_icon_types() as $tname => $t ) : /* Output UI for icon types */
 			$icons = $this->get_icons( $t->type_name );
 			$upload_args = array();
 			foreach ( $upload_args_map as $param => $prop ) {
@@ -529,7 +530,8 @@ class FaviconRotator extends FVRT_Base {
 					<?php esc_html_e( $t->lbl_empty, 'favicon-rotator' ); ?>
 				</p>
 				<ul id="fv_item_wrap_<?php echo esc_attr( $t->type_name ); ?>" class="fv_item_wrap <?php echo ( is_null( $t->limit ) ) ? 'multi' : 'single'; ?>">
-				<?php foreach ( $icons as $icon ) : //List icons
+				<?php
+				foreach ( $icons as $icon ) : //List icons
 					$icon_src = array_shift( $this->media->get_icon_src( $icon->ID, $t->type_name ) );
 					$icon_media = wp_get_attachment_image_src( $icon->ID, 'full' );
 					$src = array_shift( $icon_media );
@@ -545,7 +547,8 @@ class FaviconRotator extends FVRT_Base {
 							</div>
 						</div>
 					</li>
-				<?php endforeach; //End icon listing
+					<?php
+				endforeach; //End icon listing
 					unset( $icon_src, $icon_media, $src );
 				?>
 				</ul>
