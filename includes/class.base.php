@@ -78,7 +78,7 @@ class FVRT_Base {
 	 */
 	function post_meta_get( $post_id, $key, $single = false ) {
 		$meta_value = get_post_meta( $post_id, $this->post_meta_get_key( $key ), $single );
-		if (is_array( $meta_value ) && count( $meta_value ) == 1 )
+		if (is_array( $meta_value ) && count( $meta_value ) === 1 )
 			$meta_value = $meta_value[0];
 		return $meta_value;
 	}

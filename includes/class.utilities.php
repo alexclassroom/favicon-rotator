@@ -25,7 +25,7 @@ class FVRT_Utilities {
 	 * @return array Callback array
 	 */
 	function &m( &$obj, $method = '' ) {
-		if ( $obj == null && isset( $this ) )
+		if ( null === $obj && isset( $this ) )
 			$obj =& $this;
 		$arr = array( &$obj, $method );
 		return $arr;
@@ -73,7 +73,7 @@ class FVRT_Utilities {
 		if ( ! is_string( $filename ) || empty( $filename ) || ! isset( $_SERVER['SCRIPT_NAME'] ) ) {
 			return false;
 		}
-		return ( $filename == basename( sanitize_text_field( $_SERVER['SCRIPT_NAME'] ) ) );
+		return ( basename( sanitize_text_field( $_SERVER['SCRIPT_NAME'] ) ) === $filename );
 	}
 
 	/**
@@ -128,7 +128,7 @@ class FVRT_Utilities {
 					continue;
 				}
 				//Add back leading slash if necessary
-				if ( $part[0] == $sl_f || $part[0] == $sl_b ) {
+				if ( $part[0] === $sl_f || $part[0] === $sl_b ) {
 					$parts[ $key ] = $sl_f . $parts[ $key ];
 				}
 			}
@@ -148,7 +148,7 @@ class FVRT_Utilities {
 	 * @return string File path
 	 */
 	function get_file_url( $file ) {
-		if ( is_string( $file ) && '' != trim( $file ) ) {
+		if ( is_string( $file ) && '' !== trim( $file ) ) {
 			$file = $this->normalize_path( $this->get_url_base(), $file );
 		}
 		return $file;
@@ -174,7 +174,7 @@ class FVRT_Utilities {
 	 * @return bool TRUE if file has extension
 	 */
 	function has_file_extension( $file, $extension ) {
-		return ( $this->get_file_extension( $file ) == $extension ) ? true : false;
+		return ( $this->get_file_extension( $file ) === $extension ) ? true : false;
 	}
 
 	/**
@@ -183,7 +183,7 @@ class FVRT_Utilities {
 	 */
 	function get_url_base() {
 		static $url_base = '';
-		if ( '' == $url_base ) {
+		if ( '' === $url_base ) {
 			$url_base = $this->normalize_path( WP_PLUGIN_URL, $this->get_plugin_base() );
 		}
 		return $url_base;
@@ -191,7 +191,7 @@ class FVRT_Utilities {
 
 	function get_path_base() {
 		static $path_base = '';
-		if ( '' == $path_base ) {
+		if ( '' === $path_base ) {
 			$path_base = $this->normalize_path( WP_PLUGIN_DIR, $this->get_plugin_base() );
 		}
 		return $path_base;
@@ -199,7 +199,7 @@ class FVRT_Utilities {
 
 	function get_plugin_base() {
 		static $plugin_dir = '';
-		if ( '' == $plugin_dir ) {
+		if ( '' === $plugin_dir ) {
 			$plugin_dir = str_replace( $this->normalize_path( WP_PLUGIN_DIR ), '', $this->normalize_path( dirname( dirname( __FILE__ ) ) ) );
 		}
 		return $plugin_dir;
@@ -228,7 +228,7 @@ class FVRT_Utilities {
 		if ( empty( $action ) && isset( $_GET['page'] ) ) {
 			$page = sanitize_text_field( $_GET['page'] );
 			$suffix_pos = strrpos( $page, '-' );
-			if ( $suffix_pos !== false && ( $suffix_pos != strlen( $page ) - 1 ) ) {
+			if ( false !== $suffix_pos && ( strlen( $page ) - 1 !== $suffix_pos ) ) {
 				$action = trim( substr( $page, $suffix_pos + 1 ), '-_' );
 			}
 		}
@@ -599,7 +599,7 @@ class FVRT_Utilities {
 					//Get submenu that was just added
 					$sub = array_pop( $subs );
 					//Insert into desired position
-					if ( 0 == $pos ) {
+					if ( 0 === $pos ) {
 						array_unshift( $subs, $sub );
 					} else {
 						$top = array_slice( $subs, 0, $pos );
@@ -635,7 +635,7 @@ class FVRT_Utilities {
 		if ( isset( $submenu[ $parent ] ) ) {
 			$subs =& $submenu[ $parent ];
 			for ( $x = 0; $x < count( $subs ); $x++ ) {
-				if ( $subs[ $x ][ $file_index ] == $file ) {
+				if ( $subs[ $x ][ $file_index ] === $file ) {
 					//Remove matching submenu
 					$hookname = get_plugin_page_hookname( $file, $parent );
 					remove_all_actions( $hookname );
@@ -845,7 +845,7 @@ class FVRT_Debug {
 			}
 		}
 		//Extract value if single level is in output
-		if ( count( $out ) == 1 && count( $out[0] ) == 1 && $out = array_values( $out[0] ) )
+		if ( count( $out ) === 1 && count( $out[0] ) === 1 && $out = array_values( $out[0] ) )
 			$out = $out[0];
 		return $out;
 	}

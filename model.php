@@ -309,7 +309,7 @@ class FaviconRotator extends FVRT_Base {
 					'include'   => $type_ids
 				) ) : array();
 				//Fix icon option if invalid icons were passed
-				if ( count( $icons[ $type_key ] ) != count( $type_ids ) ) {
+				if ( count( $icons[ $type_key ] ) !== count( $type_ids ) ) {
 					$ids_temp = array();
 					foreach ( $icons[ $type_key ] as $icon ) {
 						$ids_temp[] = $icon->ID;
@@ -582,7 +582,7 @@ class FaviconRotator extends FVRT_Base {
 	 */
 	function admin_help() {
 		$screen = get_current_screen();
-		if ( $screen->id == $this->page ) {
+		if ( $screen->id === $this->page ) {
 			$help = file_get_contents( dirname( __FILE__ ) . '/resources/admin_help.html' );
 			$screen->add_help_tab(array(
 				'id'      => $this->add_prefix( 'help' ),

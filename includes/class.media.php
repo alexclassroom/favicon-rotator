@@ -155,7 +155,7 @@ class FVRT_Media extends FVRT_Base {
 
 	function set_query_mime_types( &$q ) {
 		$var = 'post_mime_type';
-		if ( $this->is_custom_media() && 'attachment' == $q->query_vars['post_type'] && empty( $q->query_vars[ $var ] ) ) {
+		if ( $this->is_custom_media() && 'attachment' === $q->query_vars['post_type'] && empty( $q->query_vars[ $var ] ) ) {
 			$qv =& $q->query_vars;
 			$p = $this->get_request_props();
 			//Set GET variable when single mime type specified (for future queries)
@@ -184,7 +184,7 @@ class FVRT_Media extends FVRT_Base {
 			//Parse URL
 			$q = wp_parse_args( $args, $this->get_request_args( $u ) );
 			//Check for tab variable
-			if ( isset( $q['tab'] ) && 'type' != $q['tab'] ) {
+			if ( isset( $q['tab'] ) && 'type' !== $q['tab'] ) {
 				//Replace tab value
 				$defaults[ $this->add_prefix( 'tab' ) ] = $q['tab'];
 			}
@@ -317,7 +317,7 @@ class FVRT_Media extends FVRT_Base {
 		//Determine media type
 		$type = ( isset( $_REQUEST['type'] ) ) ? sanitize_text_field( $_REQUEST['type'] ) : $this->var_type;
 		//Determine UI to use (disk or URL upload)
-		$upload_form = ( isset( $_GET['tab'] ) && 'type_url' == $_GET['tab'] ) ? 'media_upload_type_url_form' : 'media_upload_type_form';
+		$upload_form = ( isset( $_GET['tab'] ) && 'type_url' === $_GET['tab'] ) ? 'media_upload_type_url_form' : 'media_upload_type_form';
 		//Load UI
 		return wp_iframe( $upload_form, $type, $errors, $id );
 	}
@@ -411,7 +411,7 @@ class FVRT_Media extends FVRT_Base {
 	 */
 	function media_upload_mime_type_links( $type_links ) {
 		global $wp_query;
-		if ( $this->is_custom_media() && ( $p = $this->get_request_props() ) && isset( $p->file_mime ) && count( $p->file_mime ) == 1 ) {
+		if ( $this->is_custom_media() && ( $p = $this->get_request_props() ) && isset( $p->file_mime ) && count( $p->file_mime ) === 1 ) {
 			//Remove ALL media type link for requests that specify a SINGLE mime type
 			array_shift( $type_links );
 		}
@@ -484,7 +484,7 @@ class FVRT_Media extends FVRT_Base {
 	 */
 	function is_media( $media ) {
 		$media =& get_post( $media );
-		return ( ! empty( $media ) && 'attachment' == $media->post_type );
+		return ( ! empty( $media ) && 'attachment' === $media->post_type );
 	}
 
 	/**
@@ -497,7 +497,7 @@ class FVRT_Media extends FVRT_Base {
 		if ( is_string( $url ) && ! empty( $url ) )
 			$u = $url;
 		//Use referrer for async uploads
-		elseif ( 'async-upload' == basename( sanitize_text_field( $_SERVER['SCRIPT_NAME'] ?? '' ), '.php' ) )
+		elseif ( 'async-upload' === basename( sanitize_text_field( $_SERVER['SCRIPT_NAME'] ?? '' ), '.php' ) )
 			$u = wp_get_referer();
 
 		if ( ! is_null( $u ) ) {
@@ -586,7 +586,7 @@ class FVRT_Media extends FVRT_Base {
 	function is_custom_media( $url = null ) {
 		$type = $this->var_type;
 		$q = $this->get_request_args( $url );
-		return ( isset( $q['type'] ) && $type == $q['type'] ) ? true : false;
+		return ( isset( $q['type'] ) && $type === $q['type'] ) ? true : false;
 	}
 
 	/**
@@ -668,7 +668,7 @@ class FVRT_Media extends FVRT_Base {
 			$end = ']';
 			$removed = false;
 			foreach ( $attachments as $i => $a ) {
-				if ( $start == substr( $a->post_title, 0, 1 ) && $end == substr( $a->post_title, -1 ) ) {
+				if ( substr( $a->post_title, 0, 1 ) === $start && substr( $a->post_title, -1 ) === $end ) {
 					unset( $attachments[ $i ] );
 					$removed = true;
 				}
@@ -753,9 +753,9 @@ class FVRT_Media extends FVRT_Base {
 		//Continue processing valid media items
 		if ( $this->is_media( $media ) ) {
 			//URL - Same for all attachments
-			if ( 'url' == $type ) {
+			if ( 'url' === $type ) {
 				$ret = wp_get_attachment_url( $media->ID );
-			} elseif ( 'link' == $type ) {
+			} elseif ( 'link' === $type ) {
 				$ret = $this->get_link( $media, $attr );
 			} else {
 				//Determine media type
