@@ -75,40 +75,9 @@
         <exclude name="Squiz.Strings.DoubleQuoteUsage.NotRequired"/>
         <exclude name="Universal.WhiteSpace.DisallowInlineTabs.NonIndentTabsUsed"/>
         <!-- ** Spacing-Related ** -->
-        <exclude name="Generic.Formatting.SpaceAfterCast.NoSpace"/>
-        <exclude name="Generic.Functions.FunctionCallArgumentSpacing.NoSpaceAfterComma"/>
-        <exclude name="Generic.Functions.OpeningFunctionBraceKernighanRitchie.SpaceBeforeBrace"/>
-        <exclude name="Generic.WhiteSpace.ArbitraryParenthesesSpacing.SpaceAfterOpen"/>
-        <exclude name="Generic.WhiteSpace.ArbitraryParenthesesSpacing.SpaceBeforeClose"/>
         <exclude name="Generic.WhiteSpace.DisallowSpaceIndent.SpacesUsed"/>
         <exclude name="Generic.WhiteSpace.ScopeIndent.IncorrectExact"/>
-        <exclude name="PEAR.Functions.FunctionCallSignature.SpaceAfterOpenBracket"/>
-        <exclude name="PEAR.Functions.FunctionCallSignature.SpaceBeforeCloseBracket"/>
-        <exclude name="PSR2.ControlStructures.SwitchDeclaration.SpaceBeforeColonCASE"/>
-        <exclude name="PSR2.ControlStructures.SwitchDeclaration.SpaceBeforeColonDEFAULT"/>
-        <exclude name="Squiz.ControlStructures.ControlSignature.SpaceAfterCloseBrace"/>
-        <exclude name="Squiz.ControlStructures.ControlSignature.SpaceAfterKeyword"/>
-        <exclude name="Squiz.Functions.FunctionDeclarationArgumentSpacing.SpacingAfterOpen"/>
-        <exclude name="Squiz.PHP.EmbeddedPhp.SpacingBeforeClose"/>
-        <exclude name="Squiz.Strings.ConcatenationSpacing.PaddingFound"/>
-        <exclude name="Squiz.WhiteSpace.SemicolonSpacing.Incorrect"/>
-        <exclude name="Squiz.WhiteSpace.SuperfluousWhitespace.EmptyLines"/>
-        <exclude name="Squiz.WhiteSpace.SuperfluousWhitespace.EndLine"/>
-        <exclude name="WordPress.Arrays.ArrayDeclarationSpacing.AssociativeArrayFound"/>
-        <exclude name="WordPress.Arrays.ArrayDeclarationSpacing.NoSpaceAfterArrayOpener"/>
-        <exclude name="WordPress.Arrays.ArrayDeclarationSpacing.NoSpaceBeforeArrayCloser"/>
-        <exclude name="WordPress.Arrays.ArrayDeclarationSpacing.SpaceAfterKeyword"/>
-        <exclude name="WordPress.Arrays.ArrayKeySpacingRestrictions.NoSpacesAroundArrayKeys"/>
-        <exclude name="WordPress.Arrays.CommaAfterArrayItem.NoSpaceAfterComma"/>
-        <exclude name="WordPress.WhiteSpace.CastStructureSpacing.NoSpaceBeforeOpenParenthesis"/>
-        <exclude name="WordPress.WhiteSpace.ControlStructureSpacing.ExtraSpaceAfterCloseParenthesis"/>
-        <exclude name="WordPress.WhiteSpace.ControlStructureSpacing.ExtraSpaceBeforeCloseParenthesis"/>
-        <exclude name="WordPress.WhiteSpace.ControlStructureSpacing.NoSpaceAfterOpenParenthesis"/>
-        <exclude name="WordPress.WhiteSpace.ControlStructureSpacing.NoSpaceBeforeCloseParenthesis"/>
         <exclude name="WordPress.WhiteSpace.DisallowInlineTabs.NonIndentTabsUsed"/>
-        <exclude name="WordPress.WhiteSpace.OperatorSpacing.NoSpaceAfter"/>
-        <exclude name="WordPress.WhiteSpace.OperatorSpacing.NoSpaceBefore"/>
-        <exclude name="WordPress.WhiteSpace.OperatorSpacing.SpacingAfter"/>
         <!-- ** Alignment-Related ** -->
         <exclude name="WordPress.Arrays.ArrayIndentation.CloseBraceNotAligned"/>
         <exclude name="WordPress.Arrays.ArrayIndentation.ItemNotAligned"/>
@@ -125,8 +94,6 @@
         <exclude name="Generic.CodeAnalysis.UnusedFunctionParameter.Found"/>
         <exclude name="Generic.Files.OneObjectStructurePerFile.MultipleFound"/>
         <exclude name="Modernize.FunctionCalls.Dirname.FileConstant"/>
-        <exclude name="NormalizedArrays.Arrays.ArrayBraceSpacing.SpaceAfterArrayOpenerSingleLine"/>
-        <exclude name="NormalizedArrays.Arrays.ArrayBraceSpacing.SpaceBeforeArrayCloserSingleLine"/>
         <exclude name="NormalizedArrays.Arrays.CommaAfterLast.MissingMultiLine"/>
         <exclude name="PSR2.Methods.FunctionClosingBrace.SpacingBeforeClose"/>
         <exclude name="Squiz.Functions.FunctionDeclarationArgumentSpacing.SpacingBeforeClose"/>
@@ -139,22 +106,21 @@
         <exclude name="Universal.WhiteSpace.PrecisionAlignment.Found"/>
         <exclude name="WordPress.PHP.DevelopmentFunctions.error_log_debug_backtrace"/>
         <exclude name="WordPress.PHP.DevelopmentFunctions.error_log_var_dump"/>
-        <exclude name="WordPress.WhiteSpace.ControlStructureSpacing.NoSpaceAfterStructureOpen"/>
-        <exclude name="WordPress.WhiteSpace.ControlStructureSpacing.NoSpaceBeforeOpenParenthesis"/>
         <exclude name="Generic.WhiteSpace.ScopeIndent.Incorrect"/>
         <exclude name="Squiz.PHP.EmbeddedPhp.ContentAfterOpen"/>
         <exclude name="Squiz.PHP.EmbeddedPhp.NoSemicolon"/>
-        <exclude name="WordPress.Arrays.ArrayKeySpacingRestrictions.SpacesAroundArrayKeys"/>
         <exclude name="WordPress.WP.EnqueuedResourceParameters.MissingVersion"/>
         <exclude name="WordPress.WP.EnqueuedResourceParameters.NotInFooter"/>
         <!-- ** WordPress-Specific ** -->
         <exclude name="WordPress.Security.NonceVerification.Missing"/>
-        <!-- <exclude name="WordPress.Security.NonceVerification.Recommended"/> -->
+        <exclude name="WordPress.Security.NonceVerification.Recommended"/>
+        <exclude name="WordPress.Security.ValidatedSanitizedInput.InputNotSanitized"/>
+        <exclude name="WordPress.Security.EscapeOutput.OutputNotEscaped"/>
         <exclude name="WordPress.DB.PreparedSQL.InterpolatedNotPrepared"/>
         <exclude name="WordPress.DB.PreparedSQL.NotPrepared"/>
         <exclude name="WordPress.PHP.DontExtract.extract_extract"/>
-        <!-- <exclude name="WordPress.Security.EscapeOutput.OutputNotEscaped"/> -->
         <exclude name="WordPress.Security.ValidatedSanitizedInput.MissingUnslash"/>
+        <exclude name="WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents"/>
     </rule>
 
     <!-- Add in some extra rules from other standards. -->
