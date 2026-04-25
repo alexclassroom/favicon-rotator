@@ -90,6 +90,7 @@
         <exclude name="WordPress.PHP.DontExtract.extract_extract"/>
         <exclude name="WordPress.Security.ValidatedSanitizedInput.MissingUnslash"/>
         <exclude name="WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents"/>
+        <exclude name="Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed"/>
     </rule>
 
     <!-- Add in some extra rules from other standards. -->
