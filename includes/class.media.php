@@ -180,7 +180,7 @@ class FVRT_Media extends FVRT_Base {
 		if ( strpos( $p, 'media-upload.php' ) === 0 && $custom ) {
 			$defaults = array(
 				'type' => $this->var_type,
-				'tab'  => 'type'
+				'tab'  => 'type',
 			);
 			$u = ( is_string( $type ) ) ? null : $url;
 			//Parse URL
@@ -464,7 +464,7 @@ class FVRT_Media extends FVRT_Base {
 					$form_fields[ $this->var_query_data ] = array(
 						'input' => 'html',
 						'html'  => implode( '', $html ),
-						'label' => ''
+						'label' => '',
 					);
 				}
 
@@ -565,7 +565,7 @@ class FVRT_Media extends FVRT_Base {
 		if ( ! empty( $p ) ) {
 			//Remap properties
 			$remap = array(
-				'media' => 'type_name'
+				'media' => 'type_name',
 			);
 			foreach ( $remap as $from => $to ) {
 				if ( ! isset( $p[ $from ] ) ) {
@@ -579,7 +579,7 @@ class FVRT_Media extends FVRT_Base {
 			$p = (object) wp_parse_args($p, array(
 				'type_name' => 'media',
 				'width'     => 0,
-				'height'    => 0
+				'height'    => 0,
 			));
 		} else {
 			$p = false;
@@ -667,7 +667,7 @@ class FVRT_Media extends FVRT_Base {
 		$defaults = array(
 			'post_type'   => 'attachment',
 			'post_parent' => (int) $post->ID,
-			'numberposts' => -1
+			'numberposts' => -1,
 		);
 
 		$args = wp_parse_args( $args, $defaults );
@@ -886,7 +886,7 @@ class FVRT_Media extends FVRT_Base {
 			'file_type' => array( 'png', 'gif', 'jpg' ),
 			'file_desc' => 'Icon Files',
 			'width'     => 0,
-			'height'    => 0
+			'height'    => 0,
 		);
 
 		$props = wp_parse_args( $props, $defaults );

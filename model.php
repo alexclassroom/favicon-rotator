@@ -44,7 +44,7 @@ class FaviconRotator extends FVRT_Base {
 	var $icon_types = array(
 		'favicon' => array(
 			'lbl_title' => 'Browser Icon',
-			'lbl_set'   => 'Add Browser Icon'
+			'lbl_set'   => 'Add Browser Icon',
 		),
 		'touch'   => array(
 			'limit'     => 1,
@@ -57,8 +57,8 @@ class FaviconRotator extends FVRT_Base {
 			'file_type' => array( 'png' ),
 			'file_desc' => 'Touch Icon Files',
 			'width'     => 114,
-			'height'    => 114
-		)
+			'height'    => 114,
+		),
 	);
 
 	/**
@@ -76,7 +76,7 @@ class FaviconRotator extends FVRT_Base {
 		'file_type' => array( 'png', 'gif', 'jpg', 'ico' ),
 		'file_desc' => 'Icon Files',
 		'width'     => 16,
-		'height'    => 16
+		'height'    => 16,
 	);
 
 	/**
@@ -310,7 +310,7 @@ class FaviconRotator extends FVRT_Base {
 			foreach ( $ids as $type_key => $type_ids ) {
 				$icons[ $type_key ] = ( ! empty( $type_ids ) ) ? get_posts( array(
 					'post_type' => 'attachment',
-					'include'   => $type_ids
+					'include'   => $type_ids,
 				) ) : array();
 				//Fix icon option if invalid icons were passed
 				if ( count( $icons[ $type_key ] ) !== count( $type_ids ) ) {

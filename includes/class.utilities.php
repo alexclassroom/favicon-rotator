@@ -242,7 +242,7 @@ class FVRT_Utilities {
 			$actions = array(
 				'add'       => array( 'page-new', 'post-new' ),
 				'edit-item' => array( 'page', 'post' ),
-				'edit'      => array( 'edit', 'edit-pages' )
+				'edit'      => array( 'edit', 'edit-pages' ),
 			);
 			$action = array_find_key( $actions, function ( $pages ) use ( $page ) {
 				return in_array( $page, $pages );
@@ -495,12 +495,12 @@ class FVRT_Utilities {
 		$attributes = array(
 			'href' => $url,
 			'type' => 'text/css',
-			'rel'  => 'stylesheet'
+			'rel'  => 'stylesheet',
 		);
 		return $this->build_html_element( array(
 			'tag'        => 'link',
 			'wrap'       => false,
-			'attributes' => $attributes
+			'attributes' => $attributes,
 		) );
 	}
 
@@ -512,11 +512,11 @@ class FVRT_Utilities {
 	function build_ext_script_element( $url = '' ) {
 		$attributes = array(
 			'src'  => $url,
-			'type' => 'text/javascript'
+			'type' => 'text/javascript',
 		);
 		return $this->build_html_element( array(
 			'tag'        => 'script',
-			'attributes' => $attributes
+			'attributes' => $attributes,
 		) );
 	}
 
@@ -532,13 +532,13 @@ class FVRT_Utilities {
 		$attributes = wp_parse_args( $attributes, array(
 			'type'  => $type,
 			'name'  => $name,
-			'value' => $value
+			'value' => $value,
 		) );
 		//Build element
 		$el = array(
 			'tag'        => 'input',
 			'wrap'       => false,
-			'attributes' => $attributes
+			'attributes' => $attributes,
 		);
 		return $this->build_html_element( $el );
 	}
@@ -553,7 +553,7 @@ class FVRT_Utilities {
 			'tag'        => 'span',
 			'wrap'       => true,
 			'content'    => '',
-			'attributes' => array()
+			'attributes' => array(),
 		);
 		$el_start = '<';
 		$el_end = '>';
