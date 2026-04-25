@@ -296,7 +296,7 @@ class FVRT_Media extends FVRT_Base {
 			<script>
 			( function() {
 				var win = window.dialogArguments || opener || parent || top;
-				win.fvrt.media.setIcon( <?php echo wp_json_encode( $args, JSON_HEX_TAG | JSON_UNESCAPED_SLASHES | JSON_FORCE_OBJECT ) ?> );
+				win.fvrt.media.setIcon( <?php echo wp_json_encode( $args, JSON_HEX_TAG | JSON_UNESCAPED_SLASHES | JSON_FORCE_OBJECT ); ?> );
 			}() );
 			</script>
 			<?php
