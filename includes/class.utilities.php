@@ -87,7 +87,7 @@ class FVRT_Utilities {
 						&& isset( $_GET['page'] )
 						&& strpos( $_GET['page'], 'fvrt' ) === 0 )
 					)
-				 );
+				);
 	}
 
 	/**
@@ -341,11 +341,11 @@ class FVRT_Utilities {
 				continue;
 			//Iterate through argument items
 			foreach ( $args[ $x ] as $key => $val ) {
-					if ( ! isset( $merged[ $key ] ) || ! is_array( $merged[ $key ] ) || ! is_array( $val ) ) {
+				if ( ! isset( $merged[ $key ] ) || ! is_array( $merged[ $key ] ) || ! is_array( $val ) ) {
 					$merged[ $key ] = $val;
-					} elseif ( is_array( $merged[ $key ] ) && is_array( $val ) ) {
+				} elseif ( is_array( $merged[ $key ] ) && is_array( $val ) ) {
 					$merged[ $key ] = $this->array_merge_recursive_distinct( $merged[ $key ], $val );
-					}
+				}
 					//$merged[$key] = (is_array($val) && isset($merged[$key])) ? $this->array_merge_recursive_distinct($merged[$key], $val) : $val;
 			}
 		}

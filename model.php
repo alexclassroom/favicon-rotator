@@ -335,7 +335,7 @@ class FaviconRotator extends FVRT_Base {
 		//Check if valid icon IDs are passed to function
 		if ( ! is_null( $icons ) ) {
 			if ( ! is_array( $icons ) ) {
-				 $icons = ( is_int( $icons ) ) ? array( $icons ) : null;
+				$icons = ( is_int( $icons ) ) ? array( $icons ) : null;
 			}
 		}
 
@@ -510,7 +510,7 @@ class FaviconRotator extends FVRT_Base {
 				esc_attr__( $t->lbl_add, 'favicon-rotator' ), /* title */
 				esc_html__( $t->lbl_add, 'favicon-rotator' ) /* content */
 			);
-		?>
+			?>
 			<h3><?php esc_html_e( $t->lbl_title, 'favicon-rotator' ); ?> <?php echo $upload_link_escaped; ?></h3>
 			<div class="fv_container">
 				<p id="fv_msg_empty_<?php echo esc_attr( $t->type_name ); ?>"<?php if ( $icons ) echo ' style="display: none;"' ?>><?php esc_html_e( $t->lbl_empty, 'favicon-rotator' ); ?></p>
@@ -519,7 +519,7 @@ class FaviconRotator extends FVRT_Base {
 					$icon_src = array_shift( $this->media->get_icon_src( $icon->ID, $t->type_name ) );
 					$icon_media = wp_get_attachment_image_src( $icon->ID, 'full' );
 					$src = array_shift( $icon_media );
-				?>
+					?>
 					<li class="fv_item">
 						<div>
 							<img class="icon" src="<?php echo esc_url( $icon_src ); ?>" />
@@ -555,7 +555,7 @@ class FaviconRotator extends FVRT_Base {
 			<p class="submit"><input type="submit" class="button-primary" name="fv_submit" value="<?php esc_attr_e( 'Save Changes', 'favicon-rotator' ); ?>" /></p>
 		</form>
 	</div>
-	<?php
+		<?php
 	}
 
 	/**
