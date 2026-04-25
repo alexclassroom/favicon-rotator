@@ -74,7 +74,6 @@
         <exclude name="Squiz.PHP.NonExecutableCode.Unreachable"/>
         <exclude name="Squiz.Strings.DoubleQuoteUsage.NotRequired"/>
         <!-- ** Spacing-Related ** -->
-        <exclude name="Generic.WhiteSpace.ScopeIndent.IncorrectExact"/>
         <!-- ** Alignment-Related ** -->
         <exclude name="WordPress.Arrays.ArrayIndentation.CloseBraceNotAligned"/>
         <exclude name="WordPress.Arrays.ArrayIndentation.ItemNotAligned"/>
@@ -100,10 +99,8 @@
         <exclude name="Universal.NamingConventions.NoReservedKeywordParameterNames.parentFound"/>
         <exclude name="Universal.Operators.StrictComparisons.LooseEqual"/>
         <exclude name="Universal.Operators.StrictComparisons.LooseNotEqual"/>
-        <exclude name="Universal.WhiteSpace.PrecisionAlignment.Found"/>
         <exclude name="WordPress.PHP.DevelopmentFunctions.error_log_debug_backtrace"/>
         <exclude name="WordPress.PHP.DevelopmentFunctions.error_log_var_dump"/>
-        <exclude name="Generic.WhiteSpace.ScopeIndent.Incorrect"/>
         <exclude name="Squiz.PHP.EmbeddedPhp.ContentAfterOpen"/>
         <exclude name="Squiz.PHP.EmbeddedPhp.NoSemicolon"/>
         <exclude name="WordPress.WP.EnqueuedResourceParameters.MissingVersion"/>
