@@ -73,11 +73,8 @@
         <exclude name="Squiz.PHP.DisallowSizeFunctionsInLoops.Found"/>
         <exclude name="Squiz.PHP.NonExecutableCode.Unreachable"/>
         <exclude name="Squiz.Strings.DoubleQuoteUsage.NotRequired"/>
-        <exclude name="Universal.WhiteSpace.DisallowInlineTabs.NonIndentTabsUsed"/>
         <!-- ** Spacing-Related ** -->
-        <exclude name="Generic.WhiteSpace.DisallowSpaceIndent.SpacesUsed"/>
         <exclude name="Generic.WhiteSpace.ScopeIndent.IncorrectExact"/>
-        <exclude name="WordPress.WhiteSpace.DisallowInlineTabs.NonIndentTabsUsed"/>
         <!-- ** Alignment-Related ** -->
         <exclude name="WordPress.Arrays.ArrayIndentation.CloseBraceNotAligned"/>
         <exclude name="WordPress.Arrays.ArrayIndentation.ItemNotAligned"/>
