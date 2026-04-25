@@ -331,33 +331,23 @@ class FVRT_Utilities {
 	 *     - If the current item's value AND the corresponding item in the base array are BOTH arrays, recursively merge the the arrays
 	 *     - If the current item's value OR the corresponding item in the base array is NOT an array, current item overwrites base item
 	 * @todo Append numerical elements (as opposed to overwriting element at same index in base array)
-	 * @param array Variable number of arrays
-	 * @param array $arr1 Default array
+	 * @param array<array> $arrs Variable number of arrays
 	 * @return array Merged array
 	 */
-	function array_merge_recursive_distinct( $arr1 ) {
-		//Get all arrays passed to function
-		$args = func_get_args();
-		if ( empty( $args ) ) {
-			return false;
-		}
+	function array_merge_recursive_distinct( array ...$arrs ) {
 		//Set first array as base array
-		$merged = $args[0];
+		$merged = $arrs[0];
 		//Iterate through arrays to merge
-		$arg_length = count( $args );
-		for ( $x = 1; $x < $arg_length; $x++ ) {
-			//Skip if argument is not an array (only merge arrays)
-			if ( ! is_array( $args[ $x ] ) ) {
-				continue;
-			}
+		$arrs_count = count( $arrs );
+		for ( $x = 1; $x < $arrs_count; $x++ ) {
 			//Iterate through argument items
-			foreach ( $args[ $x ] as $key => $val ) {
+			foreach ( $arrs[ $x ] as $key => $val ) {
 				if ( ! isset( $merged[ $key ] ) || ! is_array( $merged[ $key ] ) || ! is_array( $val ) ) {
 					$merged[ $key ] = $val;
 				} elseif ( is_array( $merged[ $key ] ) && is_array( $val ) ) {
 					$merged[ $key ] = $this->array_merge_recursive_distinct( $merged[ $key ], $val );
 				}
-					//$merged[$key] = (is_array($val) && isset($merged[$key])) ? $this->array_merge_recursive_distinct($merged[$key], $val) : $val;
+				//$merged[$key] = (is_array($val) && isset($merged[$key])) ? $this->array_merge_recursive_distinct($merged[$key], $val) : $val;
 			}
 		}
 		return $merged;
