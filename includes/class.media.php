@@ -133,8 +133,9 @@ class FVRT_Media extends FVRT_Base {
 		//Get object variables
 		$vars = get_object_vars( $this );
 		foreach ( $vars as $var => $val ) {
-			if ( strpos( $var, $this->prefix_var ) === 0 )
+			if ( strpos( $var, $this->prefix_var ) === 0 ) {
 				$this->{$var} = $this->add_prefix( $val );
+			}
 		}
 	}
 
@@ -159,8 +160,9 @@ class FVRT_Media extends FVRT_Base {
 			$qv =& $q->query_vars;
 			$p = $this->get_request_props();
 			//Set GET variable when single mime type specified (for future queries)
-			if ( (bool) $p && isset( $p->file_mime ) && is_array( $p->file_mime ) )
+			if ( (bool) $p && isset( $p->file_mime ) && is_array( $p->file_mime ) ) {
 				$qv[ $var ] = $p->file_mime;
+			}
 		}
 	}
 
@@ -204,8 +206,9 @@ class FVRT_Media extends FVRT_Base {
 			$args = ( is_array( $type ) ) ? wp_parse_args( $type, $defaults ) : $defaults;
 			$url = add_query_arg( $args, $url );
 			//Add thickbox args back to URL
-			if ( count( $tb ) )
+			if ( count( $tb ) ) {
 				$url = add_query_arg( $tb, $url );
+			}
 		}
 		return sanitize_url( $url );
 	}
@@ -227,8 +230,9 @@ class FVRT_Media extends FVRT_Base {
 			$type = $type->type_name;
 		}
 		$icon = ( wp_attachment_is_image( $icon_id ) && is_string( $type ) ) ? wp_get_attachment_image_src( $icon_id, $type ) : wp_get_attachment_url( $icon_id );
-		if ( ! is_array( $icon ) )
+		if ( ! is_array( $icon ) ) {
 			$icon = array( $icon, 0, 0 );
+		}
 		$this->clear_type_current();
 		return $icon;
 	}
@@ -241,8 +245,9 @@ class FVRT_Media extends FVRT_Base {
 		$type = $this->get_type( $type );
 		if ( ! $type ) {
 			$p = $this->get_request_props();
-			if ( ! $p )
+			if ( ! $p ) {
 				return false;
+			}
 			$type = $p->type_name;
 		} else {
 			$type = $type->type_name;
@@ -326,8 +331,9 @@ class FVRT_Media extends FVRT_Base {
 	 * Loads CSS Styles for media upload pages
 	 */
 	function upload_styles() {
-		if ( $this->is_custom_media() )
+		if ( $this->is_custom_media() ) {
 			wp_enqueue_style( $this->add_prefix( 'media' ), $this->util->get_file_url( 'css/media.css' ) );
+		}
 	}
 
 	/**
@@ -494,11 +500,12 @@ class FVRT_Media extends FVRT_Base {
 	function get_request_args( $url = null ) {
 		$q = array();
 		$u = null;
-		if ( is_string( $url ) && ! empty( $url ) )
+		if ( is_string( $url ) && ! empty( $url ) ) {
 			$u = $url;
-		//Use referrer for async uploads
-		elseif ( 'async-upload' === basename( sanitize_text_field( $_SERVER['SCRIPT_NAME'] ?? '' ), '.php' ) )
+		} elseif ( 'async-upload' === basename( sanitize_text_field( $_SERVER['SCRIPT_NAME'] ?? '' ), '.php' ) ) {
+			//Use referrer for async uploads
 			$u = wp_get_referer();
+		}
 
 		if ( ! is_null( $u ) ) {
 			//Parse referrer
@@ -535,20 +542,23 @@ class FVRT_Media extends FVRT_Base {
 		$prefix = $this->add_prefix( '' );
 		foreach ( $q as $arg => $val ) {
 			//Process all custom query args
-			if ( 0 !== strpos( $arg, $prefix ) )
+			if ( 0 !== strpos( $arg, $prefix ) ) {
 				continue;
+			}
 			$arg = substr( $arg, strlen( $prefix ) );
 			$p[ $arg ] = $val;
 		}
 		//Add form data
-		if ( ! empty( $c ) )
+		if ( ! empty( $c ) ) {
 			$p = array_merge( $p, $c );
+		}
 
 		//Retrieve curren type as callback
 		if ( empty( $p ) ) {
 			$p = $this->get_type_current();
-			if ( (bool) $p )
+			if ( (bool) $p ) {
 				$p = get_object_vars( $p );
+			}
 		}
 
 		//Finalize
@@ -558,8 +568,9 @@ class FVRT_Media extends FVRT_Base {
 				'media' => 'type_name'
 			);
 			foreach ( $remap as $from => $to ) {
-				if ( ! isset( $p[ $from ] ) )
+				if ( ! isset( $p[ $from ] ) ) {
 					continue;
+				}
 				$p[ $to ] = $p[ $from ];
 				unset( $p[ $from ] );
 			}
@@ -606,8 +617,9 @@ class FVRT_Media extends FVRT_Base {
 	 * @param array $args Arguments for upload URL
 	 */
 	function load_upload_args( $args ) {
-		if ( ! is_array( $args ) )
+		if ( ! is_array( $args ) ) {
 			$args = array();
+		}
 		$this->upload_url_args = $args;
 	}
 
@@ -646,8 +658,9 @@ class FVRT_Media extends FVRT_Base {
 	 * @return array|bool Array of post attachments (FALSE on failure)
 	 */
 	function post_get_attachments( $post = null, $args = '', $filter_special = true ) {
-		if ( ! $this->util->check_post( $post ))
+		if ( ! $this->util->check_post( $post ) ) {
 			return false;
+		}
 		global $wpdb;
 
 		//Default arguments
@@ -673,8 +686,9 @@ class FVRT_Media extends FVRT_Base {
 					$removed = true;
 				}
 			}
-			if ( $removed )
+			if ( $removed ) {
 				$attachments = array_values( $attachments );
+			}
 		}
 
 		//Return attachments
@@ -689,8 +703,9 @@ class FVRT_Media extends FVRT_Base {
 	 * @return string Attachment path
 	 */
 	function get_attachment_path( $post = null ) {
-		if ( ! $this->util->check_post( $post ))
+		if ( ! $this->util->check_post( $post ) ) {
 			return '';
+		}
 		//Get Attachment URL
 		$url = wp_get_attachment_url( $post->ID );
 		//Replace with absolute path
@@ -706,13 +721,15 @@ class FVRT_Media extends FVRT_Base {
 	 */
 	function get_attachment_filesize( $post = null, $formatted = true ) {
 		$size = 0;
-		if ( ! $this->util->check_post( $post ))
+		if ( ! $this->util->check_post( $post ) ) {
 			return $size;
+		}
 		//Get path to attachment
 		$path = $this->get_attachment_path( $post );
 		//Get file size
-		if (file_exists( $path ))
+		if ( file_exists( $path ) ) {
 			$size = filesize( $path );
+		}
 		if ( $size > 0 && $formatted ) {
 			$size = (int) $size;
 			$label = 'b';
@@ -764,9 +781,9 @@ class FVRT_Media extends FVRT_Base {
 
 				//Pass to handler for media type + output type
 				$handler = implode( '_', array( 'get', $mime_main, 'output' ) );
-				if ( method_exists( $this, $handler ))
+				if ( method_exists( $this, $handler ) ) {
 					$ret = $this->{$handler}( $media, $type, $attr );
-				else {
+				} else {
 					//Default output if no handler exists
 					$ret = $this->get_image_output( $media, $type, $attr );
 				}
@@ -904,8 +921,9 @@ class FVRT_Media extends FVRT_Base {
 
 		$types =& $this->get_types();
 		//Fetch type
-		if ( isset( $types[ $type ] ) )
+		if ( isset( $types[ $type ] ) ) {
 			return $types[ $type ];
+		}
 		//Return FALSE if type does not exist
 		return false;
 	}
@@ -917,9 +935,9 @@ class FVRT_Media extends FVRT_Base {
 	 */
 	function set_type_current( $type ) {
 		$type = $this->get_type( $type );
-		if ( ! $type )
+		if ( ! $type ) {
 			$this->clear_type_current();
-		else {
+		} else {
 			$this->type_current = $type->type_name;
 		}
 		return $type;

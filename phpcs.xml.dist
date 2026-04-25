@@ -46,7 +46,6 @@
         <exclude name="WordPress.WP.I18n.NonSingularStringLiteralText"/>
         <!-- ** Standard ** -->
         <exclude name="Generic.CodeAnalysis.ForLoopWithTestFunctionCall.NotAllowed"/>
-        <exclude name="Generic.ControlStructures.InlineControlStructure.NotAllowed"/>
         <exclude name="Generic.Files.LineEndings.InvalidEOLChar"/>
         <exclude name="PEAR.Functions.FunctionCallSignature.CloseBracketLine"/>
         <exclude name="PEAR.Functions.FunctionCallSignature.ContentAfterOpenBracket"/>

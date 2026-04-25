@@ -25,8 +25,9 @@ class FVRT_Utilities {
 	 * @return array Callback array
 	 */
 	function &m( &$obj, $method = '' ) {
-		if ( null === $obj && isset( $this ) )
+		if ( null === $obj && isset( $this ) ) {
 			$obj =& $this;
+		}
 		$arr = array( &$obj, $method );
 		return $arr;
 	}
@@ -137,8 +138,9 @@ class FVRT_Utilities {
 		$parts = implode( $sl_b, $parts );
 		$parts = str_replace( $sl_b, $sl_f, $parts );
 		//Add trailing slash (if necessary)
-		if ( $trailing_slash )
+		if ( $trailing_slash ) {
 			$parts . $sl_f;
+		}
 		return $parts;
 	}
 
@@ -162,8 +164,9 @@ class FVRT_Utilities {
 	function get_file_extension( $file ) {
 		$ret = '';
 		$sep = '.';
-		if ( is_string( $file ) && ( $rpos = strrpos( $file, $sep ) ) !== false )
+		if ( is_string( $file ) && ( $rpos = strrpos( $file, $sep ) ) !== false ) {
 			$ret = substr( $file, $rpos + 1 );
+		}
 		return $ret;
 	}
 
@@ -261,8 +264,9 @@ class FVRT_Utilities {
 	 * @param string $property Name of property to look for in $class
 	 */
 	function property_exists( $class, $property ) {
-		if ( ! is_object( $class ) && ! is_array( $class ) )
+		if ( ! is_object( $class ) && ! is_array( $class ) ) {
 			return false;
+		}
 		if ( function_exists( 'property_exists' ) && is_object( $class ) ) {
 			return property_exists( $class, $property );
 		} else {
@@ -279,16 +283,19 @@ class FVRT_Utilities {
 	function &get_property( &$obj, $property ) {
 		$property = trim( $property );
 		//Object
-		if ( is_object( $obj ) )
+		if ( is_object( $obj ) ) {
 			return $obj->{$property};
+		}
 		//Array
-		if ( is_array( $obj ) )
+		if ( is_array( $obj ) ) {
 			return $obj[ $property ];
+		}
 		//Class
 		if ( is_string( $obj ) && class_exists( $obj ) ) {
 			$cvars = get_class_vars( $obj );
-			if ( isset( $cvars[ $property ] ) )
+			if ( isset( $cvars[ $property ] ) ) {
 				return $cvars[ $property ];
+			}
 		}
 	}
 
@@ -329,16 +336,18 @@ class FVRT_Utilities {
 	function array_merge_recursive_distinct( $arr1 ) {
 		//Get all arrays passed to function
 		$args = func_get_args();
-		if (empty( $args ))
+		if ( empty( $args ) ) {
 			return false;
+		}
 		//Set first array as base array
 		$merged = $args[0];
 		//Iterate through arrays to merge
 		$arg_length = count( $args );
 		for ( $x = 1; $x < $arg_length; $x++ ) {
 			//Skip if argument is not an array (only merge arrays)
-			if ( ! is_array( $args[ $x ] ))
+			if ( ! is_array( $args[ $x ] ) ) {
 				continue;
+			}
 			//Iterate through argument items
 			foreach ( $args[ $x ] as $key => $val ) {
 				if ( ! isset( $merged[ $key ] ) || ! is_array( $merged[ $key ] ) || ! is_array( $val ) ) {
@@ -363,14 +372,17 @@ class FVRT_Utilities {
 	function array_replace_recursive( $search, $arr_replace, $arr_subject ) {
 		foreach ( $arr_subject as $key => $val ) {
 			//Skip element if key does not exist in the replacement array
-			if ( ! isset( $arr_replace[ $key ] ))
+			if ( ! isset( $arr_replace[ $key ] ) ) {
 				continue;
+			}
 			//If element values for both arrays are strings, replace text
-			if (is_string( $val ) && strpos( $val, $search ) !== false && is_string( $arr_replace[ $key ] ))
+			if ( is_string( $val ) && strpos( $val, $search ) !== false && is_string( $arr_replace[ $key ] ) ) {
 				$arr_subject[ $key ] = str_replace( $search, $arr_replace[ $key ], $val );
+			}
 			//If value in both arrays are arrays, recursively replace text
-			if (is_array( $val ) && is_array( $arr_replace[ $key ] ))
+			if ( is_array( $val ) && is_array( $arr_replace[ $key ] ) ) {
 				$arr_subject[ $key ] = $this->array_replace_recursive( $search, $arr_replace[ $key ], $val );
+			}
 		}
 
 		return $arr_subject;
@@ -432,8 +444,9 @@ class FVRT_Utilities {
 
 		//Iterate through parameters and build path
 		foreach ( $args as $arg ) {
-			if ( empty( $arg ) )
+			if ( empty( $arg ) ) {
 				continue;
+			}
 
 			if ( is_array( $arg ) ) {
 				//Recurse through array items to pull out any more arrays
@@ -548,12 +561,14 @@ class FVRT_Utilities {
 		extract( wp_parse_args( $args, $defaults ), EXTR_SKIP );
 		$content = trim( $content );
 
-		if ( ! $wrap && strlen( $content ) > 0 )
+		if ( ! $wrap && strlen( $content ) > 0 ) {
 			$wrap = true;
+		}
 
 		$attributes = $this->build_attribute_string( $attributes );
-		if ( strlen( $attributes ) > 0 )
+		if ( strlen( $attributes ) > 0 ) {
 			$attributes = ' ' . $attributes;
+		}
 
 		$ret = $el_start . $tag . $attributes;
 
@@ -685,8 +700,9 @@ class FVRT_Utilities {
 	function get_submenu_parent_file( $parent ) {
 		global $_wp_real_parent_file;
 		$parent = plugin_basename( $parent );
-		if ( isset( $_wp_real_parent_file[ $parent ] ) )
+		if ( isset( $_wp_real_parent_file[ $parent ] ) ) {
 			$parent = $_wp_real_parent_file[ $parent ];
+		}
 		return $parent;
 	}
 }
@@ -754,7 +770,9 @@ class FVRT_Debug {
 	}
 
 	function timer_start( $name = 'default', $time = null ) {
-		if (empty( $time )) $time = $this->microtime_float();
+		if ( empty( $time ) ) {
+			$time = $this->microtime_float();
+		}
 		$this->timers[ $name ] = new stdClass();
 		$this->timers[ $name ]->start = $time;
 		$this->timers[ $name ]->end = $time;
@@ -824,10 +842,12 @@ class FVRT_Debug {
 			}
 
 			//Setup properties
-			if ( is_string( $properties ) )
+			if ( is_string( $properties ) ) {
 				$properties = explode( ',', $properties );
-			if ( is_array( $properties ) )
+			}
+			if ( is_array( $properties ) ) {
 				$properties = array_map( 'trim', $properties );
+			}
 
 			//Build output
 			for ( $x = 0; $x < $levels; $x++ ) {
@@ -836,17 +856,20 @@ class FVRT_Debug {
 					$level_out = $debug[ $x ];
 				} else {
 					foreach ( $properties as $prop ) {
-						if ( isset( $debug[ $x ][ $prop ] ) )
+						if ( isset( $debug[ $x ][ $prop ] ) ) {
 							$level_out[ $prop ] = $debug[ $x ][ $prop ];
+						}
 					}
 				}
-				if ( ! empty( $level_out ) )
+				if ( ! empty( $level_out ) ) {
 					$out[] = $level_out;
+				}
 			}
 		}
 		//Extract value if single level is in output
-		if ( count( $out ) === 1 && count( $out[0] ) === 1 && $out = array_values( $out[0] ) )
+		if ( count( $out ) === 1 && count( $out[0] ) === 1 && $out = array_values( $out[0] ) ) {
 			$out = $out[0];
+		}
 		return $out;
 	}
 }

@@ -150,13 +150,15 @@ class FaviconRotator extends FVRT_Base {
 		$ret = $this->options;
 		if ( is_null( $ret ) ) {
 			$ret = get_option( $this->opt_key );
-			if ( false === $ret )
+			if ( false === $ret ) {
 				$ret = array();
+			}
 			$this->options = $ret;
 		}
 
-		if ( ! is_null( $key ) && isset( $ret[ $key ] ) )
+		if ( ! is_null( $key ) && isset( $ret[ $key ] ) ) {
 			$ret = $ret[ $key ];
+		}
 		return $ret;
 	}
 
@@ -203,8 +205,9 @@ class FaviconRotator extends FVRT_Base {
 	 */
 	function get_icon_type_names() {
 		static $names = null;
-		if ( is_null( $names ) )
+		if ( is_null( $names ) ) {
 			$names = array_keys( $this->get_icon_types() );
+		}
 		return $names;
 	}
 
@@ -253,8 +256,9 @@ class FaviconRotator extends FVRT_Base {
 		}
 		//Merge and return icons with defaults
 		$icons = array_merge( $groups_default, $icons );
-		if ( $save )
+		if ( $save ) {
 			$this->save_icons( $icons );
+		}
 		return $icons;
 	}
 
@@ -319,8 +323,9 @@ class FaviconRotator extends FVRT_Base {
 				}
 			}
 			//Break specified type out of assoc array
-			if ( $type_valid )
+			if ( $type_valid ) {
 				$icons = $icons[ $type ];
+			}
 		}
 
 		return $icons;
@@ -429,8 +434,9 @@ class FaviconRotator extends FVRT_Base {
 		}
 
 		//Update icons array (if necessary)
-		if ( count( $icons ) !== count( $icons_orig ) )
+		if ( count( $icons ) !== count( $icons_orig ) ) {
 			$this->save_icons( $icons, $type );
+		}
 	}
 
 	/*-** Admin **-*/
@@ -475,12 +481,14 @@ class FaviconRotator extends FVRT_Base {
 	 * Defines content for admin page
 	 */
 	function admin_page() {
-		if ( ! current_user_can( 'edit_theme_options' ) )
+		if ( ! current_user_can( 'edit_theme_options' ) ) {
 			wp_die( esc_html__( 'You do not have permission to customize favicons.', 'favicon-rotator' ) );
+		}
 
 		//Get saved icons
-		if ( isset( $_POST['fv_submit'] ) )
+		if ( isset( $_POST['fv_submit'] ) ) {
 			$this->save_icons();
+		}
 		$class = "button thickbox fv_btn";
 		//Setup query arguments
 		$filter = array( 'limit', 'lbl_title', 'lbl_add', 'lbl_empty', 'display' );
@@ -500,8 +508,9 @@ class FaviconRotator extends FVRT_Base {
 			$icons = $this->get_icons( $t->type_name );
 			$upload_args = array();
 			foreach ( $upload_args_map as $param => $prop ) {
-				if ( isset( $t->$prop ) )
+				if ( isset( $t->$prop ) ) {
 					$upload_args[ $param ] = $t->$prop;
+				}
 			}
 			$upload_link_escaped = sprintf(
 				'<a href="%1$s" class="%2$s" title="%3$s">%4$s</a>',
@@ -510,10 +519,13 @@ class FaviconRotator extends FVRT_Base {
 				esc_attr__( $t->lbl_add, 'favicon-rotator' ), /* title */
 				esc_html__( $t->lbl_add, 'favicon-rotator' ) /* content */
 			);
+
 			?>
 			<h3><?php esc_html_e( $t->lbl_title, 'favicon-rotator' ); ?> <?php echo $upload_link_escaped; ?></h3>
 			<div class="fv_container">
-				<p id="fv_msg_empty_<?php echo esc_attr( $t->type_name ); ?>"<?php if ( $icons ) echo ' style="display: none;"' ?>><?php esc_html_e( $t->lbl_empty, 'favicon-rotator' ); ?></p>
+				<p id="fv_msg_empty_<?php echo esc_attr( $t->type_name ); ?>" style="<?php echo ( $icons ) ? "display: none" : ""; ?>">
+					<?php esc_html_e( $t->lbl_empty, 'favicon-rotator' ); ?>
+				</p>
 				<ul id="fv_item_wrap_<?php echo esc_attr( $t->type_name ); ?>" class="fv_item_wrap <?php echo ( is_null( $t->limit ) ) ? 'multi' : 'single'; ?>">
 				<?php foreach ( $icons as $icon ) : //List icons
 					$icon_src = array_shift( $this->media->get_icon_src( $icon->ID, $t->type_name ) );

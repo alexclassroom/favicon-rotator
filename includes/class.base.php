@@ -50,12 +50,14 @@ class FVRT_Base {
 	function register_hooks() {
 		//Activation
 		$func_activate = 'activate';
-		if ( method_exists( $this, $func_activate ) )
+		if ( method_exists( $this, $func_activate ) ) {
 			register_activation_hook( $this->util->get_plugin_base_file(), $this->m( $func_activate ) );
+		}
 		//Deactivation
 		$func_deactivate = 'deactivate';
-		if ( method_exists( $this, $func_deactivate ) )
+		if ( method_exists( $this, $func_deactivate ) ) {
 			register_deactivation_hook( $this->util->get_plugin_base_file(), $this->m( $func_deactivate ) );
+		}
 	}
 
 	/**
@@ -78,8 +80,9 @@ class FVRT_Base {
 	 */
 	function post_meta_get( $post_id, $key, $single = false ) {
 		$meta_value = get_post_meta( $post_id, $this->post_meta_get_key( $key ), $single );
-		if (is_array( $meta_value ) && count( $meta_value ) === 1 )
+		if ( is_array( $meta_value ) && count( $meta_value ) === 1 ) {
 			$meta_value = $meta_value[0];
+		}
 		return $meta_value;
 	}
 
