@@ -491,7 +491,7 @@ class FaviconRotator extends FVRT_Base {
 		if ( isset( $_POST['fv_submit'] ) ) {
 			$this->save_icons();
 		}
-		$class = "button thickbox fv_btn";
+		$class = 'button thickbox fv_btn';
 		//Setup query arguments
 		$filter = array( 'limit', 'lbl_title', 'lbl_add', 'lbl_empty', 'display' );
 		$form_action = sanitize_url( $_SERVER['REQUEST_URI'] ?? '' );
@@ -526,7 +526,7 @@ class FaviconRotator extends FVRT_Base {
 			?>
 			<h3><?php esc_html_e( $t->lbl_title, 'favicon-rotator' ); ?> <?php echo $upload_link_escaped; ?></h3>
 			<div class="fv_container">
-				<p id="fv_msg_empty_<?php echo esc_attr( $t->type_name ); ?>" style="<?php echo ( $icons ) ? "display: none" : ""; ?>">
+				<p id="fv_msg_empty_<?php echo esc_attr( $t->type_name ); ?>" style="<?php echo ( $icons ) ? 'display: none' : ''; ?>">
 					<?php esc_html_e( $t->lbl_empty, 'favicon-rotator' ); ?>
 				</p>
 				<ul id="fv_item_wrap_<?php echo esc_attr( $t->type_name ); ?>" class="fv_item_wrap <?php echo ( is_null( $t->limit ) ) ? 'multi' : 'single'; ?>">

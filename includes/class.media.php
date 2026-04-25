@@ -736,7 +736,7 @@ class FVRT_Media extends FVRT_Base {
 		if ( $size > 0 && $formatted ) {
 			$size = (int) $size;
 			$label = 'b';
-			$format = "%s%s";
+			$format = '%s%s';
 			//Format file size
 			if ( $size >= 1024 && $size < 102400 ) {
 				$label = 'kb';

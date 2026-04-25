@@ -53,7 +53,6 @@
         <exclude name="Squiz.PHP.DisallowMultipleAssignments.Found"/>
         <exclude name="Squiz.PHP.DisallowMultipleAssignments.FoundInControlStructure"/>
         <exclude name="Squiz.PHP.DisallowSizeFunctionsInLoops.Found"/>
-        <exclude name="Squiz.Strings.DoubleQuoteUsage.NotRequired"/>
         <!-- ** Alignment-Related ** -->
         <exclude name="Generic.Formatting.MultipleStatementAlignment.NotSameWarning"/>
         <!-- ** Audit-usage ** -->

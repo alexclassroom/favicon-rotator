@@ -764,7 +764,7 @@ class FVRT_Debug {
 		foreach ( func_get_args() as $msg ) {
 			echo '<pre>';
 			if ( is_scalar( $msg ) && ! is_bool( $msg ) ) {
-				echo esc_html( $msg ) . "<br />";
+				echo esc_html( $msg ) . '<br />';
 			} else {
 				var_dump( $msg );
 			}
