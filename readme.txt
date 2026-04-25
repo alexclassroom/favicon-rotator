@@ -59,6 +59,7 @@ No upgrade notices
 * Fix: Undefined variable reference
 * Fix: Sanitized values unsaved
 * Update: Confirm WordPress 6.5/6.6 compatibility
+* Update: PHP v8.2+ required
 * Optimize: Integrate core WordPress functions
 * Optimize: Audit sanitized values
 * Optimize: WPCS cleanup
