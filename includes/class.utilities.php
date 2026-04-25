@@ -202,7 +202,7 @@ class FVRT_Utilities {
 	function get_plugin_base() {
 		static $plugin_dir = '';
 		if ( '' === $plugin_dir ) {
-			$plugin_dir = str_replace( $this->normalize_path( WP_PLUGIN_DIR ), '', $this->normalize_path( dirname( dirname( __FILE__ ) ) ) );
+			$plugin_dir = str_replace( $this->normalize_path( WP_PLUGIN_DIR ), '', $this->normalize_path( dirname( __DIR__ ) ) );
 		}
 		return $plugin_dir;
 	}

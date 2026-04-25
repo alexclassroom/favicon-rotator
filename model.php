@@ -600,7 +600,7 @@ class FaviconRotator extends FVRT_Base {
 	function admin_help() {
 		$screen = get_current_screen();
 		if ( $screen->id === $this->page ) {
-			$help = file_get_contents( dirname( __FILE__ ) . '/resources/admin_help.html' );
+			$help = file_get_contents( __DIR__ . '/resources/admin_help.html' );
 			$screen->add_help_tab(
 				array(
 					'id'      => $this->add_prefix( 'help' ),

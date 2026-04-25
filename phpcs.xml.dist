@@ -61,7 +61,6 @@
         <exclude name="Generic.CodeAnalysis.AssignmentInCondition.Found"/>
         <exclude name="Generic.CodeAnalysis.UnusedFunctionParameter.Found"/>
         <exclude name="Generic.Files.OneObjectStructurePerFile.MultipleFound"/>
-        <exclude name="Modernize.FunctionCalls.Dirname.FileConstant"/>
         <exclude name="Universal.NamingConventions.NoReservedKeywordParameterNames.classFound"/>
         <exclude name="Universal.NamingConventions.NoReservedKeywordParameterNames.defaultFound"/>
         <exclude name="Universal.NamingConventions.NoReservedKeywordParameterNames.functionFound"/>
