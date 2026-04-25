@@ -82,11 +82,11 @@ class FVRT_Utilities {
 	 */
 	function is_admin_management_page() {
 		return ( is_admin()
-				 && ( $this->is_file( 'edit.php' )
-				 	|| ( $this->is_file( 'admin.php' )
-				 		&& isset( $_GET['page'] )
-				 		&& strpos( $_GET['page'], 'fvrt' ) === 0 )
-				 	)
+				&& ( $this->is_file( 'edit.php' )
+					|| ( $this->is_file( 'admin.php' )
+						&& isset( $_GET['page'] )
+						&& strpos( $_GET['page'], 'fvrt' ) === 0 )
+					)
 				 );
 	}
 
@@ -237,9 +237,9 @@ class FVRT_Utilities {
 		if ( empty( $action ) && isset( $_SERVER['SCRIPT_NAME'] ) ) {
 			$page = basename( sanitize_text_field( $_SERVER['SCRIPT_NAME'] ), '.php' );
 			$actions = array(
-				'add'			=> array( 'page-new', 'post-new' ),
-				'edit-item'		=> array( 'page', 'post' ),
-				'edit'			=> array( 'edit', 'edit-pages' )
+				'add'           => array( 'page-new', 'post-new' ),
+				'edit-item'     => array( 'page', 'post' ),
+				'edit'          => array( 'edit', 'edit-pages' )
 			);
 			$action = array_find_key( $actions, function ( $pages ) use ( $page ) {
 				return in_array( $page, $pages );
@@ -482,13 +482,13 @@ class FVRT_Utilities {
 		$attributes = array(
 			'href' => $url,
 			'type' => 'text/css',
-			'rel' => 'stylesheet'
+			'rel'  => 'stylesheet'
 		);
 		return $this->build_html_element( array(
-            'tag' => 'link',
-            'wrap' => false,
-            'attributes' => $attributes
-        ) );
+			'tag'        => 'link',
+			'wrap'       => false,
+			'attributes' => $attributes
+		) );
 	}
 
 	/**
@@ -498,13 +498,13 @@ class FVRT_Utilities {
 	 */
 	function build_ext_script_element( $url = '' ) {
 		$attributes = array(
-			'src' => $url,
+			'src'  => $url,
 			'type' => 'text/javascript'
 		);
 		return $this->build_html_element( array(
-            'tag' => 'script',
-            'attributes' => $attributes
-        ) );
+			'tag'        => 'script',
+			'attributes' => $attributes
+		) );
 	}
 
 	/**
@@ -517,14 +517,14 @@ class FVRT_Utilities {
 	function build_input_element( $type = 'text', $name = '', $value = '', $attributes = array() ) {
 		//Build attributes
 		$attributes = wp_parse_args( $attributes, array(
-            'type' => $type,
-            'name' => $name,
-            'value' => $value
-        ) );
+			'type'  => $type,
+			'name'  => $name,
+			'value' => $value
+		) );
 		//Build element
 		$el = array(
-			'tag' => 'input',
-			'wrap' => false,
+			'tag'        => 'input',
+			'wrap'       => false,
 			'attributes' => $attributes
 		);
 		return $this->build_html_element( $el );
@@ -537,11 +537,11 @@ class FVRT_Utilities {
 	 */
 	function build_html_element( $args ) {
 		$defaults = array(
-						'tag'			=> 'span',
-						'wrap'			=> true,
-						'content'		=> '',
-						'attributes'	=> array()
-						);
+			'tag'        => 'span',
+			'wrap'       => true,
+			'content'    => '',
+			'attributes' => array()
+		);
 		$el_start = '<';
 		$el_end = '>';
 		$el_close = '/';

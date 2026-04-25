@@ -177,8 +177,8 @@ class FVRT_Media extends FVRT_Base {
 		$p = basename( ( isset( $p['path'] ) ) ? $p['path'] : $url );
 		if ( strpos( $p, 'media-upload.php' ) === 0 && $custom ) {
 			$defaults = array(
-				'type'				=> $this->var_type,
-				'tab'				=> 'type'
+				'type' => $this->var_type,
+				'tab'  => 'type'
 			);
 			$u = ( is_string( $type ) ) ? null : $url;
 			//Parse URL
@@ -422,9 +422,9 @@ class FVRT_Media extends FVRT_Base {
 	 * Modifies array of form fields to display on Attachment edit form
 	 * Array items are in the form:
 	 * 'key' => array(
-	 * 				  'label' => "Label Text",
-	 * 				  'value' => Value
-	 * 				  )
+	 *   'label' => "Label Text",
+	 *   'value' => Value
+	 * )
 	 *
 	 * @return array Form fields to display on Attachment edit form
 	 * @param array $form_fields Associative array of Fields to display on form (@see get_attachment_fields_to_edit())
@@ -467,9 +467,9 @@ class FVRT_Media extends FVRT_Base {
 				$field_name = sprintf( '%1$s[%2$s]', $this->var_setmedia, $post->ID );
 				$field_html = $this->util->build_input_element( 'submit', $field_name, $set_as, array( 'class' => 'button' ) );
 				$field = array(
-					'input'		=> 'html',
-					'html'		=> $field_html,
-					'label'		=> '',
+					'input' => 'html',
+					'html'  => $field_html,
+					'label' => '',
 				);
 				$form_fields['buttons'] = $field;
 			}
@@ -555,7 +555,7 @@ class FVRT_Media extends FVRT_Base {
 		if ( ! empty( $p ) ) {
 			//Remap properties
 			$remap = array(
-				'media'		=> 'type_name'
+				'media' => 'type_name'
 			);
 			foreach ( $remap as $from => $to ) {
 				if ( ! isset( $p[ $from ] ) )
@@ -566,9 +566,9 @@ class FVRT_Media extends FVRT_Base {
 
 			//Add default properties
 			$p = (object) wp_parse_args($p, array(
-				'type_name'		=> 'media',
-				'width'			=> 0,
-				'height'		=> 0
+				'type_name' => 'media',
+				'width'     => 0,
+				'height'    => 0
 			));
 		} else {
 			$p = false;
@@ -652,10 +652,10 @@ class FVRT_Media extends FVRT_Base {
 
 		//Default arguments
 		$defaults = array(
-						'post_type'			=> 'attachment',
-						'post_parent'		=> (int) $post->ID,
-						'numberposts'		=> -1
-						);
+			'post_type'   => 'attachment',
+			'post_parent' => (int) $post->ID,
+			'numberposts' => -1
+		);
 
 		$args = wp_parse_args( $args, $defaults );
 
@@ -829,9 +829,9 @@ class FVRT_Media extends FVRT_Base {
 	/**
 	 * Build HTML IMG element of an Image
 	 * @param array $image Array of image properties
-	 * 	0:	Source URI
-	 * 	1:	Width
-	 * 	2:	Height
+	 *  0: Source URI
+	 *  1: Width
+	 *  2: Height
 	 * @return string HTML IMG element of specified image
 	 */
 	function get_image_html( $image, $attributes = '' ) {
@@ -863,13 +863,13 @@ class FVRT_Media extends FVRT_Base {
 	 */
 	function register_type( $name, $props = null ) {
 		$defaults = array(
-			'lbl_title' 	=> '',
-			'lbl_set'		=> 'Set Media',
-			'file_mime'		=> array( 'image/png', 'image/gif', 'image/jpeg' ),
-			'file_type'		=> array( 'png', 'gif', 'jpg' ),
-			'file_desc'		=> 'Icon Files',
-			'width'			=> 0,
-			'height'		=> 0
+			'lbl_title' => '',
+			'lbl_set'   => 'Set Media',
+			'file_mime' => array( 'image/png', 'image/gif', 'image/jpeg' ),
+			'file_type' => array( 'png', 'gif', 'jpg' ),
+			'file_desc' => 'Icon Files',
+			'width'     => 0,
+			'height'    => 0
 		);
 
 		$props = wp_parse_args( $props, $defaults );
