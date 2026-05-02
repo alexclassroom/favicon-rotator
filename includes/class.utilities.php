@@ -263,23 +263,6 @@ class FVRT_Utilities {
 	/*-** General **-*/
 
 	/**
-	 * Checks if a property exists in a class or object
-	 * (Compatibility method for PHP 4
-	 * @param mixed $class Class or object to check
-	 * @param string $property Name of property to look for in $class
-	 */
-	function property_exists( $class, $property ) {
-		if ( ! is_object( $class ) && ! is_array( $class ) ) {
-			return false;
-		}
-		if ( function_exists( 'property_exists' ) && is_object( $class ) ) {
-			return property_exists( $class, $property );
-		} else {
-			return array_key_exists( $property, $class );
-		}
-	}
-
-	/**
 	 * Retrieve specified property from object or array
 	 * @param object|array $obj Object or array to get property from
 	 * @param string $property Property name to retrieve
