@@ -58,10 +58,6 @@
         <exclude name="Squiz.Scope.MethodScope.Missing"/>
         <exclude name="PHPCompatibility.FunctionUse.ArgumentFunctionsReportCurrentValue.NeedsInspection"/>
         <exclude name="Generic.Files.OneObjectStructurePerFile.MultipleFound"/>
-        <exclude name="Universal.NamingConventions.NoReservedKeywordParameterNames.classFound"/>
-        <exclude name="Universal.NamingConventions.NoReservedKeywordParameterNames.defaultFound"/>
-        <exclude name="Universal.NamingConventions.NoReservedKeywordParameterNames.functionFound"/>
-        <exclude name="Universal.NamingConventions.NoReservedKeywordParameterNames.parentFound"/>
         <exclude name="WordPress.PHP.DevelopmentFunctions.error_log_debug_backtrace"/>
         <exclude name="WordPress.PHP.DevelopmentFunctions.error_log_var_dump"/>
         <exclude name="WordPress.WP.EnqueuedResourceParameters.MissingVersion"/>

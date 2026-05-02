@@ -222,10 +222,10 @@ class FVRT_Utilities {
 
 	/**
 	 * Retrieve current action based on URL query variables
-	 * @param mixed $default (optional) Default action if no action exists
+	 * @param mixed $def (optional) Default action if no action exists
 	 * @return string Current action
 	 */
-	function get_action( $default = null ) {
+	function get_action( $def = null ) {
 		// Retrieve action from URL.
 		$action = isset( $_GET['action'] ) ? sanitize_text_field( $_GET['action'] ) : '';
 
@@ -255,7 +255,7 @@ class FVRT_Utilities {
 		}
 		// Fallback: Default action.
 		if ( empty( $action ) ) {
-			$action = $default;
+			$action = $def;
 		}
 		return $action;
 	}
@@ -575,26 +575,26 @@ class FVRT_Utilities {
 	 * Adds ability to set the position of the page in the menu
 	 * @see add_submenu_page (Wraps functionality)
 	 *
-	 * @param $parent
+	 * @param $parent_menu
 	 * @param $page_title
 	 * @param $menu_title
 	 * @param $access_level
 	 * @param $file
-	 * @param $function
+	 * @param $callback
 	 * @param int $pos Index position of menu page
 	 *
 	 * @global array $submenu Admin page submenus
 	 */
-	function add_submenu_page( $parent, $page_title, $menu_title, $capability, $file, $function = '', $pos = false ) {
+	function add_submenu_page( $parent_menu, $page_title, $menu_title, $capability, $file, $callback = '', $pos = false ) {
 		//Add submenu page as usual
 		$args = func_get_args();
 		$hookname = call_user_func_array( 'add_submenu_page', $args );
 		if ( is_int( $pos ) ) {
 			global $submenu;
 			//Get last submenu added
-			$parent = $this->get_submenu_parent_file( $parent );
-			if ( isset( $submenu[ $parent ] ) ) {
-				$subs =& $submenu[ $parent ];
+			$parent_menu = $this->get_submenu_parent_file( $parent_menu );
+			if ( isset( $submenu[ $parent_menu ] ) ) {
+				$subs =& $submenu[ $parent_menu ];
 				//Make sure menu isn't already in the desired position
 				if ( $pos <= ( count( $subs ) - 1 ) ) {
 					//Get submenu that was just added
@@ -617,28 +617,28 @@ class FVRT_Utilities {
 
 	/**
 	 * Remove admin submenu
-	 * @param string $parent Submenu parent file
+	 * @param string $parent_menu Submenu parent file
 	 * @param string $file Submenu file name
 	 * @return int|null Index of removed submenu (NULL if submenu not found)
 	 *
 	 * @global array $submenu
 	 * @global array $_registered_pages
 	 */
-	function remove_submenu_page( $parent, $file ) {
+	function remove_submenu_page( $parent_menu, $file ) {
 		global $submenu, $_registered_pages;
 		$ret = null;
 
-		$parent = $this->get_submenu_parent_file( $parent );
+		$parent_menu = $this->get_submenu_parent_file( $parent_menu );
 		$file = plugin_basename( $file );
 		$file_index = 2;
 
 		//Find submenu
-		if ( isset( $submenu[ $parent ] ) ) {
-			$subs =& $submenu[ $parent ];
+		if ( isset( $submenu[ $parent_menu ] ) ) {
+			$subs =& $submenu[ $parent_menu ];
 			for ( $x = 0; $x < count( $subs ); $x++ ) {
 				if ( $subs[ $x ][ $file_index ] === $file ) {
 					//Remove matching submenu
-					$hookname = get_plugin_page_hookname( $file, $parent );
+					$hookname = get_plugin_page_hookname( $file, $parent_menu );
 					remove_all_actions( $hookname );
 					unset( $_registered_pages[ $hookname ] );
 					unset( $subs[ $x ] );
@@ -657,39 +657,39 @@ class FVRT_Utilities {
 	 * Replace a submenu page
 	 * Adds a submenu page in the place of an existing submenu page that has the same $file value
 	 *
-	 * @param $parent
+	 * @param $parent_menu
 	 * @param $page_title
 	 * @param $menu_title
 	 * @param $access_level
 	 * @param $file
-	 * @param $function
+	 * @param $callback
 	 * @return string Hookname
 	 *
 	 * @global array $submenu
 	 */
-	function replace_submenu_page( $parent, $page_title, $menu_title, $access_level, $file, $function = '' ) {
+	function replace_submenu_page( $parent_menu, $page_title, $menu_title, $access_level, $file, $callback = '' ) {
 		global $submenu;
 		//Remove matching submenu (if exists)
-		$pos = $this->remove_submenu_page( $parent, $file );
+		$pos = $this->remove_submenu_page( $parent_menu, $file );
 		//Insert submenu page
-		$hookname = $this->add_submenu_page( $parent, $page_title, $menu_title, $access_level, $file, $function, $pos );
+		$hookname = $this->add_submenu_page( $parent_menu, $page_title, $menu_title, $access_level, $file, $callback, $pos );
 		return $hookname;
 	}
 
 	/**
 	 * Retrieves parent file for submenu
-	 * @param string $parent Parent file
+	 * @param string $parent_menu Parent file
 	 * @return string Formatted parent file name
 	 *
 	 * @global array $_wp_real_parent_file;
 	 */
-	function get_submenu_parent_file( $parent ) {
+	function get_submenu_parent_file( $parent_menu ) {
 		global $_wp_real_parent_file;
-		$parent = plugin_basename( $parent );
-		if ( isset( $_wp_real_parent_file[ $parent ] ) ) {
-			$parent = $_wp_real_parent_file[ $parent ];
+		$parent_menu = plugin_basename( $parent_menu );
+		if ( isset( $_wp_real_parent_file[ $parent_menu ] ) ) {
+			$parent_menu = $_wp_real_parent_file[ $parent_menu ];
 		}
-		return $parent;
+		return $parent_menu;
 	}
 }
 
