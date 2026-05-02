@@ -238,7 +238,8 @@ class FaviconRotator extends FVRT_Base {
 		$save = false;
 		//Build default groups array
 		if ( is_null( $groups_default ) ) {
-			$groups_default = $dval = array();
+			$groups_default = array();
+			$dval = array();
 			foreach ( $this->get_icon_type_names() as $type ) {
 				$groups_default[ $type ] = $dval;
 			}
@@ -402,7 +403,8 @@ class FaviconRotator extends FVRT_Base {
 	 */
 	function display_icon( $type ) {
 		//Get icons
-		$icons = $icons_orig = $this->get_icon_ids( $type );
+		$icons = $this->get_icon_ids( $type );
+		$icons_orig = $icons;
 		$icon = null;
 		//Loop through retrieved icons until valid icon is returned
 		while ( is_null( $icon ) && count( $icons ) > 0 ) {
@@ -472,7 +474,8 @@ class FaviconRotator extends FVRT_Base {
 	 * Adds admin submenu item to Appearance menu
 	 */
 	function admin_menu() {
-		$this->page = $p = add_theme_page( __( 'Favicon', 'favicon-rotator' ), __( 'Favicon', 'favicon-rotator' ), 'edit_theme_options', $this->util->get_plugin_base(), $this->m( 'admin_page' ) );
+		$p = add_theme_page( __( 'Favicon', 'favicon-rotator' ), __( 'Favicon', 'favicon-rotator' ), 'edit_theme_options', $this->util->get_plugin_base(), $this->m( 'admin_page' ) );
+		$this->page = $p;
 		//Head
 		add_action( "admin_print_scripts-$p", $this->m( 'admin_scripts' ) );
 		add_action( "admin_print_styles-$p", $this->m( 'admin_styles' ) );
@@ -532,7 +535,8 @@ class FaviconRotator extends FVRT_Base {
 				<ul id="fv_item_wrap_<?php echo esc_attr( $t->type_name ); ?>" class="fv_item_wrap <?php echo ( is_null( $t->limit ) ) ? 'multi' : 'single'; ?>">
 				<?php
 				foreach ( $icons as $icon ) : //List icons
-					$icon_src = array_shift( $this->media->get_icon_src( $icon->ID, $t->type_name ) );
+					$icon_src = $this->media->get_icon_src( $icon->ID, $t->type_name );
+					$icon_src = array_shift( $icon_src );
 					$icon_media = wp_get_attachment_image_src( $icon->ID, 'full' );
 					$src = array_shift( $icon_media );
 					?>
