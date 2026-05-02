@@ -543,7 +543,8 @@ class FVRT_Utilities {
 		$el_start = '<';
 		$el_end = '>';
 		$el_close = '/';
-		extract( wp_parse_args( $args, $defaults ), EXTR_SKIP );
+		$args = wp_parse_args( $args, $defaults );
+		extract( $args, EXTR_SKIP );
 		$content = trim( $content );
 
 		if ( ! $wrap && strlen( $content ) > 0 ) {
