@@ -253,7 +253,8 @@ class FVRT_Media extends FVRT_Base {
 			$type = $type->type_name;
 		}
 		//Generate intermediate size (if necessary)
-		if ( wp_attachment_is_image( $id ) && ( $meta = wp_get_attachment_metadata( $id ) ) && ! isset( $meta['sizes'][ $type ] ) ) {
+		$meta = ( wp_attachment_is_image( $id ) ) ? wp_get_attachment_metadata( $id ) : false;
+		if ( is_array( $meta ) && ! isset( $meta['sizes'][ $type ] ) ) {
 			//Full metadata update
 			if ( function_exists( 'wp_generate_attachment_metadata' ) ) {
 				$data = wp_generate_attachment_metadata( $id, get_attached_file( $id ) );
@@ -416,8 +417,8 @@ class FVRT_Media extends FVRT_Base {
 	 * @return array Filtered mime type links
 	 */
 	function media_upload_mime_type_links( $type_links ) {
-		global $wp_query;
-		if ( $this->is_custom_media() && ( $p = $this->get_request_props() ) && isset( $p->file_mime ) && count( $p->file_mime ) === 1 ) {
+		$p = ( $this->is_custom_media() ) ? $this->get_request_props() : null;
+		if ( isset( $p->file_mime ) && count( $p->file_mime ) === 1 ) {
 			//Remove ALL media type link for requests that specify a SINGLE mime type
 			array_shift( $type_links );
 		}
@@ -441,7 +442,8 @@ class FVRT_Media extends FVRT_Base {
 			$post = get_post( $attachment );
 			//Clear all form fields
 			$form_fields = array();
-			if ( isset( $post->post_mime_type ) && 0 === strpos( $post->post_mime_type, 'image/' ) && ( $q = $this->get_request_props() ) && false !== $q ) {
+			$q = ( isset( $post->post_mime_type ) && 0 === strpos( $post->post_mime_type, 'image/' ) ) ? $this->get_request_props() : false;
+			if ( false !== $q ) {
 				$html = array();
 				$type = 'hidden';
 				$name_base = $this->var_query_data . '[' . $post->ID . '][%1$s]';

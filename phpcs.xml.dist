@@ -57,7 +57,6 @@
         <!-- ** Audit-usage ** -->
         <exclude name="Squiz.Scope.MethodScope.Missing"/>
         <exclude name="PHPCompatibility.FunctionUse.ArgumentFunctionsReportCurrentValue.NeedsInspection"/>
-        <exclude name="Generic.CodeAnalysis.AssignmentInCondition.Found"/>
         <exclude name="Generic.Files.OneObjectStructurePerFile.MultipleFound"/>
         <exclude name="Universal.NamingConventions.NoReservedKeywordParameterNames.classFound"/>
         <exclude name="Universal.NamingConventions.NoReservedKeywordParameterNames.defaultFound"/>

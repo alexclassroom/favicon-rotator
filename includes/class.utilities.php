@@ -97,13 +97,15 @@ class FVRT_Utilities {
 	 * @param string $path Path to normalize
 	 * @param bool $trailing_slash (optional) Whether or not normalized path should have a trailing slash or not (Default: FALSE)
 	 *  If multiple path segments are passed, $trailing_slash will be the LAST parameter (default value used if omitted)
+	 * @todo Refactor to use variadic parameters.
 	 */
 	function normalize_path( $path, $trailing_slash = false ) {
 		$sl_f = '/';
 		$sl_b = '\\';
 		$parts = func_get_args();
 		if ( func_num_args() > 1 ) {
-			if ( is_bool( ( $tr = $parts[ count( $parts ) - 1 ] ) ) ) {
+			$tr = $parts[ count( $parts ) - 1 ];
+			if ( is_bool( ( $tr ) ) ) {
 				$trailing_slash = $tr;
 				//Remove from args array
 				array_pop( $parts );
@@ -163,7 +165,8 @@ class FVRT_Utilities {
 	function get_file_extension( $file ) {
 		$ret = '';
 		$sep = '.';
-		if ( is_string( $file ) && ( $rpos = strrpos( $file, $sep ) ) !== false ) {
+		$rpos = ( is_string( $file ) ) ? strrpos( $file, $sep ) : false;
+		if ( false !== $rpos ) {
 			$ret = substr( $file, $rpos + 1 );
 		}
 		return $ret;
@@ -832,7 +835,8 @@ class FVRT_Debug {
 		//Remove current & calling functions from trace
 		$offset = ( intval( $offset ) ) ? intval( $offset ) : 1;
 		$debug = array_slice( $debug, $offset );
-		if ( ( $debug_levels = count( $debug ) ) ) {
+		$debug_levels = count( $debug );
+		if ( $debug_levels > 0 ) {
 			//Setup levels
 			$levels = intval( $levels );
 			if ( empty( $levels ) || $levels > $debug_levels ) {
@@ -865,8 +869,8 @@ class FVRT_Debug {
 			}
 		}
 		//Extract value if single level is in output
-		if ( count( $out ) === 1 && count( $out[0] ) === 1 && $out = array_values( $out[0] ) ) {
-			$out = $out[0];
+		if ( count( $out ) === 1 && count( $out[0] ) === 1 ) {
+			$out = array_values( $out[0] )[0];
 		}
 		return $out;
 	}
