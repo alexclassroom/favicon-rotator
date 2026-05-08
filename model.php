@@ -38,48 +38,6 @@ class FaviconRotator extends FVRT_Base {
 	var $opt_icons = 'icons';
 
 	/**
-	 * Icon types
-	 * @var array
-	 */
-	var $icon_types = array(
-		'favicon' => array(
-			'lbl_title' => 'Browser Icon',
-			'lbl_set'   => 'Add Browser Icon',
-		),
-		'touch'   => array(
-			'limit'     => 1,
-			'lbl_title' => 'Touch Icon',
-			'lbl_add'   => 'Set Icon',
-			'lbl_set'   => 'Set Touch Icon',
-			'lbl_empty' => 'No touch icon set',
-			'display'   => '<link rel="apple-touch-icon-precomposed" href="%1$s" />',
-			'file_mime' => array( 'image/png' ),
-			'file_type' => array( 'png' ),
-			'file_desc' => 'Touch Icon Files',
-			'width'     => 114,
-			'height'    => 114,
-		),
-	);
-
-	/**
-	 * Default properties for an icon type
-	 * @var array
-	 */
-	var $icon_type_default_properties = array(
-		'limit'     => null,
-		'lbl_title' => '',
-		'lbl_add'   => 'Add Icon',
-		'lbl_set'   => 'Add Icon',
-		'lbl_empty' => 'No icons set',
-		'display'   => '<link rel="shortcut icon" href="%1$s" />',
-		'file_mime' => array( 'image/png', 'image/gif', 'image/jpeg', 'image/x-icon' ),
-		'file_type' => array( 'png', 'gif', 'jpg', 'ico' ),
-		'file_desc' => 'Icon Files',
-		'width'     => 16,
-		'height'    => 16,
-	);
-
-	/**
 	 * Default icon type
 	 * @var string
 	 */
@@ -179,12 +137,56 @@ class FaviconRotator extends FVRT_Base {
 	 * @return array Registered types
 	 */
 	function register_icon_types() {
-		$types = $this->icon_types;
+		/**
+		 * Icon types
+		 * @var array
+		 */
+		$types = array(
+			'favicon' => array(
+				'lbl_title' => __( 'Browser Icon', 'favicon-rotator' ),
+				'lbl_set'   => __( 'Add Browser Icon', 'favicon-rotator' ),
+			),
+			'touch'   => array(
+				'limit'     => 1,
+				'lbl_title' => __( 'Touch Icons', 'favicon-rotator' ),
+				'lbl_add'   => __( 'Set Icon', 'favicon-rotator' ),
+				'lbl_set'   => __( 'Set Touch Icon', 'favicon-rotator' ),
+				'lbl_empty' => __( 'No touch icon set', 'favicon-rotator' ),
+				'display'   => '<link rel="apple-touch-icon-precomposed" href="%1$s" />',
+				'file_mime' => array( 'image/png' ),
+				'file_type' => array( 'png' ),
+				'file_desc' => __( 'Touch Icon Files', 'favicon-rotator' ),
+				'width'     => 114,
+				'height'    => 114,
+			),
+		);
+
 		//Register types
 		foreach ( $types as $type => $props ) {
-			$types[ $type ] = $this->media->register_type( $type, array_merge( $this->icon_type_default_properties, $props ) );
+			$types[ $type ] = $this->media->register_type( $type, array_merge( $this->get_icon_type_defaults(), $props ) );
 		}
 		return $types;
+	}
+
+	/**
+	 * Retrieves default icon type properties.
+	 *
+	 * @return array
+	 */
+	private function get_icon_type_defaults(): array {
+		return array(
+			'limit'     => null,
+			'lbl_title' => '',
+			'lbl_add'   => __( 'Add Icon', 'favicon-rotator' ),
+			'lbl_set'   => __( 'Add Icon', 'favicon-rotator' ),
+			'lbl_empty' => __( 'No icons set', 'favicon-rotator' ),
+			'display'   => '<link rel="shortcut icon" href="%1$s" />',
+			'file_mime' => array( 'image/png', 'image/gif', 'image/jpeg', 'image/x-icon' ),
+			'file_type' => array( 'png', 'gif', 'jpg', 'ico' ),
+			'file_desc' => __( 'Icon Files', 'favicon-rotator' ),
+			'width'     => 16,
+			'height'    => 16,
+		);
 	}
 
 	/**
@@ -222,7 +224,7 @@ class FaviconRotator extends FVRT_Base {
 		if ( isset( $types[ $type ] ) ) {
 			$ret = $types[ $type ];
 		} else {
-			$ret = (object) $this->icon_type_default_properties;
+			$ret = (object) $this->get_icon_type_defaults();
 			$ret->type_name = $type;
 		}
 		return $ret;
@@ -498,7 +500,7 @@ class FaviconRotator extends FVRT_Base {
 		//Setup query arguments
 		$filter = array( 'limit', 'lbl_title', 'lbl_add', 'lbl_empty', 'display' );
 		$form_action = sanitize_url( $_SERVER['REQUEST_URI'] ?? '' );
-		$upload_args_base = array_diff( array_keys( $this->icon_type_default_properties ), $filter );
+		$upload_args_base = array_diff( array_keys( $this->get_icon_type_defaults() ), $filter );
 		$upload_args_base[] = 'type_name';
 		$upload_args_map = array();
 		foreach ( $upload_args_base as $key ) {
@@ -522,15 +524,15 @@ class FaviconRotator extends FVRT_Base {
 				'<a href="%1$s" class="%2$s" title="%3$s">%4$s</a>',
 				esc_url( $this->media->get_upload_iframe_src( 'image', $upload_args ) ), /* URL */
 				esc_attr( $class ), /* class */
-				esc_attr__( $t->lbl_add, 'favicon-rotator' ), /* title */
-				esc_html__( $t->lbl_add, 'favicon-rotator' ) /* content */
+				esc_attr( $t->lbl_add ), /* title */
+				esc_html( $t->lbl_add ) /* content */
 			);
 
 			?>
-			<h3><?php esc_html_e( $t->lbl_title, 'favicon-rotator' ); ?> <?php echo $upload_link_escaped; ?></h3>
+			<h3><?php echo esc_html( $t->lbl_title ); ?> <?php echo $upload_link_escaped; ?></h3>
 			<div class="fv_container">
 				<p id="fv_msg_empty_<?php echo esc_attr( $t->type_name ); ?>" style="<?php echo ( $icons ) ? 'display: none' : ''; ?>">
-					<?php esc_html_e( $t->lbl_empty, 'favicon-rotator' ); ?>
+					<?php esc_html( $t->lbl_empty ); ?>
 				</p>
 				<ul id="fv_item_wrap_<?php echo esc_attr( $t->type_name ); ?>" class="fv_item_wrap <?php echo ( is_null( $t->limit ) ) ? 'multi' : 'single'; ?>">
 				<?php

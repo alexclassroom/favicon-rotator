@@ -42,7 +42,6 @@
         <!-- Temporarily exclude rules -->
         <!-- ** WordPress-Specific ** -->
         <exclude name="WordPress.WP.I18n.MissingTranslatorsComment"/>
-        <exclude name="WordPress.WP.I18n.NonSingularStringLiteralText"/>
         <!-- ** Standard ** -->
         <exclude name="Generic.CodeAnalysis.ForLoopWithTestFunctionCall.NotAllowed"/>
         <exclude name="Generic.Files.LineEndings.InvalidEOLChar"/>

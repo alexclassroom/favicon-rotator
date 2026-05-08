@@ -149,7 +149,7 @@ class FVRT_Media extends FVRT_Base {
 		if ( $this->is_custom_media() ) {
 			$p = $this->get_request_props();
 			$filetypes = '*.' . implode( ';*.', $p->file_type );
-			$types = esc_js( $filetypes ) . '",file_types_description: "' . esc_js( __( $p->file_desc, 'favicon-rotator' ) );
+			$types = esc_js( $filetypes ) . '",file_types_description: "' . esc_js( $p->file_desc );
 		}
 		return $types;
 	}
@@ -471,7 +471,7 @@ class FVRT_Media extends FVRT_Base {
 				}
 
 				//Add "Set as Image" button (if valid attachment type)
-				$set_as = __( ( isset( $q->lbl_set ) ) ? $q->lbl_set : 'Set Media', 'favicon-rotator' );
+				$set_as = ( isset( $q->lbl_set ) ) ? $q->lbl_set : __( 'Set Media', 'favicon-rotator' );
 				$field_name = sprintf( '%1$s[%2$s]', $this->var_setmedia, $post->ID );
 				$field_html = $this->util->build_input_element( 'submit', $field_name, $set_as, array( 'class' => 'button' ) );
 				$field = array(
@@ -886,10 +886,10 @@ class FVRT_Media extends FVRT_Base {
 	function register_type( $name, $props = null ) {
 		$defaults = array(
 			'lbl_title' => '',
-			'lbl_set'   => 'Set Media',
+			'lbl_set'   => __( 'Set Media', 'favicon-rotator' ),
 			'file_mime' => array( 'image/png', 'image/gif', 'image/jpeg' ),
 			'file_type' => array( 'png', 'gif', 'jpg' ),
-			'file_desc' => 'Icon Files',
+			'file_desc' => __( 'Media Files', 'favicon-rotator' ),
 			'width'     => 0,
 			'height'    => 0,
 		);
