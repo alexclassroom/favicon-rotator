@@ -14,7 +14,7 @@ require_once 'class.utilities.php';
 class FVRT_Base {
 
 	/**
-	 * Prefix for Cornerstone-related data (attributes, DB tables, etc.)
+	 * Prefix for plugin-related data (attributes, DB tables, etc.)
 	 * @var string
 	 */
 	var $prefix = 'fvrt';
@@ -174,7 +174,7 @@ class FVRT_Base {
 	}
 
 	/**
-	 * Returns Database prefix for Cornerstone-related DB Tables
+	 * Returns Database prefix for plugin-related DB Tables
 	 * @return string Database prefix
 	 */
 	function get_db_prefix() {
