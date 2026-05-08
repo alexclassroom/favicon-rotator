@@ -591,8 +591,13 @@ class FaviconRotator extends FVRT_Base {
 		wp_enqueue_script( 'media-upload' );
 		$h_admin = $this->add_prefix( 'admin_script' );
 		$h_media = $this->add_prefix( 'media' );
-		wp_enqueue_script( $h_admin, $this->util->get_file_url( 'js/admin.js' ), array( 'jquery-migrate', 'jquery', 'thickbox' ) );
-		wp_enqueue_script( $h_media, $this->util->get_file_url( 'js/media.js' ), array( 'jquery-migrate', 'jquery', $h_admin ) );
+		// TODO: Set script version.
+		$ver = null;
+		$args = array(
+			'in_footer' => true,
+		);
+		wp_enqueue_script( $h_admin, $this->util->get_file_url( 'js/admin.js' ), array( 'jquery-migrate', 'jquery', 'thickbox' ), $ver, $args );
+		wp_enqueue_script( $h_media, $this->util->get_file_url( 'js/media.js' ), array( 'jquery-migrate', 'jquery', $h_admin ), $ver, $args );
 	}
 
 	/**
