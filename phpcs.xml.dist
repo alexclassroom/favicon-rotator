@@ -65,5 +65,8 @@
     <!-- <rule ref="Generic.CodeAnalysis.UnusedFunctionParameter"/> -->
     <!-- <rule ref="Generic.Commenting.Todo"/> -->
     <rule ref="Squiz.Commenting.FunctionComment.SpacingAfter"/>
-
+    <rule ref="Squiz.Commenting.InlineComment"/>
+    <rule ref="Generic.Commenting.DocComment">
+        <exclude name="Generic.Commenting.DocComment.TagValueIndent"/>
+    </rule>
 </ruleset>

@@ -7,26 +7,30 @@ if ( ! defined( 'ABSPATH' ) ) {
 require_once 'class.utilities.php';
 
 /**
+ * Base class.
+ *
  * @package Favicon Rotator
  * @author Archetyped
- *
  */
 class FVRT_Base {
 
 	/**
 	 * Prefix for plugin-related data (attributes, DB tables, etc.)
+	 *
 	 * @var string
 	 */
 	protected $prefix = 'fvrt';
 
 	/**
 	 * Utilities instance
+	 *
 	 * @var FVRT_Utilities
 	 */
 	protected $util;
 
 	/**
 	 * Debug instance
+	 *
 	 * @var FVRT_Debug
 	 */
 	protected $debug;
@@ -48,12 +52,12 @@ class FVRT_Base {
 	}
 
 	function register_hooks() {
-		//Activation
+		// Activation.
 		$func_activate = 'activate';
 		if ( method_exists( $this, $func_activate ) ) {
 			register_activation_hook( $this->util->get_plugin_base_file(), $this->m( $func_activate ) );
 		}
-		//Deactivation
+		// Deactivation.
 		$func_deactivate = 'deactivate';
 		if ( method_exists( $this, $func_deactivate ) ) {
 			register_deactivation_hook( $this->util->get_plugin_base_file(), $this->m( $func_deactivate ) );
@@ -62,7 +66,9 @@ class FVRT_Base {
 
 	/**
 	 * Returns callback to instance method
+	 *
 	 * @param string $method Method name
+	 *
 	 * @return array Callback array
 	 */
 	function &m( $method ) {
@@ -72,11 +78,13 @@ class FVRT_Base {
 	/**
 	 * Retrieves post metadata for internal methods
 	 * Metadata set internally is wrapped in an array so it is unwrapped before returned the retrieved value
-	 * @see get_post_meta()
+	 *
 	 * @param int $post_id Post ID
 	 * @param string $key Name of metadata to retrieve
 	 * @param boolean $single Whether or not to retrieve single value or not
+	 *
 	 * @return mixed Retrieved post metadata
+	 * @see get_post_meta()
 	 */
 	function post_meta_get( $post_id, $key, $single = false ) {
 		$meta_value = get_post_meta( $post_id, $this->post_meta_get_key( $key ), $single );
@@ -88,7 +96,9 @@ class FVRT_Base {
 
 	/**
 	 * Wraps metadata in array for storage in database
+	 *
 	 * @param mixed $meta_value Value to be set as metadata
+	 *
 	 * @return array Wrapped metadata value
 	 */
 	function post_meta_prepare_value( $meta_value ) {
@@ -98,12 +108,14 @@ class FVRT_Base {
 	/**
 	 * Adds Metadata for a post to database
 	 * For internal methods
-	 * @see add_post_meta
+	 *
 	 * @param $post_id
 	 * @param $meta_key
 	 * @param $meta_value
 	 * @param $unique
+	 *
 	 * @return boolean Result of operation
+	 * @see add_post_meta
 	 */
 	function post_meta_add( $post_id, $meta_key, $meta_value, $unique = false ) {
 		$meta_value = $this->post_meta_prepare_value( $meta_value );
@@ -112,12 +124,14 @@ class FVRT_Base {
 
 	/**
 	 * Updates post metadata for internal data/methods
-	 * @see update_post_meta()
+	 *
 	 * @param $post_id
 	 * @param $meta_key
 	 * @param $meta_value
 	 * @param $prev_value
+	 *
 	 * @return boolean Result of operation
+	 * @see update_post_meta()
 	 */
 	function post_meta_update( $post_id, $meta_key, $meta_value, $prev_value = '' ) {
 		$meta_value = $this->post_meta_prepare_value( $meta_value );
@@ -129,6 +143,7 @@ class FVRT_Base {
 	 * Format: `_{prefix}_{key}`.
 	 *
 	 * @param string $key Base key name.
+	 *
 	 * @return string Formatted postmeta key.
 	 */
 	function post_meta_get_key( string $key ) {
@@ -144,7 +159,9 @@ class FVRT_Base {
 
 	/**
 	 * Retrieve class prefix (with separator if set)
+	 *
 	 * @param bool|string $sep Separator to append to class prefix (Default: no separator)
+	 *
 	 * @return string Class prefix
 	 */
 	function get_prefix( $sep = false ) {
@@ -155,8 +172,10 @@ class FVRT_Base {
 
 	/**
 	 * Prepend plugin prefix to some text
+	 *
 	 * @param string $text Text to add to prefix
 	 * @param string $sep Text used to separate prefix and text
+	 *
 	 * @return string Text with prefix prepended
 	 */
 	function add_prefix( $text = '', $sep = '_' ) {
@@ -166,7 +185,9 @@ class FVRT_Base {
 	/**
 	 * Creates a meta key for storing post meta data
 	 * Prefixes standard prefixed text with underscore to hide meta data on post edit forms
+	 *
 	 * @param string $text Text to use as base of meta key
+	 *
 	 * @return string Formatted meta key
 	 */
 	function make_meta_key( $text = '' ) {
@@ -175,6 +196,7 @@ class FVRT_Base {
 
 	/**
 	 * Returns Database prefix for plugin-related DB Tables
+	 *
 	 * @return string Database prefix
 	 */
 	function get_db_prefix() {

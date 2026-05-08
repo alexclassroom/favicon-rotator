@@ -10,7 +10,6 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @package Favicon Rotator
  * @subpackage Utilities
  * @author Archetyped
- *
  */
 class FVRT_Utilities {
 
@@ -19,8 +18,10 @@ class FVRT_Utilities {
 
 	/**
 	 * Returns callback array to instance method
+	 *
 	 * @param object $obj Instance object
 	 * @param string $method Name of method
+	 *
 	 * @return array Callback array
 	 */
 	function &m( &$obj, $method = '' ) {
@@ -38,8 +39,10 @@ class FVRT_Utilities {
 	/**
 	 * Checks if $post is a valid Post object
 	 * If $post is not valid, assigns global post object to $post (if available)
-	 * @return bool TRUE if $post is valid object by end of function processing
+	 *
 	 * @param object $post Post object to evaluate
+	 *
+	 * @return bool TRUE if $post is valid object by end of function processing
 	 */
 	function check_post( &$post ) {
 		if ( empty( $post ) ) {
@@ -65,7 +68,9 @@ class FVRT_Utilities {
 
 	/**
 	 * Checks $_SERVER['SCRIPT_NAME'] to see if file base name matches specified file name
+	 *
 	 * @param string $filename Filename to check for
+	 *
 	 * @return bool TRUE if current page matches specified filename, FALSE otherwise
 	 */
 	function is_file( $filename ) {
@@ -78,6 +83,7 @@ class FVRT_Utilities {
 
 	/**
 	 * Checks whether the current page is a management page
+	 *
 	 * @return bool TRUE if current page is a management page, FALSE otherwise
 	 */
 	function is_admin_management_page() {
@@ -94,9 +100,11 @@ class FVRT_Utilities {
 	 * Joins and normalizes the slashes in the paths passed to method
 	 * All forward/back slashes are converted to forward slashes
 	 * Multiple path segments can be passed as additional argments
+	 *
 	 * @param string $path Path to normalize
 	 * @param bool $trailing_slash (optional) Whether or not normalized path should have a trailing slash or not (Default: FALSE)
 	 *  If multiple path segments are passed, $trailing_slash will be the LAST parameter (default value used if omitted)
+	 *
 	 * @todo Refactor to use variadic parameters.
 	 */
 	function normalize_path( $path, $trailing_slash = false ) {
@@ -107,38 +115,38 @@ class FVRT_Utilities {
 			$tr = $parts[ count( $parts ) - 1 ];
 			if ( is_bool( ( $tr ) ) ) {
 				$trailing_slash = $tr;
-				//Remove from args array
+				// Remove from args array.
 				array_pop( $parts );
 			} else {
 				$trailing_slash = false;
 			}
 			$first = true;
-			//Trim trailing slashes from path parts
+			// Trim trailing slashes from path parts.
 			foreach ( $parts as $key => $part ) {
 				$part = trim( $part );
-				//Special Trim
+				// Special Trim.
 				$parts[ $key ] = trim( $part, $sl_f . $sl_b );
-				//Verify path still contains value
+				// Verify path still contains value.
 				if ( empty( $parts[ $key ] ) ) {
 					unset( $parts[ $key ] );
 					continue;
 				}
-				//Only continue processing the first valid path segment
+				// Only continue processing the first valid path segment.
 				if ( $first ) {
 					$first = ! $first;
 				} else {
 					continue;
 				}
-				//Add back leading slash if necessary
+				// Add back leading slash if necessary.
 				if ( $part[0] === $sl_f || $part[0] === $sl_b ) {
 					$parts[ $key ] = $sl_f . $parts[ $key ];
 				}
 			}
 		}
-		//Join path parts together
+		// Join path parts together.
 		$parts = implode( $sl_b, $parts );
 		$parts = str_replace( $sl_b, $sl_f, $parts );
-		//Add trailing slash (if necessary)
+		// Add trailing slash (if necessary).
 		if ( $trailing_slash ) {
 			$parts . $sl_f;
 		}
@@ -147,7 +155,9 @@ class FVRT_Utilities {
 
 	/**
 	 * Returns URL of file (assumes that it is in plugin directory)
+	 *
 	 * @param string $file name of file get URL
+	 *
 	 * @return string File path
 	 */
 	function get_file_url( $file ) {
@@ -159,7 +169,9 @@ class FVRT_Utilities {
 
 	/**
 	 * Retrieves file extension
+	 *
 	 * @param string $file file name/path
+	 *
 	 * @return string File's extension
 	 */
 	function get_file_extension( $file ) {
@@ -174,8 +186,10 @@ class FVRT_Utilities {
 
 	/**
 	 * Checks if file has specified extension
+	 *
 	 * @param string $file File name/path
 	 * @param string $extension File ending to check $file for
+	 *
 	 * @return bool TRUE if file has extension
 	 */
 	function has_file_extension( $file, $extension ) {
@@ -184,6 +198,7 @@ class FVRT_Utilities {
 
 	/**
 	 * Retrieve base URL for plugin-specific files
+	 *
 	 * @return string Base URL
 	 */
 	function get_url_base() {
@@ -222,7 +237,9 @@ class FVRT_Utilities {
 
 	/**
 	 * Retrieve current action based on URL query variables
+	 *
 	 * @param mixed $def (optional) Default action if no action exists
+	 *
 	 * @return string Current action
 	 */
 	function get_action( $def = null ) {
@@ -264,21 +281,23 @@ class FVRT_Utilities {
 
 	/**
 	 * Retrieve specified property from object or array
+	 *
 	 * @param object|array $obj Object or array to get property from
 	 * @param string $property Property name to retrieve
+	 *
 	 * @return mixed Property value
 	 */
 	function &get_property( &$obj, $property ) {
 		$property = trim( $property );
-		//Object
+		// Object.
 		if ( is_object( $obj ) ) {
 			return $obj->{$property};
 		}
-		//Array
+		// Array.
 		if ( is_array( $obj ) ) {
 			return $obj[ $property ];
 		}
-		//Class
+		// Class.
 		if ( is_string( $obj ) && class_exists( $obj ) ) {
 			$cvars = get_class_vars( $obj );
 			if ( isset( $cvars[ $property ] ) ) {
@@ -291,6 +310,7 @@ class FVRT_Utilities {
 	 * Gets first key of an array
 	 *
 	 * @param array $arr Array to get first key from
+	 *
 	 * @return mixed First key of array
 	 */
 	public function array_key_first( $arr ) {
@@ -316,17 +336,19 @@ class FVRT_Utilities {
 	 *     - Merge item in base array with current item based on key name
 	 *     - If the current item's value AND the corresponding item in the base array are BOTH arrays, recursively merge the the arrays
 	 *     - If the current item's value OR the corresponding item in the base array is NOT an array, current item overwrites base item
-	 * @todo Append numerical elements (as opposed to overwriting element at same index in base array)
+	 *
 	 * @param array<array> $arrs Variable number of arrays
+	 *
+	 * @todo Append numerical elements (as opposed to overwriting element at same index in base array)
 	 * @return array Merged array
 	 */
 	function array_merge_recursive_distinct( array ...$arrs ) {
-		//Set first array as base array
+		// Set first array as base array.
 		$merged = $arrs[0];
-		//Iterate through arrays to merge
+		// Iterate through arrays to merge.
 		$arrs_count = count( $arrs );
 		for ( $x = 1; $x < $arrs_count; $x++ ) {
-			//Iterate through argument items
+			// Iterate through argument items.
 			foreach ( $arrs[ $x ] as $key => $val ) {
 				if ( ! isset( $merged[ $key ] ) || ! is_array( $merged[ $key ] ) || ! is_array( $val ) ) {
 					$merged[ $key ] = $val;
@@ -344,19 +366,20 @@ class FVRT_Utilities {
 	 * @param string $search Text to search for in array
 	 * @param array $arr_replace Array to use for replacing values
 	 * @param array $arr_subject Array to search for specified value
+	 *
 	 * @return array Searched array with replacements made
 	 */
 	function array_replace_recursive( $search, $arr_replace, $arr_subject ) {
 		foreach ( $arr_subject as $key => $val ) {
-			//Skip element if key does not exist in the replacement array
+			// Skip element if key does not exist in the replacement array.
 			if ( ! isset( $arr_replace[ $key ] ) ) {
 				continue;
 			}
-			//If element values for both arrays are strings, replace text
+			// If element values for both arrays are strings, replace text.
 			if ( is_string( $val ) && strpos( $val, $search ) !== false && is_string( $arr_replace[ $key ] ) ) {
 				$arr_subject[ $key ] = str_replace( $search, $arr_replace[ $key ], $val );
 			}
-			//If value in both arrays are arrays, recursively replace text
+			// If value in both arrays are arrays, recursively replace text.
 			if ( is_array( $val ) && is_array( $arr_replace[ $key ] ) ) {
 				$arr_subject[ $key ] = $this->array_replace_recursive( $search, $arr_replace[ $key ], $val );
 			}
@@ -367,9 +390,11 @@ class FVRT_Utilities {
 
 	/**
 	 * Checks if item at specified path in array is set
+	 *
 	 * @param array $arr Array to check for item
 	 * @param array $path Array of segments that form path to array (each array item is a deeper dimension in the array)
 	 * @param mixed $item Optional. Reference to variable to pass path value back to.
+	 *
 	 * @return boolean TRUE if item is set in array, FALSE otherwise
 	 */
 	function array_item_isset( $arr, $path, &$item = null ) {
@@ -398,8 +423,10 @@ class FVRT_Utilities {
 
 	/**
 	 * Returns value of item at specified path in array
+	 *
 	 * @param array $arr Array to get item from
 	 * @param array $path Array of segments that form path to array (each array item is a deeper dimension in the array)
+	 *
 	 * @return mixed Value of item in array (Default: empty string)
 	 */
 	function get_array_item( $arr, $path ) {
@@ -412,21 +439,23 @@ class FVRT_Utilities {
 	/**
 	 * Builds array of path elements based on arguments
 	 * Each item in path array represents a deeper level in structure path is for (object, array, filesystem, etc.)
+	 *
 	 * @param array|string Value to add to the path
+	 *
 	 * @return array 1-dimensional array of path elements
 	 */
 	function build_path() {
 		$path = array();
 		$args = func_get_args();
 
-		//Iterate through parameters and build path
+		// Iterate through parameters and build path.
 		foreach ( $args as $arg ) {
 			if ( empty( $arg ) ) {
 				continue;
 			}
 
 			if ( is_array( $arg ) ) {
-				//Recurse through array items to pull out any more arrays
+				// Recurse through array items to pull out any more arrays.
 				foreach ( $arg as $key => $val ) {
 					$path = array_merge( $path, $this->build_path( $val ) );
 				}
@@ -440,7 +469,9 @@ class FVRT_Utilities {
 
 	/**
 	 * Builds attribute string for HTML element.
+	 *
 	 * @param array $attrs Attributes.
+	 *
 	 * @return string Formatted attribute string.
 	 */
 	function build_attribute_string( $attrs ) {
@@ -464,7 +495,9 @@ class FVRT_Utilities {
 
 	/**
 	 * Generate external stylesheet element
+	 *
 	 * @param $url Stylesheet URL
+	 *
 	 * @return string Stylesheet element
 	 */
 	function build_stylesheet_element( $url = '' ) {
@@ -484,7 +517,9 @@ class FVRT_Utilities {
 
 	/**
 	 * Generate external script element
+	 *
 	 * @param $url Script URL
+	 *
 	 * @return string Script element
 	 */
 	function build_ext_script_element( $url = '' ) {
@@ -502,13 +537,14 @@ class FVRT_Utilities {
 
 	/**
 	 * Generate input element
+	 *
 	 * @param string $type (optional) Input type
 	 * @param string $name (optional) Input name
 	 * @param mixed $value (optional) Input value
 	 * @param array $attributes (optional) Additional attributes
 	 */
 	function build_input_element( $type = 'text', $name = '', $value = '', $attributes = array() ) {
-		//Build attributes
+		// Build attributes.
 		$attributes = wp_parse_args(
 			$attributes,
 			array(
@@ -517,7 +553,7 @@ class FVRT_Utilities {
 				'value' => $value,
 			)
 		);
-		//Build element
+		// Build element.
 		$el = array(
 			'tag'        => 'input',
 			'wrap'       => false,
@@ -528,7 +564,9 @@ class FVRT_Utilities {
 
 	/**
 	 * Generate HTML element based on values
+	 *
 	 * @param $args Element arguments
+	 *
 	 * @return string Generated HTML element
 	 */
 	function build_html_element( $args ) {
@@ -571,7 +609,6 @@ class FVRT_Utilities {
 	/**
 	 * Add submenu page in the admin menu
 	 * Adds ability to set the position of the page in the menu
-	 * @see add_submenu_page (Wraps functionality)
 	 *
 	 * @param $parent_menu
 	 * @param $page_title
@@ -581,23 +618,24 @@ class FVRT_Utilities {
 	 * @param $callback
 	 * @param int $pos Index position of menu page
 	 *
+	 * @see add_submenu_page (Wraps functionality)
 	 * @global array $submenu Admin page submenus
 	 */
 	function add_submenu_page( $parent_menu, $page_title, $menu_title, $capability, $file, $callback = '', $pos = false ) {
-		//Add submenu page as usual
+		// Add submenu page as usual.
 		$args = func_get_args();
 		$hookname = call_user_func_array( 'add_submenu_page', $args );
 		if ( is_int( $pos ) ) {
 			global $submenu;
-			//Get last submenu added
+			// Get last submenu added.
 			$parent_menu = $this->get_submenu_parent_file( $parent_menu );
 			if ( isset( $submenu[ $parent_menu ] ) ) {
 				$subs =& $submenu[ $parent_menu ];
-				//Make sure menu isn't already in the desired position
+				// Make sure menu isn't already in the desired position.
 				if ( $pos <= ( count( $subs ) - 1 ) ) {
-					//Get submenu that was just added
+					// Get submenu that was just added.
 					$sub = array_pop( $subs );
-					//Insert into desired position
+					// Insert into desired position.
 					if ( 0 === $pos ) {
 						array_unshift( $subs, $sub );
 					} else {
@@ -615,8 +653,10 @@ class FVRT_Utilities {
 
 	/**
 	 * Remove admin submenu
+	 *
 	 * @param string $parent_menu Submenu parent file
 	 * @param string $file Submenu file name
+	 *
 	 * @return int|null Index of removed submenu (NULL if submenu not found)
 	 *
 	 * @global array $submenu
@@ -630,13 +670,13 @@ class FVRT_Utilities {
 		$file = plugin_basename( $file );
 		$file_index = 2;
 
-		//Find submenu
+		// Find submenu.
 		if ( isset( $submenu[ $parent_menu ] ) ) {
 			$subs =& $submenu[ $parent_menu ];
 			$subs_count = count( $subs );
 			for ( $x = 0; $x < $subs_count; $x++ ) {
 				if ( $subs[ $x ][ $file_index ] === $file ) {
-					//Remove matching submenu
+					// Remove matching submenu.
 					$hookname = get_plugin_page_hookname( $file, $parent_menu );
 					remove_all_actions( $hookname );
 					unset( $_registered_pages[ $hookname ] );
@@ -644,7 +684,7 @@ class FVRT_Utilities {
 					$subs = array_values( $subs );
 					// Update submenu count.
 					$subs_count = count( $subs );
-					//Set index and stop processing
+					// Set index and stop processing.
 					$ret = $x;
 					break;
 				}
@@ -664,22 +704,25 @@ class FVRT_Utilities {
 	 * @param $access_level
 	 * @param $file
 	 * @param $callback
+	 *
 	 * @return string Hookname
 	 *
 	 * @global array $submenu
 	 */
 	function replace_submenu_page( $parent_menu, $page_title, $menu_title, $access_level, $file, $callback = '' ) {
 		global $submenu;
-		//Remove matching submenu (if exists)
+		// Remove matching submenu (if exists).
 		$pos = $this->remove_submenu_page( $parent_menu, $file );
-		//Insert submenu page
+		// Insert submenu page.
 		$hookname = $this->add_submenu_page( $parent_menu, $page_title, $menu_title, $access_level, $file, $callback, $pos );
 		return $hookname;
 	}
 
 	/**
 	 * Retrieves parent file for submenu
+	 *
 	 * @param string $parent_menu Parent file
+	 *
 	 * @return string Formatted parent file name
 	 *
 	 * @global array $_wp_real_parent_file;
@@ -696,12 +739,16 @@ class FVRT_Utilities {
 
 class FVRT_Debug {
 	/**
-	 * @var array Associative array of debug messages
+	 * Debug message collection.
+	 *
+	 * @var array<string, mixed>
 	 */
 	protected $msgs = array();
 
 	/**
-	 * @var array Holds various timer objects
+	 * Timer collection.
+	 *
+	 * @var array<string, obj>
 	 */
 	protected $timers = array();
 
@@ -716,9 +763,11 @@ class FVRT_Debug {
 
 	/**
 	 * Adds debug data to object
-	 * @return void
+	 *
 	 * @param String $title Title of debug message
 	 * @param mixed $message value to store in message for debugging purposes
+	 *
+	 * @return void
 	 */
 	function add_message( $title, $message ) {
 		$this->msgs[ $title ] = $message;
@@ -726,6 +775,7 @@ class FVRT_Debug {
 
 	/**
 	 * Returns debug message array
+	 *
 	 * @return array Debug message array
 	 */
 	function get_messages() {
@@ -784,14 +834,16 @@ class FVRT_Debug {
 		) {
 			$this->timer_start( $name );
 		}
-		//Get difference in times
+		// Get difference in times.
 		$res = (float) $this->timers[ $name ]->end - (float) $this->timers[ $name ]->start;
 		$this->print_message( sprintf( $format, $res ) );
 	}
 
 	/**
 	 * Retrieve current function name
+	 *
 	 * @param string|array $properties (optional) Properties to retrieve for current function
+	 *
 	 * @return string|array Current function properties. Default: function name.  Will return array if multiple properties are requested
 	 * @see FVRT_Debug::backtrace
 	 */
@@ -801,7 +853,9 @@ class FVRT_Debug {
 
 	/**
 	 * Retrieves calling function name
+	 *
 	 * @param string|array $properties (optional) Properties to retrieve for caller
+	 *
 	 * @return string|array Calling function properties. Default: function name.  Will return array if multiple properties are requested
 	 * @see FVRT_Debug::backtrace
 	 */
@@ -811,27 +865,29 @@ class FVRT_Debug {
 
 	/**
 	 * Return customized backtrace
+	 *
 	 * @param string|array $properties (optional) Properties to retrieve for each level (Default: all properties) Can be comma-delimited string or array
 	 * @param int $levels (optional) Number of levels to retrieve (Default: entire backtrace)
 	 * @param int $offset (optional) Where to start backtrace output (e.g. Remove current/wrapper functions from output, etc.)
+	 *
 	 * @return array|string Backtrace output as Array. Will output string if only one level with one property is in output
 	 */
 	function backtrace( $properties = null, $levels = null, $offset = 1 ) {
 		$out = array();
 		// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_debug_backtrace -- Debug utility method.
 		$debug = debug_backtrace();
-		//Remove current & calling functions from trace
+		// Remove current & calling functions from trace.
 		$offset = ( intval( $offset ) ) ? intval( $offset ) : 1;
 		$debug = array_slice( $debug, $offset );
 		$debug_levels = count( $debug );
 		if ( $debug_levels > 0 ) {
-			//Setup levels
+			// Setup levels.
 			$levels = intval( $levels );
 			if ( empty( $levels ) || $levels > $debug_levels ) {
 				$levels = $debug_levels;
 			}
 
-			//Setup properties
+			// Setup properties.
 			if ( is_string( $properties ) ) {
 				$properties = explode( ',', $properties );
 			}
@@ -839,7 +895,7 @@ class FVRT_Debug {
 				$properties = array_map( 'trim', $properties );
 			}
 
-			//Build output
+			// Build output.
 			for ( $x = 0; $x < $levels; $x++ ) {
 				$level_out = array();
 				if ( ! is_array( $properties ) ) {
@@ -856,7 +912,7 @@ class FVRT_Debug {
 				}
 			}
 		}
-		//Extract value if single level is in output
+		// Extract value if single level is in output.
 		if ( count( $out ) === 1 && count( $out[0] ) === 1 ) {
 			$out = array_values( $out[0] )[0];
 		}
