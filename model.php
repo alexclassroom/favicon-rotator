@@ -532,7 +532,7 @@ class FaviconRotator extends FVRT_Base {
 			<h3><?php echo esc_html( $t->lbl_title ); ?> <?php echo $upload_link_escaped; ?></h3>
 			<div class="fv_container">
 				<p id="fv_msg_empty_<?php echo esc_attr( $t->type_name ); ?>" style="<?php echo ( $icons ) ? 'display: none' : ''; ?>">
-					<?php esc_html( $t->lbl_empty ); ?>
+					<?php echo esc_html( $t->lbl_empty ); ?>
 				</p>
 				<ul id="fv_item_wrap_<?php echo esc_attr( $t->type_name ); ?>" class="fv_item_wrap <?php echo ( is_null( $t->limit ) ) ? 'multi' : 'single'; ?>">
 				<?php
