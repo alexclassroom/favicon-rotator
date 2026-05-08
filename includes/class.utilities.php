@@ -734,6 +734,7 @@ class FVRT_Debug {
 
 	function show_messages() {
 		echo '<pre>';
+		// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_var_dump -- Debug utility method.
 		var_dump( $this->get_messages() );
 		echo '</pre>';
 	}
@@ -744,6 +745,7 @@ class FVRT_Debug {
 			if ( is_scalar( $msg ) && ! is_bool( $msg ) ) {
 				echo esc_html( $msg ) . '<br />';
 			} else {
+				// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_var_dump -- Debug utility method.
 				var_dump( $msg );
 			}
 			echo '</pre>';
@@ -816,6 +818,7 @@ class FVRT_Debug {
 	 */
 	function backtrace( $properties = null, $levels = null, $offset = 1 ) {
 		$out = array();
+		// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_debug_backtrace -- Debug utility method.
 		$debug = debug_backtrace();
 		//Remove current & calling functions from trace
 		$offset = ( intval( $offset ) ) ? intval( $offset ) : 1;

@@ -51,8 +51,6 @@
         <exclude name="Squiz.Scope.MethodScope.Missing"/>
         <exclude name="PHPCompatibility.FunctionUse.ArgumentFunctionsReportCurrentValue.NeedsInspection"/>
         <exclude name="Generic.Files.OneObjectStructurePerFile.MultipleFound"/>
-        <exclude name="WordPress.PHP.DevelopmentFunctions.error_log_debug_backtrace"/>
-        <exclude name="WordPress.PHP.DevelopmentFunctions.error_log_var_dump"/>
         <exclude name="WordPress.WP.EnqueuedResourceParameters.MissingVersion"/>
         <!-- ** WordPress-Specific ** -->
         <!-- ** Temporary during cleanup ** -->
