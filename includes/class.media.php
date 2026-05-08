@@ -17,58 +17,58 @@ class FVRT_Media extends FVRT_Base {
 	 * Prefix for all instance variables that should be prefixed
 	 * @var string
 	 */
-	var $prefix_var = 'var_';
+	protected $prefix_var = 'var_';
 
 	/**
 	 * Query var used to set field media is being selected for
 	 * Prefix added upon instantiation
 	 * @var string
 	 */
-	var $var_type = 'media';
+	protected $var_type = 'media';
 
 	/**
 	 * Query data identifier
 	 * @var string
 	 */
-	var $var_query_data = 'data';
+	protected $var_query_data = 'data';
 
 	/**
 	 * Query var used to set media upload action
 	 * Prefix added upon instantiation
 	 * @var string
 	 */
-	var $var_action = 'action';
+	protected $var_action = 'action';
 
 	/**
 	 * ID of variable used to submit selected icon
 	 * Prefix added upon instantiation
 	 * @var unknown_type
 	 */
-	var $var_setmedia = 'setmedia';
+	protected $var_setmedia = 'setmedia';
 
 	/**
 	 * Mime types for favicon
 	 * @var array
 	 */
-	var $mime_types = array( 'png', 'gif', 'jpg', 'x-icon' );
+	protected $mime_types = array( 'png', 'gif', 'jpg', 'x-icon' );
 
 	/**
 	 * Arguments for upload URL building
 	 * @var array
 	 */
-	var $upload_url_args;
+	protected $upload_url_args;
 
 	/**
 	 * Intermediate media types
 	 * @var array
 	 */
-	var $types = array();
+	protected $types = array();
 
 	/**
 	 * Name of type for current request
 	 * @var string
 	 */
-	var $type_current = null;
+	protected $type_current = null;
 
 	/**
 	 * Constructor

@@ -17,19 +17,19 @@ class FVRT_Base {
 	 * Prefix for plugin-related data (attributes, DB tables, etc.)
 	 * @var string
 	 */
-	var $prefix = 'fvrt';
+	protected $prefix = 'fvrt';
 
 	/**
 	 * Utilities instance
 	 * @var FVRT_Utilities
 	 */
-	var $util;
+	protected $util;
 
 	/**
 	 * Debug instance
 	 * @var FVRT_Debug
 	 */
-	var $debug;
+	protected $debug;
 
 	/**
 	 * Constructor

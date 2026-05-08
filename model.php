@@ -17,43 +17,43 @@ class FaviconRotator extends FVRT_Base {
 	 * Admin Page hook
 	 * @var string
 	 */
-	var $page;
+	private $page;
 
 	/**
 	 * Plugin options
 	 * @var array
 	 */
-	var $options = null;
+	private $options = null;
 
 	/**
 	 * Plugin Options key
 	 * @var string
 	 */
-	var $opt_key = 'options';
+	private $opt_key = 'options';
 
 	/**
 	 * Key to use for icons array in options
 	 * @var string
 	 */
-	var $opt_icons = 'icons';
+	private $opt_icons = 'icons';
 
 	/**
 	 * Default icon type
 	 * @var string
 	 */
-	var $icon_type_default = 'favicon';
+	private $icon_type_default = 'favicon';
 
 	/**
 	 * Save action
 	 * @var string
 	 */
-	var $action_save = 'action_save';
+	private $action_save = 'action_save';
 
 	/**
 	 * Path to admin contextual help file
 	 * @var string
 	 */
-	var $file_admin_help = 'resources/admin_help.html';
+	private $file_admin_help = 'resources/admin_help.html';
 
 	/*-** Instance objects **-*/
 
@@ -61,7 +61,7 @@ class FaviconRotator extends FVRT_Base {
 	 * Media instance
 	 * @var FVRT_Media
 	 */
-	var $media;
+	private $media;
 
 	/*-** Initialization **-*/
 

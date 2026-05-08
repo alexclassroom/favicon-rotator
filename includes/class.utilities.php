@@ -698,12 +698,12 @@ class FVRT_Debug {
 	/**
 	 * @var array Associative array of debug messages
 	 */
-	var $msgs = array();
+	protected $msgs = array();
 
 	/**
 	 * @var array Holds various timer objects
 	 */
-	var $timers = array();
+	protected $timers = array();
 
 	/* Constructor */
 
