@@ -42,7 +42,6 @@
         <!-- Temporarily exclude rules -->
         <!-- ** WordPress-Specific ** -->
         <!-- ** Standard ** -->
-        <exclude name="Generic.CodeAnalysis.ForLoopWithTestFunctionCall.NotAllowed"/>
         <exclude name="Generic.Files.LineEndings.InvalidEOLChar"/>
         <exclude name="PSR2.Classes.PropertyDeclaration.ScopeMissing"/>
         <exclude name="PSR2.Classes.PropertyDeclaration.VarUsed"/>
@@ -62,8 +61,6 @@
         <exclude name="WordPress.Security.NonceVerification.Recommended"/>
         <exclude name="WordPress.Security.ValidatedSanitizedInput.InputNotSanitized"/>
         <exclude name="WordPress.Security.EscapeOutput.OutputNotEscaped"/>
-        <exclude name="WordPress.DB.PreparedSQL.InterpolatedNotPrepared"/>
-        <exclude name="WordPress.DB.PreparedSQL.NotPrepared"/>
         <exclude name="WordPress.PHP.DontExtract.extract_extract"/>
         <exclude name="WordPress.Security.ValidatedSanitizedInput.MissingUnslash"/>
         <exclude name="WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents"/>
