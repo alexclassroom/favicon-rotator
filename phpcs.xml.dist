@@ -43,7 +43,6 @@
         <!-- ** WordPress-Specific ** -->
         <!-- ** Standard ** -->
         <exclude name="Generic.Files.LineEndings.InvalidEOLChar"/>
-        <exclude name="PSR2.Classes.PropertyDeclaration.ScopeMissing"/>
         <!-- ** Alignment-Related ** -->
         <exclude name="Generic.Formatting.MultipleStatementAlignment.NotSameWarning"/>
         <!-- ** Audit-usage ** -->
