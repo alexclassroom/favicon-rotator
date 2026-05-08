@@ -125,18 +125,18 @@ class FVRT_Base {
 	}
 
 	/**
-	 * Builds postmeta key for custom data set by plugin
-	 * @param string $key Base key name
-	 * @return string Formatted postmeta key
+	 * Builds postmeta key for custom data set by plugin.
+	 * Format: `_{prefix}_{key}`.
+	 *
+	 * @param string $key Base key name.
+	 * @return string Formatted postmeta key.
 	 */
-	function post_meta_get_key( $key ) {
+	function post_meta_get_key( string $key ) {
 		$sep = '_';
-		if ( strpos( $key, $sep . $this->prefix ) !== 0 ) {
-			$key_base = func_get_args();
-			if ( ! empty( $key_base ) ) {
-				$key = array_merge( (array) $this->prefix, $key_base );
-				return $sep . implode( $sep, $key );
-			}
+		$prefix = $sep . $this->prefix;
+		// Process unformatted keys only.
+		if ( strpos( $key, $prefix ) !== 0 ) {
+			$key = implode( $sep, array( $prefix, $key ) );
 		}
 
 		return $key;
