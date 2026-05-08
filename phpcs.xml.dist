@@ -41,7 +41,6 @@
         <exclude name="WordPress.WP.GlobalVariablesOverride.Prohibited"/>
         <!-- Temporarily exclude rules -->
         <!-- ** WordPress-Specific ** -->
-        <exclude name="WordPress.WP.I18n.MissingTranslatorsComment"/>
         <!-- ** Standard ** -->
         <exclude name="Generic.CodeAnalysis.ForLoopWithTestFunctionCall.NotAllowed"/>
         <exclude name="Generic.Files.LineEndings.InvalidEOLChar"/>

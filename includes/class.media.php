@@ -359,6 +359,7 @@ class FVRT_Media extends FVRT_Base {
 					'image/png'    => array(
 						__( 'PNG Images', 'favicon-rotator' ),
 						__( 'Manage PNG Images', 'favicon-rotator' ),
+						/* translators: PNG images quanity */
 						_n_noop(
 							'PNG Image <span class="count">(%s)</span>',
 							'PNG Images <span class="count">(%s)</span>',
@@ -368,6 +369,7 @@ class FVRT_Media extends FVRT_Base {
 					'image/gif'    => array(
 						__( 'GIF Images', 'favicon-rotator' ),
 						__( 'Manage GIF Images', 'favicon-rotator' ),
+						/* translators: GIF images quanity */
 						_n_noop(
 							'GIF Image <span class="count">(%s)</span>',
 							'GIF Images <span class="count">(%s)</span>',
@@ -377,6 +379,7 @@ class FVRT_Media extends FVRT_Base {
 					'image/jpeg'   => array(
 						__( 'JPG Images', 'favicon-rotator' ),
 						__( 'Manage JPG Images', 'favicon-rotator' ),
+						/* translators: JPG images quanity */
 						_n_noop(
 							'JPG Image <span class="count">(%s)</span>',
 							'JPG Images <span class="count">(%s)</span>',
@@ -386,6 +389,7 @@ class FVRT_Media extends FVRT_Base {
 					'image/x-icon' => array(
 						__( 'ICO Images', 'favicon-rotator' ),
 						__( 'Manage ICO Images', 'favicon-rotator' ),
+						/* translators: ICO images quanity */
 						_n_noop(
 							'ICO Image <span class="count">(%s)</span>',
 							'ICO Images <span class="count">(%s)</span>',
