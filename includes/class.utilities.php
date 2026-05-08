@@ -333,7 +333,6 @@ class FVRT_Utilities {
 				} elseif ( is_array( $merged[ $key ] ) && is_array( $val ) ) {
 					$merged[ $key ] = $this->array_merge_recursive_distinct( $merged[ $key ], $val );
 				}
-				//$merged[$key] = (is_array($val) && isset($merged[$key])) ? $this->array_merge_recursive_distinct($merged[$key], $val) : $val;
 			}
 		}
 		return $merged;
@@ -431,7 +430,6 @@ class FVRT_Utilities {
 				foreach ( $arg as $key => $val ) {
 					$path = array_merge( $path, $this->build_path( $val ) );
 				}
-				//$path = array_merge($path, array_values($arg));
 			} elseif ( is_scalar( $arg ) ) {
 				$path[] = $arg;
 			}
