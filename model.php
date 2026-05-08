@@ -408,10 +408,11 @@ class FaviconRotator extends FVRT_Base {
 		$icons = $this->get_icon_ids( $type );
 		$icons_orig = $icons;
 		$icon = null;
+		$icons_count = count( $icons );
 		//Loop through retrieved icons until valid icon is returned
-		while ( is_null( $icon ) && count( $icons ) > 0 ) {
+		while ( is_null( $icon ) && $icons_count > 0 ) {
 			//Select random icon
-			$idx = ( count( $icons ) > 1 ) ? array_rand( $icons ) : 0;
+			$idx = ( $icons_count > 1 ) ? array_rand( $icons ) : 0;
 			$icon_id = $icons[ $idx ];
 			$icon_src = $this->media->get_icon_src( $icon_id, $type );
 			$icon = array_shift( $icon_src );
@@ -422,6 +423,8 @@ class FaviconRotator extends FVRT_Base {
 				//Remove invalid icon from list
 				unset( $icons[ $idx ] );
 				$icons = array_values( $icons );
+				// Update icons count.
+				$icons_count = count( $icons );
 			}
 		}
 

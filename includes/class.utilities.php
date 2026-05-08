@@ -633,7 +633,8 @@ class FVRT_Utilities {
 		//Find submenu
 		if ( isset( $submenu[ $parent_menu ] ) ) {
 			$subs =& $submenu[ $parent_menu ];
-			for ( $x = 0; $x < count( $subs ); $x++ ) {
+			$subs_count = count( $subs );
+			for ( $x = 0; $x < $subs_count; $x++ ) {
 				if ( $subs[ $x ][ $file_index ] === $file ) {
 					//Remove matching submenu
 					$hookname = get_plugin_page_hookname( $file, $parent_menu );
@@ -641,6 +642,8 @@ class FVRT_Utilities {
 					unset( $_registered_pages[ $hookname ] );
 					unset( $subs[ $x ] );
 					$subs = array_values( $subs );
+					// Update submenu count.
+					$subs_count = count( $subs );
 					//Set index and stop processing
 					$ret = $x;
 					break;

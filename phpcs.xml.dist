@@ -46,7 +46,6 @@
         <exclude name="Generic.Files.LineEndings.InvalidEOLChar"/>
         <exclude name="PSR2.Classes.PropertyDeclaration.ScopeMissing"/>
         <exclude name="PSR2.Classes.PropertyDeclaration.VarUsed"/>
-        <exclude name="Squiz.PHP.DisallowSizeFunctionsInLoops.Found"/>
         <!-- ** Alignment-Related ** -->
         <exclude name="Generic.Formatting.MultipleStatementAlignment.NotSameWarning"/>
         <!-- ** Audit-usage ** -->
