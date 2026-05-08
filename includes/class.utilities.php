@@ -378,7 +378,7 @@ class FVRT_Utilities {
 			return false;
 		}
 		// Validate path keys.
-		if ( ! array_all( $path, fn( $val, $key ) => ( is_string( $val ) || is_int( $val ) ) ) ) {
+		if ( ! array_all( $path, fn( $val ) => ( is_string( $val ) || is_int( $val ) ) ) ) {
 			return false;
 		}
 		// Check if path keys exist in array.
