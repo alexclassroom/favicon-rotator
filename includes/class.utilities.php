@@ -82,21 +82,6 @@ class FVRT_Utilities {
 	}
 
 	/**
-	 * Checks whether the current page is a management page
-	 *
-	 * @return bool TRUE if current page is a management page, FALSE otherwise
-	 */
-	public function is_admin_management_page() {
-		return ( is_admin()
-				&& ( $this->is_file( 'edit.php' )
-					|| ( $this->is_file( 'admin.php' )
-						&& isset( $_GET['page'] )
-						&& strpos( $_GET['page'], 'fvrt' ) === 0 )
-					)
-				);
-	}
-
-	/**
 	 * Joins and normalizes the slashes in the paths passed to method
 	 * All forward/back slashes are converted to forward slashes
 	 * Multiple path segments can be passed as additional argments
