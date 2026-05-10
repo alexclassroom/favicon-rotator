@@ -29,18 +29,10 @@ class FVRT_Base {
 	protected $util;
 
 	/**
-	 * Debug instance
-	 *
-	 * @var FVRT_Debug
-	 */
-	protected $debug;
-
-	/**
 	 * Constructor
 	 */
 	public function __construct() {
 		$this->util = new FVRT_Utilities();
-		$this->debug = new FVRT_Debug();
 	}
 
 	/**
