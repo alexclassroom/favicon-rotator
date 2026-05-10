@@ -49,7 +49,6 @@
         <!-- ** Temporary during cleanup ** -->
         <exclude name="WordPress.Security.NonceVerification.Missing"/>
         <exclude name="WordPress.Security.NonceVerification.Recommended"/>
-        <exclude name="WordPress.Security.ValidatedSanitizedInput.InputNotSanitized"/>
         <exclude name="WordPress.Security.ValidatedSanitizedInput.MissingUnslash"/>
     </rule>
 

@@ -293,7 +293,7 @@ class FVRT_Media extends FVRT_Base {
 			/* Send image data to main post edit form and close popup */
 			// Get Attachment ID.
 			$args = new stdClass();
-			$args->id = sanitize_key( array_key_first( $_POST[ $this->var_setmedia ] ) );
+			$args->id = sanitize_key( array_key_first( $_POST[ $this->var_setmedia ] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- false positive.
 			// Make sure post is valid.
 			if ( wp_attachment_is_image( $args->id ) ) {
 				$p = $this->get_request_props();
