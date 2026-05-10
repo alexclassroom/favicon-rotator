@@ -51,7 +51,6 @@
         <exclude name="WordPress.Security.NonceVerification.Recommended"/>
         <exclude name="WordPress.Security.ValidatedSanitizedInput.InputNotSanitized"/>
         <exclude name="WordPress.Security.ValidatedSanitizedInput.MissingUnslash"/>
-        <exclude name="WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents"/>
     </rule>
 
     <!-- Add in some extra rules from other standards. -->

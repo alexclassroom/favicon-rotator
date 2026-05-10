@@ -62,7 +62,7 @@ class FaviconRotator extends FVRT_Base {
 	 *
 	 * @var string
 	 */
-	private $file_admin_help = 'resources/admin_help.html';
+	private $file_admin_help = '/resources/admin_help.html';
 
 	/*-** Instance objects **-*/
 
@@ -640,7 +640,8 @@ class FaviconRotator extends FVRT_Base {
 	public function admin_help() {
 		$screen = get_current_screen();
 		if ( $screen->id === $this->page ) {
-			$help = file_get_contents( __DIR__ . '/resources/admin_help.html' );
+			// phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- local file.
+			$help = file_get_contents( __DIR__ . $this->file_admin_help );
 			$screen->add_help_tab(
 				array(
 					'id'      => $this->add_prefix( 'help' ),
