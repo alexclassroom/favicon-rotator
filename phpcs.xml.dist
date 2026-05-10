@@ -39,14 +39,13 @@
         <exclude name="Universal.Arrays.DisallowShortArraySyntax.Found"/>
         <!-- Allow global variable override -->
         <exclude name="WordPress.WP.GlobalVariablesOverride.Prohibited"/>
-        <!-- Temporarily exclude rules -->
         <!-- ** WordPress-Specific ** -->
+
         <!-- ** Standard ** -->
         <exclude name="Generic.Files.LineEndings.InvalidEOLChar"/>
         <!-- ** Alignment-Related ** -->
         <exclude name="Generic.Formatting.MultipleStatementAlignment.NotSameWarning"/>
-        <!-- ** Audit-usage ** -->
-        <!-- ** WordPress-Specific ** -->
+
         <!-- ** Temporary during cleanup ** -->
         <exclude name="WordPress.Security.NonceVerification.Missing"/>
         <exclude name="WordPress.Security.NonceVerification.Recommended"/>
