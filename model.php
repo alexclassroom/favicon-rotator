@@ -135,7 +135,7 @@ class FaviconRotator extends FVRT_Base {
 	 * @return array Registered types
 	 */
 	public function register_icon_types() {
-		// @var array Icon Types.
+		// @var array $types Icon Types.
 		$types = array(
 			'favicon' => array(
 				'lbl_title' => __( 'Browser Icon', 'favicon-rotator' ),
