@@ -557,7 +557,7 @@ class FaviconRotator extends FVRT_Base {
 			);
 
 			?>
-			<h3><?php echo esc_html( $t->lbl_title ); ?> <?php echo $upload_link_escaped; ?></h3>
+			<h3><?php echo esc_html( $t->lbl_title ); ?> <?php echo $upload_link_escaped; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></h3>
 			<div class="fv_container">
 				<p id="fv_msg_empty_<?php echo esc_attr( $t->type_name ); ?>" style="<?php echo ( $icons ) ? 'display: none' : ''; ?>">
 					<?php echo esc_html( $t->lbl_empty ); ?>
