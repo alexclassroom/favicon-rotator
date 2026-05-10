@@ -307,25 +307,6 @@ class FVRT_Utilities {
 	}
 
 	/**
-	 * Gets first key of an array
-	 *
-	 * @param array $arr Array to get first key from
-	 *
-	 * @return mixed First key of array
-	 */
-	public function array_key_first( $arr ) {
-		// Use built-in function (if available).
-		if ( function_exists( 'array_key_first' ) ) {
-			return array_key_first( $arr );
-		}
-		// Fallback functionality.
-		foreach ( $arr as $key => $unused ) {
-			return $key;
-		}
-		return null;
-	}
-
-	/**
 	 * Merges 1 or more arrays together
 	 * Methodology
 	 * - Set first parameter as base array
