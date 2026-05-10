@@ -629,8 +629,9 @@ class FaviconRotator extends FVRT_Base {
 	 * Adds CSS to Admin page
 	 */
 	public function admin_styles() {
+		$ver = null;
 		add_thickbox();
-		wp_enqueue_style( $this->add_prefix( 'admin_styles' ), $this->util->get_file_url( 'css/admin_styles.css' ) );
+		wp_enqueue_style( $this->add_prefix( 'admin_styles' ), $this->util->get_file_url( 'css/admin_styles.css' ), ver: $ver );
 	}
 
 	/**

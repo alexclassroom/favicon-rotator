@@ -351,7 +351,8 @@ class FVRT_Media extends FVRT_Base {
 	 */
 	public function upload_styles() {
 		if ( $this->is_custom_media() ) {
-			wp_enqueue_style( $this->add_prefix( 'media' ), $this->util->get_file_url( 'css/media.css' ) );
+			$ver = null;
+			wp_enqueue_style( $this->add_prefix( 'media' ), $this->util->get_file_url( 'css/media.css' ), ver: $ver );
 		}
 	}
 

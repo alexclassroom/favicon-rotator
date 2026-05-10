@@ -47,7 +47,6 @@
         <exclude name="Generic.Formatting.MultipleStatementAlignment.NotSameWarning"/>
         <!-- ** Audit-usage ** -->
         <exclude name="Generic.Files.OneObjectStructurePerFile.MultipleFound"/>
-        <exclude name="WordPress.WP.EnqueuedResourceParameters.MissingVersion"/>
         <!-- ** WordPress-Specific ** -->
         <!-- ** Temporary during cleanup ** -->
         <exclude name="WordPress.Security.NonceVerification.Missing"/>
