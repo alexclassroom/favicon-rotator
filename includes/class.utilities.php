@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class FVRT_Utilities {
 
-	function __construct() {
+	public function __construct() {
 	}
 
 	/**
@@ -24,7 +24,7 @@ class FVRT_Utilities {
 	 *
 	 * @return array Callback array
 	 */
-	function &m( &$obj, $method = '' ) {
+	public function &m( &$obj, $method = '' ) {
 		if ( null === $obj && isset( $this ) ) {
 			$obj =& $this;
 		}
@@ -44,7 +44,7 @@ class FVRT_Utilities {
 	 *
 	 * @return bool TRUE if $post is valid object by end of function processing
 	 */
-	function check_post( &$post ) {
+	public function check_post( &$post ) {
 		if ( empty( $post ) ) {
 			if ( isset( $GLOBALS['post'] ) ) {
 				$post = $GLOBALS['post'];
@@ -73,7 +73,7 @@ class FVRT_Utilities {
 	 *
 	 * @return bool TRUE if current page matches specified filename, FALSE otherwise
 	 */
-	function is_file( $filename ) {
+	public function is_file( $filename ) {
 		// Sanity check.
 		if ( ! is_string( $filename ) || empty( $filename ) || ! isset( $_SERVER['SCRIPT_NAME'] ) ) {
 			return false;
@@ -86,7 +86,7 @@ class FVRT_Utilities {
 	 *
 	 * @return bool TRUE if current page is a management page, FALSE otherwise
 	 */
-	function is_admin_management_page() {
+	public function is_admin_management_page() {
 		return ( is_admin()
 				&& ( $this->is_file( 'edit.php' )
 					|| ( $this->is_file( 'admin.php' )
@@ -107,7 +107,7 @@ class FVRT_Utilities {
 	 *
 	 * @todo Refactor to use variadic parameters.
 	 */
-	function normalize_path( $path, $trailing_slash = false ) {
+	public function normalize_path( $path, $trailing_slash = false ) {
 		$sl_f = '/';
 		$sl_b = '\\';
 		$parts = func_get_args();
@@ -160,7 +160,7 @@ class FVRT_Utilities {
 	 *
 	 * @return string File path
 	 */
-	function get_file_url( $file ) {
+	public function get_file_url( $file ) {
 		if ( is_string( $file ) && '' !== trim( $file ) ) {
 			$file = $this->normalize_path( $this->get_url_base(), $file );
 		}
@@ -174,7 +174,7 @@ class FVRT_Utilities {
 	 *
 	 * @return string File's extension
 	 */
-	function get_file_extension( $file ) {
+	public function get_file_extension( $file ) {
 		$ret = '';
 		$sep = '.';
 		$rpos = ( is_string( $file ) ) ? strrpos( $file, $sep ) : false;
@@ -192,7 +192,7 @@ class FVRT_Utilities {
 	 *
 	 * @return bool TRUE if file has extension
 	 */
-	function has_file_extension( $file, $extension ) {
+	public function has_file_extension( $file, $extension ) {
 		return ( $this->get_file_extension( $file ) === $extension ) ? true : false;
 	}
 
@@ -201,7 +201,7 @@ class FVRT_Utilities {
 	 *
 	 * @return string Base URL
 	 */
-	function get_url_base() {
+	public function get_url_base() {
 		static $url_base = '';
 		if ( '' === $url_base ) {
 			$url_base = $this->normalize_path( WP_PLUGIN_URL, $this->get_plugin_base() );
@@ -209,7 +209,7 @@ class FVRT_Utilities {
 		return $url_base;
 	}
 
-	function get_path_base() {
+	public function get_path_base() {
 		static $path_base = '';
 		if ( '' === $path_base ) {
 			$path_base = $this->normalize_path( WP_PLUGIN_DIR, $this->get_plugin_base() );
@@ -217,7 +217,7 @@ class FVRT_Utilities {
 		return $path_base;
 	}
 
-	function get_plugin_base() {
+	public function get_plugin_base() {
 		static $plugin_dir = '';
 		if ( '' === $plugin_dir ) {
 			$plugin_dir = str_replace( $this->normalize_path( WP_PLUGIN_DIR ), '', $this->normalize_path( dirname( __DIR__ ) ) );
@@ -225,12 +225,12 @@ class FVRT_Utilities {
 		return $plugin_dir;
 	}
 
-	function get_plugin_base_file() {
+	public function get_plugin_base_file() {
 		$file = 'main.php';
 		return $this->get_path_base() . '/' . $file;
 	}
 
-	function get_plugin_base_name() {
+	public function get_plugin_base_name() {
 		$file = $this->get_plugin_base_file();
 		return plugin_basename( $file );
 	}
@@ -242,7 +242,7 @@ class FVRT_Utilities {
 	 *
 	 * @return string Current action
 	 */
-	function get_action( $def = null ) {
+	public function get_action( $def = null ) {
 		// Retrieve action from URL.
 		$action = isset( $_GET['action'] ) ? sanitize_text_field( $_GET['action'] ) : '';
 
@@ -287,7 +287,7 @@ class FVRT_Utilities {
 	 *
 	 * @return mixed Property value
 	 */
-	function &get_property( &$obj, $property ) {
+	public function &get_property( &$obj, $property ) {
 		$property = trim( $property );
 		// Object.
 		if ( is_object( $obj ) ) {
@@ -342,7 +342,7 @@ class FVRT_Utilities {
 	 * @todo Append numerical elements (as opposed to overwriting element at same index in base array)
 	 * @return array Merged array
 	 */
-	function array_merge_recursive_distinct( array ...$arrs ) {
+	public function array_merge_recursive_distinct( array ...$arrs ) {
 		// Set first array as base array.
 		$merged = $arrs[0];
 		// Iterate through arrays to merge.
@@ -369,7 +369,7 @@ class FVRT_Utilities {
 	 *
 	 * @return array Searched array with replacements made
 	 */
-	function array_replace_recursive( $search, $arr_replace, $arr_subject ) {
+	public function array_replace_recursive( $search, $arr_replace, $arr_subject ) {
 		foreach ( $arr_subject as $key => $val ) {
 			// Skip element if key does not exist in the replacement array.
 			if ( ! isset( $arr_replace[ $key ] ) ) {
@@ -397,7 +397,7 @@ class FVRT_Utilities {
 	 *
 	 * @return boolean TRUE if item is set in array, FALSE otherwise
 	 */
-	function array_item_isset( $arr, $path, &$item = null ) {
+	public function array_item_isset( $arr, $path, &$item = null ) {
 		// Basic validation.
 		if ( ! is_array( $arr ) || ! is_array( $path ) || empty( $arr ) || empty( $path ) ) {
 			return false;
@@ -429,7 +429,7 @@ class FVRT_Utilities {
 	 *
 	 * @return mixed Value of item in array (Default: empty string)
 	 */
-	function get_array_item( $arr, $path ) {
+	public function get_array_item( $arr, $path ) {
 		$item = '';
 		// Retrieve item.
 		$this->array_item_isset( $arr, $path, $item );
@@ -444,7 +444,7 @@ class FVRT_Utilities {
 	 *
 	 * @return array 1-dimensional array of path elements
 	 */
-	function build_path() {
+	public function build_path() {
 		$path = array();
 		$args = func_get_args();
 
@@ -474,7 +474,7 @@ class FVRT_Utilities {
 	 *
 	 * @return string Formatted attribute string.
 	 */
-	function build_attribute_string( $attrs ) {
+	public function build_attribute_string( $attrs ) {
 		$ret = '';
 		// Convert object to array.
 		if ( is_object( $attrs ) ) {
@@ -500,7 +500,7 @@ class FVRT_Utilities {
 	 *
 	 * @return string Stylesheet element
 	 */
-	function build_stylesheet_element( $url = '' ) {
+	public function build_stylesheet_element( $url = '' ) {
 		$attributes = array(
 			'href' => $url,
 			'type' => 'text/css',
@@ -522,7 +522,7 @@ class FVRT_Utilities {
 	 *
 	 * @return string Script element
 	 */
-	function build_ext_script_element( $url = '' ) {
+	public function build_ext_script_element( $url = '' ) {
 		$attributes = array(
 			'src'  => $url,
 			'type' => 'text/javascript',
@@ -543,7 +543,7 @@ class FVRT_Utilities {
 	 * @param mixed $value (optional) Input value
 	 * @param array $attributes (optional) Additional attributes
 	 */
-	function build_input_element( $type = 'text', $name = '', $value = '', $attributes = array() ) {
+	public function build_input_element( $type = 'text', $name = '', $value = '', $attributes = array() ) {
 		// Build attributes.
 		$attributes = wp_parse_args(
 			$attributes,
@@ -569,7 +569,7 @@ class FVRT_Utilities {
 	 *
 	 * @return string Generated HTML element
 	 */
-	function build_html_element( $args ) {
+	public function build_html_element( $args ) {
 		$defaults = array(
 			'tag'        => 'span',
 			'wrap'       => true,
@@ -621,7 +621,7 @@ class FVRT_Utilities {
 	 * @see add_submenu_page (Wraps functionality)
 	 * @global array $submenu Admin page submenus
 	 */
-	function add_submenu_page( $parent_menu, $page_title, $menu_title, $capability, $file, $callback = '', $pos = false ) {
+	public function add_submenu_page( $parent_menu, $page_title, $menu_title, $capability, $file, $callback = '', $pos = false ) {
 		// Add submenu page as usual.
 		$args = func_get_args();
 		$hookname = call_user_func_array( 'add_submenu_page', $args );
@@ -662,7 +662,7 @@ class FVRT_Utilities {
 	 * @global array $submenu
 	 * @global array $_registered_pages
 	 */
-	function remove_submenu_page( $parent_menu, $file ) {
+	public function remove_submenu_page( $parent_menu, $file ) {
 		global $submenu, $_registered_pages;
 		$ret = null;
 
@@ -709,7 +709,7 @@ class FVRT_Utilities {
 	 *
 	 * @global array $submenu
 	 */
-	function replace_submenu_page( $parent_menu, $page_title, $menu_title, $access_level, $file, $callback = '' ) {
+	public function replace_submenu_page( $parent_menu, $page_title, $menu_title, $access_level, $file, $callback = '' ) {
 		global $submenu;
 		// Remove matching submenu (if exists).
 		$pos = $this->remove_submenu_page( $parent_menu, $file );
@@ -727,7 +727,7 @@ class FVRT_Utilities {
 	 *
 	 * @global array $_wp_real_parent_file;
 	 */
-	function get_submenu_parent_file( $parent_menu ) {
+	public function get_submenu_parent_file( $parent_menu ) {
 		global $_wp_real_parent_file;
 		$parent_menu = plugin_basename( $parent_menu );
 		if ( isset( $_wp_real_parent_file[ $parent_menu ] ) ) {
@@ -754,11 +754,11 @@ class FVRT_Debug {
 
 	/* Constructor */
 
-	function FVRT_Debug() {
+	public function FVRT_Debug() {
 		$this->__construct();
 	}
 
-	function __construct() {
+	public function __construct() {
 	}
 
 	/**
@@ -769,7 +769,7 @@ class FVRT_Debug {
 	 *
 	 * @return void
 	 */
-	function add_message( $title, $message ) {
+	public function add_message( $title, $message ) {
 		$this->msgs[ $title ] = $message;
 	}
 
@@ -778,18 +778,18 @@ class FVRT_Debug {
 	 *
 	 * @return array Debug message array
 	 */
-	function get_messages() {
+	public function get_messages() {
 		return $this->msgs;
 	}
 
-	function show_messages() {
+	public function show_messages() {
 		echo '<pre>';
 		// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_var_dump -- Debug utility method.
 		var_dump( $this->get_messages() );
 		echo '</pre>';
 	}
 
-	function print_message( $msg ) {
+	public function print_message( $msg ) {
 		foreach ( func_get_args() as $msg ) {
 			echo '<pre>';
 			if ( is_scalar( $msg ) && ! is_bool( $msg ) ) {
@@ -802,12 +802,12 @@ class FVRT_Debug {
 		}
 	}
 
-	function microtime_float() {
+	public function microtime_float() {
 		list($usec, $sec) = explode( ' ', microtime() );
 		return (float) $usec + (float) $sec;
 	}
 
-	function timer_start( $name = 'default', $time = null ) {
+	public function timer_start( $name = 'default', $time = null ) {
 		if ( empty( $time ) ) {
 			$time = $this->microtime_float();
 		}
@@ -816,7 +816,7 @@ class FVRT_Debug {
 		$this->timers[ $name ]->end = $time;
 	}
 
-	function timer_stop( $name = 'default' ) {
+	public function timer_stop( $name = 'default' ) {
 		$time = $this->microtime_float();
 		if ( ! isset( $this->timers[ $name ] )
 			|| ! is_object( $this->timers[ $name ] )
@@ -827,7 +827,7 @@ class FVRT_Debug {
 		}
 	}
 
-	function timer_show( $name = 'default', $format = 'Elapsed time: %s' ) {
+	public function timer_show( $name = 'default', $format = 'Elapsed time: %s' ) {
 		if ( ! isset( $this->timers[ $name ] )
 			|| ! is_object( $this->timers[ $name ] )
 			|| $this->timers[ $name ]->end < $this->timers[ $name ]->start
@@ -847,7 +847,7 @@ class FVRT_Debug {
 	 * @return string|array Current function properties. Default: function name.  Will return array if multiple properties are requested
 	 * @see FVRT_Debug::backtrace
 	 */
-	function get_current( $properties = 'function' ) {
+	public function get_current( $properties = 'function' ) {
 		return $this->backtrace( $properties, 1, 2 );
 	}
 
@@ -859,7 +859,7 @@ class FVRT_Debug {
 	 * @return string|array Calling function properties. Default: function name.  Will return array if multiple properties are requested
 	 * @see FVRT_Debug::backtrace
 	 */
-	function get_caller( $properties = 'function' ) {
+	public function get_caller( $properties = 'function' ) {
 		return $this->backtrace( $properties, 1, 3 );
 	}
 
@@ -872,7 +872,7 @@ class FVRT_Debug {
 	 *
 	 * @return array|string Backtrace output as Array. Will output string if only one level with one property is in output
 	 */
-	function backtrace( $properties = null, $levels = null, $offset = 1 ) {
+	public function backtrace( $properties = null, $levels = null, $offset = 1 ) {
 		$out = array();
 		// phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_debug_backtrace -- Debug utility method.
 		$debug = debug_backtrace();

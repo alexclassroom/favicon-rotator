@@ -38,7 +38,7 @@ class FVRT_Base {
 	/**
 	 * Constructor
 	 */
-	function __construct() {
+	public function __construct() {
 		$this->util = new FVRT_Utilities();
 		$this->debug = new FVRT_Debug();
 	}
@@ -47,11 +47,11 @@ class FVRT_Base {
 	 * Default initialization method
 	 * To be overriden by child classes
 	 */
-	function init() {
+	public function init() {
 		$this->register_hooks();
 	}
 
-	function register_hooks() {
+	public function register_hooks() {
 		// Activation.
 		$func_activate = 'activate';
 		if ( method_exists( $this, $func_activate ) ) {
@@ -71,7 +71,7 @@ class FVRT_Base {
 	 *
 	 * @return array Callback array
 	 */
-	function &m( $method ) {
+	public function &m( $method ) {
 		return $this->util->m( $this, $method );
 	}
 
@@ -86,7 +86,7 @@ class FVRT_Base {
 	 * @return mixed Retrieved post metadata
 	 * @see get_post_meta()
 	 */
-	function post_meta_get( $post_id, $key, $single = false ) {
+	public function post_meta_get( $post_id, $key, $single = false ) {
 		$meta_value = get_post_meta( $post_id, $this->post_meta_get_key( $key ), $single );
 		if ( is_array( $meta_value ) && count( $meta_value ) === 1 ) {
 			$meta_value = $meta_value[0];
@@ -101,7 +101,7 @@ class FVRT_Base {
 	 *
 	 * @return array Wrapped metadata value
 	 */
-	function post_meta_prepare_value( $meta_value ) {
+	public function post_meta_prepare_value( $meta_value ) {
 		return array( $meta_value );
 	}
 
@@ -117,7 +117,7 @@ class FVRT_Base {
 	 * @return boolean Result of operation
 	 * @see add_post_meta
 	 */
-	function post_meta_add( $post_id, $meta_key, $meta_value, $unique = false ) {
+	public function post_meta_add( $post_id, $meta_key, $meta_value, $unique = false ) {
 		$meta_value = $this->post_meta_prepare_value( $meta_value );
 		return add_post_meta( $post_id, $meta_key, $meta_value, $unique );
 	}
@@ -133,7 +133,7 @@ class FVRT_Base {
 	 * @return boolean Result of operation
 	 * @see update_post_meta()
 	 */
-	function post_meta_update( $post_id, $meta_key, $meta_value, $prev_value = '' ) {
+	public function post_meta_update( $post_id, $meta_key, $meta_value, $prev_value = '' ) {
 		$meta_value = $this->post_meta_prepare_value( $meta_value );
 		return update_post_meta( $post_id, $meta_key, $meta_value, $prev_value );
 	}
@@ -146,7 +146,7 @@ class FVRT_Base {
 	 *
 	 * @return string Formatted postmeta key.
 	 */
-	function post_meta_get_key( string $key ) {
+	public function post_meta_get_key( string $key ) {
 		$sep = '_';
 		$prefix = $sep . $this->prefix;
 		// Process unformatted keys only.
@@ -164,7 +164,7 @@ class FVRT_Base {
 	 *
 	 * @return string Class prefix
 	 */
-	function get_prefix( $sep = false ) {
+	public function get_prefix( $sep = false ) {
 		$sep = ( is_string( $sep ) ) ? $sep : '';
 		$prefix = ( ! empty( $this->prefix ) ) ? $this->prefix . $sep : '';
 		return $prefix;
@@ -178,7 +178,7 @@ class FVRT_Base {
 	 *
 	 * @return string Text with prefix prepended
 	 */
-	function add_prefix( $text = '', $sep = '_' ) {
+	public function add_prefix( $text = '', $sep = '_' ) {
 		return $this->get_prefix( $sep ) . $text;
 	}
 
@@ -190,7 +190,7 @@ class FVRT_Base {
 	 *
 	 * @return string Formatted meta key
 	 */
-	function make_meta_key( $text = '' ) {
+	public function make_meta_key( $text = '' ) {
 		return '_' . $this->add_prefix( $text );
 	}
 
@@ -199,7 +199,7 @@ class FVRT_Base {
 	 *
 	 * @return string Database prefix
 	 */
-	function get_db_prefix() {
+	public function get_db_prefix() {
 		global $wpdb;
 		return $wpdb->prefix . $this->get_prefix( '_' );
 	}

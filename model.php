@@ -75,7 +75,7 @@ class FaviconRotator extends FVRT_Base {
 
 	/*-** Initialization **-*/
 
-	function __construct() {
+	public function __construct() {
 		parent::__construct();
 		$this->opt_key = $this->add_prefix( $this->opt_key );
 		$this->action_save = $this->add_prefix( $this->action_save );
@@ -83,7 +83,7 @@ class FaviconRotator extends FVRT_Base {
 		$this->register_hooks();
 	}
 
-	function register_hooks() {
+	public function register_hooks() {
 		/*-** General **-*/
 
 		add_action( 'init', $this->m( 'register_icon_types' ) );
@@ -115,7 +115,7 @@ class FaviconRotator extends FVRT_Base {
 	 *
 	 * @return mixed Full options array or value of specific key (Default: empty array)
 	 */
-	function get_options( $key = null ) {
+	public function get_options( $key = null ) {
 		// Retrieve options entry from DB.
 		$ret = $this->options;
 		if ( is_null( $ret ) ) {
@@ -132,7 +132,7 @@ class FaviconRotator extends FVRT_Base {
 		return $ret;
 	}
 
-	function set_option( $key, $val ) {
+	public function set_option( $key, $val ) {
 		// Make sure options array initialized.
 		$this->get_options();
 		// Set option value.
@@ -150,7 +150,7 @@ class FaviconRotator extends FVRT_Base {
 	 *
 	 * @return array Registered types
 	 */
-	function register_icon_types() {
+	public function register_icon_types() {
 		// @var array Icon Types.
 		$types = array(
 			'favicon' => array(
@@ -205,7 +205,7 @@ class FaviconRotator extends FVRT_Base {
 	 *
 	 * @return array Icon types (as object of properties)
 	 */
-	function get_icon_types() {
+	public function get_icon_types() {
 		static $types = null;
 		if ( is_null( $types ) ) {
 			$types = $this->register_icon_types();
@@ -218,7 +218,7 @@ class FaviconRotator extends FVRT_Base {
 	 *
 	 * @return array Icon type names
 	 */
-	function get_icon_type_names() {
+	public function get_icon_type_names() {
 		static $names = null;
 		if ( is_null( $names ) ) {
 			$names = array_keys( $this->get_icon_types() );
@@ -233,7 +233,7 @@ class FaviconRotator extends FVRT_Base {
 	 *
 	 * @return object|bool Type properties (FALSE if type not registered)
 	 */
-	function get_icon_type( $type ) {
+	public function get_icon_type( $type ) {
 		$ret = null;
 		$types = $this->get_icon_types();
 		if ( isset( $types[ $type ] ) ) {
@@ -252,7 +252,7 @@ class FaviconRotator extends FVRT_Base {
 	 *
 	 * @return array Normalized icons
 	 */
-	function normalize_icons( $icons ) {
+	public function normalize_icons( $icons ) {
 		static $groups_default = null;
 		$save = false;
 		// Build default groups array.
@@ -289,7 +289,7 @@ class FaviconRotator extends FVRT_Base {
 	 *
 	 * @return array Icon IDs grouped by icon type
 	 */
-	function get_icon_ids( $type = null ) {
+	public function get_icon_ids( $type = null ) {
 		// Get array of attachment IDs for icons (grouped by type).
 		$icons = $this->get_options( $this->opt_icons );
 
@@ -311,7 +311,7 @@ class FaviconRotator extends FVRT_Base {
 	 *
 	 * @return string Icon list
 	 */
-	function get_icon_ids_list( $type ) {
+	public function get_icon_ids_list( $type ) {
 		return implode( ',', $this->get_icon_ids( $type ) );
 	}
 
@@ -320,7 +320,7 @@ class FaviconRotator extends FVRT_Base {
 	 *
 	 * @return array Media attachment objects
 	 */
-	function get_icons( $type = null ) {
+	public function get_icons( $type = null ) {
 		$icons = array();
 		// Get icon ids.
 		$ids = $this->get_icon_ids( $type );
@@ -364,7 +364,7 @@ class FaviconRotator extends FVRT_Base {
 	 * @param array $ids (optional) Array of icon IDs
 	 * @param string $type (optional) Icon type being saved
 	 */
-	function save_icons( $icons = null, $type = null ) {
+	public function save_icons( $icons = null, $type = null ) {
 		// Check if valid icon IDs are passed to function.
 		if ( ! is_null( $icons ) ) {
 			if ( ! is_array( $icons ) ) {
@@ -415,7 +415,7 @@ class FaviconRotator extends FVRT_Base {
 	/**
 	 * Output markup for all icons
 	 */
-	function display_icons() {
+	public function display_icons() {
 		echo "<!-- Favicon Rotator -->\r\n";
 		foreach ( $this->get_icon_type_names() as $type ) {
 			$this->display_icon( $type );
@@ -426,7 +426,7 @@ class FaviconRotator extends FVRT_Base {
 	/**
 	 * Output markup for specified icon type
 	 */
-	function display_icon( $type ) {
+	public function display_icon( $type ) {
 		// Get icons.
 		$icons = $this->get_icon_ids( $type );
 		$icons_orig = $icons;
@@ -481,7 +481,7 @@ class FaviconRotator extends FVRT_Base {
 	 * @param $plugin_data
 	 * @param $context
 	 */
-	function admin_plugin_action_links( $actions, $plugin_file, $plugin_data, $context ) {
+	public function admin_plugin_action_links( $actions, $plugin_file, $plugin_data, $context ) {
 		// Add link to settings (only if active).
 		if ( is_plugin_active( $this->util->get_plugin_base_name() ) ) {
 			$settings = __( 'Settings', 'favicon-rotator' );
@@ -496,14 +496,14 @@ class FaviconRotator extends FVRT_Base {
 	 *
 	 * @return string ID of settings section
 	 */
-	function admin_get_settings_section() {
+	public function admin_get_settings_section() {
 		return $this->add_prefix( 'settings' );
 	}
 
 	/**
 	 * Adds admin submenu item to Appearance menu
 	 */
-	function admin_menu() {
+	public function admin_menu() {
 		$p = add_theme_page( __( 'Favicon', 'favicon-rotator' ), __( 'Favicon', 'favicon-rotator' ), 'edit_theme_options', $this->util->get_plugin_base(), $this->m( 'admin_page' ) );
 		$this->page = $p;
 		// Head.
@@ -515,7 +515,7 @@ class FaviconRotator extends FVRT_Base {
 	/**
 	 * Defines content for admin page
 	 */
-	function admin_page() {
+	public function admin_page() {
 		if ( ! current_user_can( 'edit_theme_options' ) ) {
 			wp_die( esc_html__( 'You do not have permission to customize favicons.', 'favicon-rotator' ) );
 		}
@@ -612,7 +612,7 @@ class FaviconRotator extends FVRT_Base {
 	/**
 	 * Adds JS to Admin page
 	 */
-	function admin_scripts() {
+	public function admin_scripts() {
 		wp_enqueue_script( 'media-upload' );
 		$h_admin = $this->add_prefix( 'admin_script' );
 		$h_media = $this->add_prefix( 'media' );
@@ -628,7 +628,7 @@ class FaviconRotator extends FVRT_Base {
 	/**
 	 * Adds CSS to Admin page
 	 */
-	function admin_styles() {
+	public function admin_styles() {
 		add_thickbox();
 		wp_enqueue_style( $this->add_prefix( 'admin_styles' ), $this->util->get_file_url( 'css/admin_styles.css' ) );
 	}
@@ -636,7 +636,7 @@ class FaviconRotator extends FVRT_Base {
 	/**
 	 * Add contextual help to admin page
 	 */
-	function admin_help() {
+	public function admin_help() {
 		$screen = get_current_screen();
 		if ( $screen->id === $this->page ) {
 			$help = file_get_contents( __DIR__ . '/resources/admin_help.html' );

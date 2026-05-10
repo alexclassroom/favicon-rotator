@@ -46,7 +46,6 @@
         <!-- ** Alignment-Related ** -->
         <exclude name="Generic.Formatting.MultipleStatementAlignment.NotSameWarning"/>
         <!-- ** Audit-usage ** -->
-        <exclude name="Squiz.Scope.MethodScope.Missing"/>
         <exclude name="Generic.Files.OneObjectStructurePerFile.MultipleFound"/>
         <exclude name="WordPress.WP.EnqueuedResourceParameters.MissingVersion"/>
         <!-- ** WordPress-Specific ** -->
