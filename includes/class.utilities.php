@@ -579,23 +579,22 @@ class FVRT_Utilities {
 		$el_start = '<';
 		$el_end = '>';
 		$el_close = '/';
-		$args = wp_parse_args( $args, $defaults );
-		extract( $args, EXTR_SKIP );
-		$content = trim( $content );
+		$v = (object) wp_parse_args( $args, $defaults );
+		$v->content = trim( $v->content );
 
-		if ( ! $wrap && strlen( $content ) > 0 ) {
-			$wrap = true;
+		if ( ! $v->wrap && strlen( $v->content ) > 0 ) {
+			$v->wrap = true;
 		}
 
-		$attributes = $this->build_attribute_string( $attributes );
-		if ( strlen( $attributes ) > 0 ) {
-			$attributes = ' ' . $attributes;
+		$v->attributes = $this->build_attribute_string( $v->attributes );
+		if ( strlen( $v->attributes ) > 0 ) {
+			$v->attributes = ' ' . $v->attributes;
 		}
 
-		$ret = $el_start . $tag . $attributes;
+		$ret = $el_start . $v->tag . $v->attributes;
 
-		if ( $wrap ) {
-			$ret .= $el_end . $content . $el_start . $el_close . $tag;
+		if ( $v->wrap ) {
+			$ret .= $el_end . $v->content . $el_start . $el_close . $v->tag;
 		} else {
 			$ret .= ' ' . $el_close;
 		}
