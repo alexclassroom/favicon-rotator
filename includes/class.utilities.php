@@ -67,6 +67,31 @@ class FVRT_Utilities {
 	/*-** Request **-*/
 
 	/**
+	 * Retrieves nonce value.
+	 *
+	 * Handles sanitization and default value.
+	 *
+	 * @param string $nonce_key Key in `$qv` that contains nonce value.
+	 * @param array|null $qv (optional) Query array containing nonce value (Default: `$_POST`).
+	 *
+	 * @return string Nonce value (Default: empty string).
+	 */
+	public function nonce_get( string $nonce_key, ?array $qv = null ): string {
+		// Set default return value.
+		$ret = '';
+		// Set default collection.
+		if ( ! $qv ) {
+			$qv = $_POST; // phpcs:ignore WordPress.Security.NonceVerification.Missing -- sanitization performed later.
+		}
+		// Stop processing invalid query.
+		if ( empty( $qv ) || ! isset( $qv[ $nonce_key ] ) ) {
+			return $ret;
+		}
+		$ret = sanitize_text_field( wp_unslash( $qv[ $nonce_key ] ) );
+		return $ret;
+	}
+
+	/**
 	 * Checks $_SERVER['SCRIPT_NAME'] to see if file base name matches specified file name
 	 *
 	 * @param string $filename Filename to check for
@@ -334,7 +359,7 @@ class FVRT_Utilities {
 	 * @param array $arr_subject Array to search for specified value
 	 *
 	 * @return array Searched array with replacements made
-	 */
+	*/
 	public function array_replace_recursive( $search, $arr_replace, $arr_subject ) {
 		foreach ( $arr_subject as $key => $val ) {
 			// Skip element if key does not exist in the replacement array.
