@@ -448,50 +448,54 @@ class FVRT_Media extends FVRT_Base {
 	 * @return array Form fields to display on Attachment edit form
 	 */
 	public function attachment_fields_to_edit( $form_fields, $attachment ) {
-		if ( $this->is_custom_media() ) {
-			$post = get_post( $attachment );
-			// Clear all form fields.
-			$form_fields = array();
-			$q = ( isset( $post->post_mime_type ) && 0 === strpos( $post->post_mime_type, 'image/' ) ) ? $this->get_request_props() : false;
-			if ( false !== $q ) {
-				$html = array();
-				$type = 'hidden';
-				$name_base = $this->var_query_data . '[' . $post->ID . '][%1$s]';
-				$name_base_sub = $name_base . '[%2$s]';
-				// Create fields for all custom parameters.
-				foreach ( (array) $q as $prop => $val ) {
-					// Build multiple fields for array values.
-					if ( is_array( $val ) ) {
-						foreach ( $val as $akey => $aval ) {
-							$name = sprintf( $name_base_sub, $prop, $akey );
-							$html[] = $this->util->build_input_element( $type, $name, $aval );
-						}
-					} else {
-						$name = sprintf( $name_base, $prop );
-						$html[] = $this->util->build_input_element( $type, $name, $val );
-					}
+		// Stop processing non-plugin request.
+		if ( ! $this->is_custom_media() ) {
+			return $form_fields;
+		}
+		$post = get_post( $attachment );
+		// Clear all form fields.
+		$form_fields = array();
+		$q = ( isset( $post->post_mime_type ) && 0 === strpos( $post->post_mime_type, 'image/' ) ) ? $this->get_request_props() : false;
+		// Stop processing incompatible attachment.
+		if ( false === $q ) {
+			return $form_fields;
+		}
+		$html = array();
+		$type = 'hidden';
+		$name_base = $this->var_query_data . '[' . $post->ID . '][%1$s]';
+		$name_base_sub = $name_base . '[%2$s]';
+		// Create fields for all custom parameters.
+		foreach ( (array) $q as $prop => $val ) {
+			// Build multiple fields for array values.
+			if ( is_array( $val ) ) {
+				foreach ( $val as $akey => $aval ) {
+					$name = sprintf( $name_base_sub, $prop, $akey );
+					$html[] = $this->util->build_input_element( $type, $name, $aval );
 				}
-				// Add custom fields.
-				if ( ! empty( $html ) ) {
-					$form_fields[ $this->var_query_data ] = array(
-						'input' => 'html',
-						'html'  => implode( '', $html ),
-						'label' => '',
-					);
-				}
-
-				// Add "Set as Image" button (if valid attachment type).
-				$set_as = ( isset( $q->lbl_set ) ) ? $q->lbl_set : __( 'Set Media', 'favicon-rotator' );
-				$field_name = sprintf( '%1$s[%2$s]', $this->var_setmedia, $post->ID );
-				$field_html = $this->util->build_input_element( 'submit', $field_name, $set_as, array( 'class' => 'button' ) );
-				$field = array(
-					'input' => 'html',
-					'html'  => $field_html,
-					'label' => '',
-				);
-				$form_fields['buttons'] = $field;
+			} else {
+				$name = sprintf( $name_base, $prop );
+				$html[] = $this->util->build_input_element( $type, $name, $val );
 			}
 		}
+		// Add custom fields.
+		if ( ! empty( $html ) ) {
+			$form_fields[ $this->var_query_data ] = array(
+				'input' => 'html',
+				'html'  => implode( '', $html ),
+				'label' => '',
+			);
+		}
+
+		// Add "Set as Image" button (if valid attachment type).
+		$set_as = ( isset( $q->lbl_set ) ) ? $q->lbl_set : __( 'Set Media', 'favicon-rotator' );
+		$field_name = sprintf( '%1$s[%2$s]', $this->var_setmedia, $post->ID );
+		$field_html = $this->util->build_input_element( 'submit', $field_name, $set_as, array( 'class' => 'button' ) );
+		$field = array(
+			'input' => 'html',
+			'html'  => $field_html,
+			'label' => '',
+		);
+		$form_fields['buttons'] = $field;
 		return $form_fields;
 	}
 
