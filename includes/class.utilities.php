@@ -78,7 +78,7 @@ class FVRT_Utilities {
 		if ( ! is_string( $filename ) || empty( $filename ) || ! isset( $_SERVER['SCRIPT_NAME'] ) ) {
 			return false;
 		}
-		return ( basename( sanitize_text_field( $_SERVER['SCRIPT_NAME'] ) ) === $filename );
+		return ( basename( sanitize_text_field( wp_unslash( $_SERVER['SCRIPT_NAME'] ) ) ) === $filename );
 	}
 
 	/**
@@ -229,11 +229,11 @@ class FVRT_Utilities {
 	 */
 	public function get_action( $def = null ) {
 		// Retrieve action from URL.
-		$action = isset( $_GET['action'] ) ? sanitize_text_field( $_GET['action'] ) : '';
+		$action = isset( $_GET['action'] ) ? sanitize_text_field( wp_unslash( $_GET['action'] ) ) : '';
 
 		// Determine action based on plugin plugin admin page suffix.
 		if ( empty( $action ) && isset( $_GET['page'] ) ) {
-			$page = sanitize_text_field( $_GET['page'] );
+			$page = sanitize_text_field( wp_unslash( $_GET['page'] ) );
 			$suffix_pos = strrpos( $page, '-' );
 			if ( false !== $suffix_pos && ( strlen( $page ) - 1 !== $suffix_pos ) ) {
 				$action = trim( substr( $page, $suffix_pos + 1 ), '-_' );
@@ -242,7 +242,7 @@ class FVRT_Utilities {
 
 		// Determine action for core admin pages.
 		if ( empty( $action ) && isset( $_SERVER['SCRIPT_NAME'] ) ) {
-			$page = basename( sanitize_text_field( $_SERVER['SCRIPT_NAME'] ), '.php' );
+			$page = basename( sanitize_text_field( wp_unslash( $_SERVER['SCRIPT_NAME'] ) ), '.php' );
 			$actions = array(
 				'add'       => array( 'page-new', 'post-new' ),
 				'edit-item' => array( 'page', 'post' ),

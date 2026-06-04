@@ -363,7 +363,7 @@ class FaviconRotator extends FVRT_Base {
 			foreach ( $this->get_icon_type_names() as $itype ) {
 				$field = $field_base . $itype;
 				if ( isset( $_POST[ $field ] ) ) {
-					$icons[ $itype ] = explode( ',', sanitize_text_field( $_POST[ $field ] ) );
+					$icons[ $itype ] = explode( ',', sanitize_text_field( wp_unslash( $_POST[ $field ] ) ) );
 				}
 			}
 		}
@@ -511,7 +511,7 @@ class FaviconRotator extends FVRT_Base {
 		$class = 'button thickbox fv_btn';
 		// Setup query arguments.
 		$filter = array( 'limit', 'lbl_title', 'lbl_add', 'lbl_empty', 'display' );
-		$form_action = sanitize_url( $_SERVER['REQUEST_URI'] ?? '' );
+		$form_action = ( isset( $_SERVER['REQUEST_URI'] ) ) ? sanitize_url( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '';
 		$upload_args_base = array_diff( array_keys( $this->get_icon_type_defaults() ), $filter );
 		$upload_args_base[] = 'type_name';
 		$upload_args_map = array();

@@ -275,7 +275,7 @@ class FVRT_Media extends FVRT_Base {
 			/* Send image data to main post edit form and close popup */
 			// Get Attachment ID.
 			$args = new stdClass();
-			$args->id = sanitize_key( array_key_first( $_POST[ $this->var_setmedia ] ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- false positive.
+			$args->id = sanitize_key( array_key_first( wp_unslash( $_POST[ $this->var_setmedia ] ) ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- false positive.
 			// Make sure post is valid.
 			if ( wp_attachment_is_image( $args->id ) ) {
 				$p = $this->get_request_props();
@@ -321,7 +321,7 @@ class FVRT_Media extends FVRT_Base {
 
 		// Display default UI.
 		// Determine media type.
-		$type = ( isset( $_REQUEST['type'] ) ) ? sanitize_text_field( $_REQUEST['type'] ) : $this->var_type;
+		$type = ( isset( $_REQUEST['type'] ) ) ? sanitize_text_field( wp_unslash( $_REQUEST['type'] ) ) : $this->var_type;
 		// Determine UI to use (disk or URL upload).
 		$upload_form = ( isset( $_GET['tab'] ) && 'type_url' === $_GET['tab'] ) ? 'media_upload_type_url_form' : 'media_upload_type_form';
 		// Load UI.
@@ -515,9 +515,10 @@ class FVRT_Media extends FVRT_Base {
 	public function get_request_args( $url = null ) {
 		$q = array();
 		$u = null;
+		$script_basename = ( isset( $_SERVER['SCRIPT_NAME'] ) ) ? basename( sanitize_text_field( wp_unslash( $_SERVER['SCRIPT_NAME'] ) ), '.php' ) : '';
 		if ( is_string( $url ) && ! empty( $url ) ) {
 			$u = $url;
-		} elseif ( 'async-upload' === basename( sanitize_text_field( $_SERVER['SCRIPT_NAME'] ?? '' ), '.php' ) ) {
+		} elseif ( 'async-upload' === $script_basename ) {
 			// Use referrer for async uploads.
 			$u = wp_get_referer();
 		}
