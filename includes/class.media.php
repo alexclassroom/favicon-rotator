@@ -442,16 +442,18 @@ class FVRT_Media extends FVRT_Base {
 
 	/**
 	 * Modifies array of form fields to display on Attachment edit form
+	 *
 	 * Array items are in the form:
 	 * 'key' => array(
 	 *   'label' => "Label Text",
 	 *   'value' => Value
 	 * )
 	 *
-	 * @param array $form_fields Associative array of Fields to display on form (@see get_attachment_fields_to_edit())
-	 * @param object $attachment Attachment post object
+	 * @param array $form_fields Associative array of Fields to display on form.
+	 * @param object $attachment Attachment post object.
 	 *
 	 * @return array Form fields to display on Attachment edit form
+	 * @see get_attachment_fields_to_edit()
 	 */
 	public function attachment_fields_to_edit( $form_fields, $attachment ) {
 		// Stop processing non-plugin request.
@@ -549,7 +551,7 @@ class FVRT_Media extends FVRT_Base {
 	 * Retrieve properties of current media request
 	 * Retrieves current type as fallback
 	 *
-	 * @param string (optional) $url URL to parse
+	 * @param string $url (optional) URL to parse
 	 *
 	 * @return object|bool Properties object (FALSE if no properties exist)
 	 */
