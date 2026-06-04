@@ -47,7 +47,6 @@
         <exclude name="Generic.Formatting.MultipleStatementAlignment.NotSameWarning"/>
 
         <!-- ** Temporary during cleanup ** -->
-        <exclude name="WordPress.Security.NonceVerification.Missing"/>
         <exclude name="WordPress.Security.NonceVerification.Recommended"/>
     </rule>
 

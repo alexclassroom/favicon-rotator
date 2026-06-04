@@ -46,6 +46,11 @@ class FaviconRotator extends FVRT_Base {
 	private string $action_save = 'action_save';
 
 	/**
+	 * Form nonce field ID.
+	 */
+	private string $action_save_field = 'action_save';
+
+	/**
 	 * Path to admin contextual help file
 	 */
 	private string $file_admin_help = '/resources/admin_help.html';
@@ -63,6 +68,7 @@ class FaviconRotator extends FVRT_Base {
 		parent::__construct();
 		$this->opt_key = $this->add_prefix( $this->opt_key );
 		$this->action_save = $this->add_prefix( $this->action_save );
+		$this->action_save_field = $this->add_prefix( $this->action_save_field );
 		$this->media = new FVRT_Media();
 		$this->register_hooks();
 	}
@@ -357,7 +363,7 @@ class FaviconRotator extends FVRT_Base {
 		}
 
 		// Get icon IDs from form submission.
-		if ( is_null( $icons ) && check_admin_referer( $this->action_save ) ) {
+		if ( is_null( $icons ) && check_admin_referer( $this->action_save, $this->action_save_field ) ) {
 			$icons = array();
 			$field_base = 'fv_id_';
 			foreach ( $this->get_icon_type_names() as $itype ) {
@@ -505,7 +511,7 @@ class FaviconRotator extends FVRT_Base {
 		}
 
 		// Get saved icons.
-		if ( isset( $_POST['fv_submit'] ) ) {
+		if ( isset( $_POST['fv_submit'] ) && check_admin_referer( $this->action_save, $this->action_save_field ) ) {
 			$this->save_icons();
 		}
 		$class = 'button thickbox fv_btn';
@@ -586,7 +592,7 @@ class FaviconRotator extends FVRT_Base {
 			</div>
 			<input type="hidden" id="fv_id_<?php echo esc_attr( $t->type_name ); ?>" name="fv_id_<?php echo esc_attr( $t->type_name ); ?>" value="<?php echo esc_attr( $this->get_icon_ids_list( $t->type_name ) ); ?>" />
 		<?php endforeach; /* END UI for icon types */ ?>
-			<?php wp_nonce_field( $this->action_save ); ?>
+			<?php wp_nonce_field( $this->action_save, $this->action_save_field ); ?>
 			<p class="submit"><input type="submit" class="button-primary" name="fv_submit" value="<?php esc_attr_e( 'Save Changes', 'favicon-rotator' ); ?>" /></p>
 		</form>
 	</div>

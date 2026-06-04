@@ -43,6 +43,11 @@ class FVRT_Media extends FVRT_Base {
 	protected string $var_setmedia = 'setmedia';
 
 	/**
+	 * Media form nonce key.
+	 */
+	private string $media_form_nonce_field = 'media-form';
+
+	/**
 	 * Mime types for favicon
 	 */
 	protected array $mime_types = array( 'png', 'gif', 'jpg', 'x-icon' );
@@ -265,17 +270,18 @@ class FVRT_Media extends FVRT_Base {
 	}
 
 	/**
-	 * Handles upload/selecting of an icon
+	 * Handles upload/selecting of an icon.
 	 */
 	public function upload_media() {
 		$errors = array();
 		$id = 0;
+		$media_set = ( isset( $_POST[ $this->var_setmedia ] ) && check_admin_referer( $this->media_form_nonce_field ) ) ? wp_unslash( $_POST[ $this->var_setmedia ] ) : null; // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- sanitization handled later.
 		// Process media selection.
-		if ( isset( $_POST[ $this->var_setmedia ] ) ) {
+		if ( is_array( $media_set ) && ! empty( $media_set ) ) {
 			/* Send image data to main post edit form and close popup */
 			// Get Attachment ID.
 			$args = new stdClass();
-			$args->id = sanitize_key( array_key_first( wp_unslash( $_POST[ $this->var_setmedia ] ) ) ); // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- false positive.
+			$args->id = sanitize_key( array_key_first( $media_set ) );
 			// Make sure post is valid.
 			if ( wp_attachment_is_image( $args->id ) ) {
 				$p = $this->get_request_props();
