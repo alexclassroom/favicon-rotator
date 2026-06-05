@@ -117,9 +117,9 @@ class FVRT_Media extends FVRT_Base {
 	 */
 	public function add_intermediate_image_size( $sizes ) {
 		$p = $this->get_request_props();
-		if ( (bool) $p && $p->width && $p->height ) {
+		if ( is_object( $p ) && isset( $p->type_name, $p->width, $p->height ) ) {
 			$crop = true;
-			add_image_size( $p->type_name, $p->width, $p->height, $crop );
+			add_image_size( $p->type_name, (int) $p->width, (int) $p->height, $crop );
 			$sizes[] = $p->type_name;
 		}
 		return $sizes;
@@ -149,21 +149,49 @@ class FVRT_Media extends FVRT_Base {
 	public function upload_file_types( $types ) {
 		if ( $this->is_custom_media() ) {
 			$p = $this->get_request_props();
-			$filetypes = '*.' . implode( ';*.', $p->file_type );
-			$types = esc_js( $filetypes ) . '",file_types_description: "' . esc_js( $p->file_desc );
+			if ( isset( $p->file_type, $p->file_desc ) ) {
+				$filetypes = '*.' . implode( ';*.', $p->file_type );
+				$types = esc_js( $filetypes ) . '",file_types_description: "' . esc_js( $p->file_desc );
+			}
 		}
 		return $types;
 	}
 
-	public function set_query_mime_types( &$q ) {
-		$var = 'post_mime_type';
-		if ( $this->is_custom_media() && 'attachment' === $q->query_vars['post_type'] && empty( $q->query_vars[ $var ] ) ) {
-			$qv =& $q->query_vars;
-			$p = $this->get_request_props();
-			// Set GET variable when single mime type specified (for future queries).
-			if ( (bool) $p && isset( $p->file_mime ) && is_array( $p->file_mime ) ) {
-				$qv[ $var ] = $p->file_mime;
-			}
+	/**
+	 * Sets query mime types from current request.
+	 *
+	 * @param WP_Query $q Query object after main query vars have been parsed.
+	 *
+	 * @see parse_query()
+	 * @return void
+	 */
+	public function set_query_mime_types( &$q ): void {
+		// Stop processing non-custom request.
+		if ( ! $this->is_custom_media() ) {
+			return;
+		}
+		// Stop processing invalid query object.
+		if ( ! isset( $q->query_vars ) ) {
+			return;
+		}
+		$qv =& $q->query_vars;
+		$mime_type_key = 'post_mime_type';
+		// Stop processing non-attachment query or mime type already set.
+		if ( 'attachment' !== $qv['post_type'] || ! empty( $qv[ $mime_type_key ] ) ) {
+			return;
+		}
+		$p = $this->get_request_props();
+		// Set mime types from GET variable.
+		if ( isset( $p->file_mime ) && is_array( $p->file_mime ) ) {
+			// Sanitize values.
+			array_walk_recursive(
+				$p->file_mime,
+				function ( &$val ) {
+					$val = sanitize_mime_type( $val );
+				}
+			);
+			// Set value.
+			$qv[ $mime_type_key ] = $p->file_mime;
 		}
 	}
 
