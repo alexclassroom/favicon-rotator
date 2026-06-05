@@ -89,7 +89,7 @@ class FVRT_Media extends FVRT_Base {
 
 		add_filter( 'media_upload_mime_type_links', $this->m( 'media_upload_mime_type_links' ) );
 
-		add_filter( 'parse_query', $this->m( 'set_query_mime_types' ) );
+		add_action( 'parse_query', $this->m( 'set_query_mime_types' ) );
 
 		// Display custom UI in media item box.
 		add_filter( 'attachment_fields_to_edit', $this->m( 'attachment_fields_to_edit' ), 11, 2 );
