@@ -45,9 +45,6 @@
         <exclude name="Generic.Files.LineEndings.InvalidEOLChar"/>
         <!-- ** Alignment-Related ** -->
         <exclude name="Generic.Formatting.MultipleStatementAlignment.NotSameWarning"/>
-
-        <!-- ** Temporary during cleanup ** -->
-        <exclude name="WordPress.Security.NonceVerification.Recommended"/>
     </rule>
 
     <!-- Add in some extra rules from other standards. -->

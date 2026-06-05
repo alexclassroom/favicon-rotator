@@ -254,6 +254,7 @@ class FVRT_Utilities {
 	 */
 	public function get_action( $def = null ) {
 		// Retrieve action from URL.
+		// phpcs:disable WordPress.Security.NonceVerification.Recommended -- operations not dependent on specific action.
 		$action = isset( $_GET['action'] ) ? sanitize_text_field( wp_unslash( $_GET['action'] ) ) : '';
 
 		// Determine action based on plugin plugin admin page suffix.
@@ -264,6 +265,7 @@ class FVRT_Utilities {
 				$action = trim( substr( $page, $suffix_pos + 1 ), '-_' );
 			}
 		}
+		// phpcs:enable WordPress.Security.NonceVerification.Recommended -- end exclusion.
 
 		// Determine action for core admin pages.
 		if ( empty( $action ) && isset( $_SERVER['SCRIPT_NAME'] ) ) {

@@ -542,6 +542,7 @@ class FVRT_Media extends FVRT_Base {
 				wp_parse_str( $qstring, $q );
 			}
 		} else {
+			// phpcs:ignore WordPress.Security.NonceVerification.Recommended -- generic request retrieval.
 			$q = $_REQUEST;
 		}
 		return $q;
