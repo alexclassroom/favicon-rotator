@@ -612,7 +612,7 @@ class FVRT_Media extends FVRT_Base {
 			$p = array_merge( $p, $c );
 		}
 
-		// Retrieve curren type as callback.
+		// Retrieve current type as callback.
 		if ( empty( $p ) ) {
 			$p = $this->get_type_current();
 			if ( (bool) $p ) {
