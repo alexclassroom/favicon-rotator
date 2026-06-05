@@ -713,7 +713,6 @@ class FVRT_Media extends FVRT_Base {
 	public function upload_tabs( $default_tabs ) {
 		if ( $this->is_custom_media() ) {
 			unset( $default_tabs['type_url'] );
-			$p = $this->get_request_props();
 		}
 		return $default_tabs;
 	}
