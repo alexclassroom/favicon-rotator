@@ -556,44 +556,42 @@ class FVRT_Utilities {
 	}
 
 	/**
-	 * Generate HTML element based on values
+	 * Generates HTML element.
 	 *
-	 * @param $args Element arguments
+	 * @param array $args Element arguments.
 	 *
 	 * @return string Generated HTML element
 	 */
-	public function build_html_element( $args ) {
+	public function build_html_element( array $args ): string {
 		$defaults = array(
 			'tag'        => 'span',
 			'wrap'       => true,
 			'content'    => '',
 			'attributes' => array(),
 		);
-		$el_start = '<';
-		$el_end = '>';
-		$el_close = '/';
+
 		$v = (object) wp_parse_args( $args, $defaults );
+		$v->tag = sanitize_key( $v->tag );
 		$v->content = trim( $v->content );
 
-		if ( ! $v->wrap && strlen( $v->content ) > 0 ) {
-			$v->wrap = true;
+		// Build element processor.
+		$tag_fmt = ( ! $v->wrap ) ? '<%s>' : '<%s></%s>';
+		$fragment = sprintf( $tag_fmt, $v->tag );
+		$el = new WP_HTML_Tag_Processor( $fragment );
+		$el->next_tag();
+
+		// Set attributes.
+		foreach ( $v->attributes as $name => $val ) {
+			$el->set_attribute( $name, $val );
 		}
 
-		$v->attributes = $this->build_attribute_string( $v->attributes );
-		if ( strlen( $v->attributes ) > 0 ) {
-			$v->attributes = ' ' . $v->attributes;
+		// Set content.
+		if ( $v->content ) {
+			$el->set_modifiable_text( $v->content );
 		}
 
-		$ret = $el_start . $v->tag . $v->attributes;
-
-		if ( $v->wrap ) {
-			$ret .= $el_end . $v->content . $el_start . $el_close . $v->tag;
-		} else {
-			$ret .= ' ' . $el_close;
-		}
-
-		$ret .= $el_end;
-		return $ret;
+		// Return element.
+		return $el->get_updated_html();
 	}
 
 	/*-** Admin **-*/
