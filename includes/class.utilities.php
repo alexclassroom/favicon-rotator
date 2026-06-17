@@ -487,48 +487,6 @@ class FVRT_Utilities {
 	}
 
 	/**
-	 * Generate external stylesheet element
-	 *
-	 * @param $url Stylesheet URL
-	 *
-	 * @return string Stylesheet element
-	 */
-	public function build_stylesheet_element( $url = '' ) {
-		$attributes = array(
-			'href' => $url,
-			'type' => 'text/css',
-			'rel'  => 'stylesheet',
-		);
-		return $this->build_html_element(
-			array(
-				'tag'        => 'link',
-				'wrap'       => false,
-				'attributes' => $attributes,
-			)
-		);
-	}
-
-	/**
-	 * Generate external script element
-	 *
-	 * @param $url Script URL
-	 *
-	 * @return string Script element
-	 */
-	public function build_ext_script_element( $url = '' ) {
-		$attributes = array(
-			'src'  => $url,
-			'type' => 'text/javascript',
-		);
-		return $this->build_html_element(
-			array(
-				'tag'        => 'script',
-				'attributes' => $attributes,
-			)
-		);
-	}
-
-	/**
 	 * Generate input element
 	 *
 	 * @param string $type (optional) Input type
