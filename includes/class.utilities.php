@@ -505,47 +505,37 @@ class FVRT_Utilities {
 			)
 		);
 		// Build element.
-		$el = array(
-			'tag'        => 'input',
-			'wrap'       => false,
-			'attributes' => $attributes,
-		);
-		return $this->build_html_element( $el );
+		return $this->build_html_element( 'input', true, $attributes );
 	}
 
 	/**
 	 * Generates HTML element.
 	 *
-	 * @param array $args Element arguments.
+	 * @param string $tag_name (optional) Element tag name (Default: span).
+	 * @param boolean $is_void (optional) Whether element is void or contains a closing tag (Default: false)
+	 * @param array $attributes (optional) Attributes (key/value pairs).
+	 * @param string $content (optional) Element text content (Default: empty string).
 	 *
-	 * @return string Generated HTML element
+	 * @return string Generated HTML element.
 	 */
-	public function build_html_element( array $args ): string {
-		$defaults = array(
-			'tag'        => 'span',
-			'wrap'       => true,
-			'content'    => '',
-			'attributes' => array(),
-		);
-
-		$v = (object) wp_parse_args( $args, $defaults );
-		$v->tag = sanitize_key( $v->tag );
-		$v->content = trim( $v->content );
+	public function build_html_element( string $tag_name = 'span', bool $is_void = false, array $attributes = array(), string $content = '' ): string {
+		$tag_name = sanitize_key( $tag_name );
+		$content = trim( $content );
 
 		// Build element processor.
-		$tag_fmt = ( ! $v->wrap ) ? '<%s>' : '<%s></%s>';
-		$fragment = sprintf( $tag_fmt, $v->tag );
+		$tag_fmt = ( $is_void ) ? '<%s>' : '<%s></%s>';
+		$fragment = sprintf( $tag_fmt, $tag_name );
 		$el = new WP_HTML_Tag_Processor( $fragment );
 		$el->next_tag();
 
 		// Set attributes.
-		foreach ( $v->attributes as $name => $val ) {
+		foreach ( $attributes as $name => $val ) {
 			$el->set_attribute( $name, $val );
 		}
 
 		// Set content.
-		if ( $v->content ) {
-			$el->set_modifiable_text( $v->content );
+		if ( $content ) {
+			$el->set_modifiable_text( $content );
 		}
 
 		// Return element.
