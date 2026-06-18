@@ -532,7 +532,7 @@ class FaviconRotator extends FVRT_Base {
 		<?php
 		foreach ( $this->get_icon_types() as $tname => $t ) : /* Output UI for icon types */
 			$icons = $this->get_icons( $t->type_name );
-			$upload_args = array();
+			$upload_args = array( 'tab' => 'library' );
 			foreach ( $upload_args_map as $param => $prop ) {
 				if ( isset( $t->$prop ) ) {
 					$upload_args[ $param ] = $t->$prop;
