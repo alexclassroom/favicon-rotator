@@ -711,8 +711,19 @@ class FVRT_Media extends FVRT_Base {
 	 * @see media_upload_tabs() for full $default_tabs array
 	 */
 	public function upload_tabs( $default_tabs ) {
-		if ( $this->is_custom_media() ) {
-			unset( $default_tabs['type_url'] );
+		// Stop processing non-plugin requests.
+		if ( ! $this->is_custom_media() ) {
+			return $default_tabs;
+		}
+		// Customize tabs.
+		// Remove tab(s).
+		unset( $default_tabs['type_url'] );
+		// Reorder tab(s).
+		$lib = 'library';
+		if ( array_key_exists( $lib, $default_tabs ) ) {
+			$lib_val = $default_tabs[ $lib ];
+			unset( $default_tabs[ $lib ] );
+			$default_tabs = [ $lib => $lib_val ] + $default_tabs;
 		}
 		return $default_tabs;
 	}
