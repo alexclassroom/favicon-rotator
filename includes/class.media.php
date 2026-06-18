@@ -205,7 +205,14 @@ class FVRT_Media extends FVRT_Base {
 	 */
 	public function upload_url( $url, $type = null ) {
 		$args = ( is_array( $type ) ) ? $type : array();
-		$custom = ( ( is_string( $type ) && 0 === strpos( $type, $this->add_prefix( '' ) ) ) || ! empty( $args ) ) ? true : $this->is_custom_media( $url );
+		if (
+			( is_string( $type ) && 0 === strpos( $type, $this->add_prefix( '' ) ) ) ||
+			! empty( $args )
+		) {
+			$custom = true;
+		} else {
+			$custom = $this->is_custom_media( $url );
+		}
 		$p = wp_parse_url( $url );
 		$p = basename( ( isset( $p['path'] ) ) ? $p['path'] : $url );
 		if ( strpos( $p, 'media-upload.php' ) === 0 && $custom ) {
