@@ -6,8 +6,7 @@ Tags: favicon, icon, image, mobile, customization
 Requires at least: 6.6
 Tested up to: 7.0
 Requires PHP: 8.2
-Stable tag: 1.2.12
-
+Stable tag: 1.3.0
 
 Easily set site favicon and even rotate through multiple icons
 
